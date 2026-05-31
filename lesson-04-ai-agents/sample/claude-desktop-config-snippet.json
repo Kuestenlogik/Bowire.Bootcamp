@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "bowire": {
+      "command": "bowire",
+      "args": ["mcp", "serve", "--allow-arbitrary-urls"]
+    }
+  }
+}
