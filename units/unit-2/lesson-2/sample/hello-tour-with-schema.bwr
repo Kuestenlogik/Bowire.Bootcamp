@@ -1,0 +1,48 @@
+{
+  "id": "lesson-07-hello-tour-schema",
+  "name": "Hello tour (with schema)",
+  "description": "Lesson 03's three-step recording plus the original OpenAPI contract HelloApi advertised at capture time. The mock serves /openapi.json from this sidecar, so a peer Bowire pointed at the mock discovers the full surface (3 operations) — not just the 3 replayed steps.",
+  "createdAt": 1748736000000,
+  "recordingFormatVersion": 2,
+  "sourceSchema": {
+    "format": "openapi-3.0",
+    "sourceUrl": "http://localhost:5001/openapi/v1.json",
+    "content": "openapi: 3.0.4\ninfo:\n  title: HelloApi\n  version: 1.0.0\n  description: Sample REST API used in the Bowire Bootcamp.\npaths:\n  /hello/{name}:\n    get:\n      tags: [HelloApi]\n      operationId: GetGreeting\n      summary: Greet someone by name.\n      parameters:\n        - name: name\n          in: path\n          required: true\n          schema: { type: string }\n      responses:\n        '200':\n          description: OK\n          content:\n            application/json:\n              schema: { $ref: '#/components/schemas/GreetingResponse' }\n  /echo:\n    post:\n      tags: [HelloApi]\n      operationId: PostEcho\n      summary: Echo a message back, stamped with the server's receive time.\n      requestBody:\n        required: true\n        content:\n          application/json:\n            schema: { $ref: '#/components/schemas/EchoRequest' }\n      responses:\n        '200':\n          description: OK\n          content:\n            application/json:\n              schema: { $ref: '#/components/schemas/EchoRequest' }\n  /health:\n    get:\n      tags: [HelloApi]\n      operationId: GetHealth\n      summary: Liveness probe — always returns OK.\n      responses:\n        '200':\n          description: OK\ncomponents:\n  schemas:\n    GreetingResponse:\n      type: object\n      properties:\n        greeting: { type: string }\n        receivedAt: { type: string, format: date-time }\n    EchoRequest:\n      type: object\n      properties:\n        message: { type: string }\n        receivedAt: { type: string, format: date-time, nullable: true }\n"
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "capturedAt": 1748736005000,
+      "protocol": "rest",
+      "service": "HelloApi",
+      "method": "GetGreeting",
+      "methodType": "Unary",
+      "serverUrl": "http://localhost:5001",
+      "body": "{}",
+      "messages": ["{}"],
+      "metadata": {},
+      "status": "OK",
+      "durationMs": 12,
+      "response": "{\"greeting\":\"Hello, Bowire!\",\"receivedAt\":\"2026-05-31T20:00:05.123Z\"}",
+      "httpPath": "/hello/{name}",
+      "httpVerb": "GET"
+    },
+    {
+      "id": "step-2",
+      "capturedAt": 1748736010000,
+      "protocol": "rest",
+      "service": "HelloApi",
+      "method": "PostEcho",
+      "methodType": "Unary",
+      "serverUrl": "http://localhost:5001",
+      "body": "{\"message\":\"Hello mock\"}",
+      "messages": ["{\"message\":\"Hello mock\"}"],
+      "metadata": { "content-type": "application/json" },
+      "status": "OK",
+      "durationMs": 8,
+      "response": "{\"message\":\"Hello mock\",\"receivedAt\":\"2026-05-31T20:00:10.456Z\"}",
+      "httpPath": "/echo",
+      "httpVerb": "POST"
+    }
+  ]
+}
