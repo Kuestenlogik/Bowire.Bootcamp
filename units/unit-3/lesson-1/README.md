@@ -1,8 +1,8 @@
-# Lesson 04 — AI-agent integration
+# Lesson 3.1: AI-Agent Integration (Claude Desktop + Cursor over MCP)
 
-**Time:** 10 minutes • **Prerequisites:** Lessons 01 + 02 done • **Need:** Claude Desktop **or** Cursor installed
+> **Difficulty:** Intermediate | **Duration:** 10 min | **Prerequisites:** [Unit 1](../../unit-1/README.md) complete, Claude Desktop **or** Cursor installed
 
-## Goal
+## Overview
 
 Wire Bowire into an AI agent over **MCP** (Model Context Protocol). The agent gains a `bowire.discover` / `bowire.invoke` / `bowire.recordings.list` toolset and can drive your APIs in plain English — list services, call methods, inspect recordings — without leaving the chat window.
 
@@ -23,15 +23,15 @@ Role 4 is the one Claude Desktop / Cursor speak natively — they spawn `bowire 
 
 ## Steps
 
-### 1. Keep the Lesson-01 + Lesson-02 sample APIs running
+### 1. Keep the Unit 1 sample APIs running
 
 ```bash
 # Terminal A — REST
-cd ../lesson-01-first-call/sample/HelloApi
+cd ../../unit-1/lesson-1/sample/HelloApi
 dotnet run                                    # → http://localhost:5001
 
 # Terminal B — gRPC
-cd ../lesson-02-multi-protocol/sample/HelloGrpc
+cd ../../unit-1/lesson-2/sample/HelloGrpc
 dotnet run                                    # → http://localhost:5002
 ```
 
@@ -133,11 +133,12 @@ If you finished Lesson 03 with the `hello-tour.bwr` recording in hand:
 
 Cursor uses the same `mcpServers` shape. Open `Settings → MCP` (or edit `~/.cursor/mcp.json`) and paste the same snippet from step 3.
 
-## What you just saw
+## Key Takeaways
 
-- **The agent drives Bowire, not the other way around.** Roles 1 / 2 / 3 of MCP integration treat Bowire as the consumer; Role 4 treats the agent as the consumer. Same SDK, same toolset, different direction.
-- **Protocol-agnostic at the LLM layer.** Claude doesn't need to know what gRPC is. It just calls `bowire.discover` and `bowire.invoke`; the protocol-side semantics live in the Bowire plugins.
-- **Stdio over HTTP** — for desktop-AI integrations, the agent owns the subprocess lifecycle (spawn, kill, restart). No port to manage, no firewall rule, no auth surface. The HTTP role (3) is for when *your own service* hosts the MCP endpoint.
+1. **The agent drives Bowire, not the other way around.** Roles 1 / 2 / 3 of MCP integration treat Bowire as the consumer; Role 4 treats the agent as the consumer. Same SDK, same toolset, different direction.
+2. **Protocol-agnostic at the LLM layer.** Claude doesn't need to know what gRPC is. It just calls `bowire.discover` and `bowire.invoke`; the protocol-side semantics live in the Bowire plugins.
+3. **Stdio over HTTP for desktop AI.** The agent owns the subprocess lifecycle (spawn, kill, restart). No port to manage, no firewall rule, no auth surface. The HTTP role (3) is for when *your own service* hosts the MCP endpoint.
+4. **Recordings transit the toolset too.** `bowire.recordings.list` / `bowire.mock.start` let the agent reach into your saved sessions and stand up mocks on demand — closing the loop with Unit 2.
 
 ## Security
 
@@ -147,9 +148,12 @@ For tighter setups, drop `--allow-arbitrary-urls` and instead run the embedded v
 
 The MCP server is "shell access" for an agent. Treat it that way.
 
-## What's next
+## What's Next
 
-[Lesson 05 — Author a .NET protocol plugin](../lesson-05-dotnet-plugin/) leaves AI behind and goes back to building. You'll implement `IBowireProtocol`, ship it as a NuGet package, and watch a fresh Bowire workbench discover your protocol on startup.
+You're ready to leave the AI side behind and start building protocol plugins yourself — first in .NET, then in Python.
+
+**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
+**Continue:** → [Unit 4: Extending Bowire](../../unit-4/README.md)
 
 ## Reference
 

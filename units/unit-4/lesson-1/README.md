@@ -1,8 +1,8 @@
-# Lesson 05 — Author a .NET protocol plugin
+# Lesson 4.1: Author a .NET protocol plugin
 
-**Time:** 15 minutes • **Prerequisites:** Lesson 01 done • **Need:** .NET 10 SDK
+> **Difficulty:** Intermediate | **Duration:** 15 min | **Prerequisites:** [Unit 1](../../unit-1/README.md), .NET 10 SDK
 
-## Goal
+## Overview
 
 Build your own protocol plugin from scratch, install it into Bowire, and watch a fresh workbench discover it on startup. By the end you'll have a (silly) **Pirate Speak** protocol in the sidebar that turns plain English into pirate-speak when invoked.
 
@@ -128,15 +128,19 @@ bowire plugin list                    # Pirate Speak is gone
 
 The bundled plugins are untouched — `uninstall` only removes the directory under `~/.bowire/plugins/`.
 
-## What you just saw
+## Key Takeaways
 
-- **One interface, four methods.** `IBowireProtocol.{DiscoverAsync, InvokeAsync, InvokeStreamAsync, OpenChannelAsync}` is the entire contract. Streaming and channel methods can return `yield break` / `null` if your protocol is unary-only — Bowire respects that and grays out the corresponding UI affordances.
-- **NuGet is the install format.** `dotnet pack` → `bowire plugin install` from any source (local folder, internal feed, NuGet.org). Same machinery the bundled plugins ship through.
-- **Auto-discovery is "drop the DLL into `~/.bowire/plugins/`".** No registration code, no manifest beyond the NuGet metadata. Bowire scans installed plugin directories at startup and surfaces every `IBowireProtocol` type it finds.
+1. **One interface, four methods.** `IBowireProtocol.{DiscoverAsync, InvokeAsync, InvokeStreamAsync, OpenChannelAsync}` is the entire contract. Streaming and channel methods can return `yield break` / `null` if your protocol is unary-only — Bowire respects that and grays out the corresponding UI affordances.
+2. **NuGet is the install format.** `dotnet pack` → `bowire plugin install` from any source (local folder, internal feed, NuGet.org). Same machinery the bundled plugins ship through.
+3. **Auto-discovery is "drop the DLL into `~/.bowire/plugins/`".** No registration code, no manifest beyond the NuGet metadata. Bowire scans installed plugin directories at startup and surfaces every `IBowireProtocol` type it finds.
+4. **`dotnet new bowire-plugin` saves the scaffolding cost.** The template emits a buildable solution; you only fill in the protocol-specific body of `DiscoverAsync` / `InvokeAsync`.
 
-## What's next
+## What's Next
 
-[Lesson 06 — Author a Python sidecar plugin](../lesson-06-python-sidecar/) builds the same surface in Python — no .NET project, no NuGet, no IBowireProtocol interface. You subclass `BowirePlugin` from the official Python SDK, ship a zip with `sidecar.json` at its root, and Bowire spawns the sidecar over JSON-RPC. Same workbench, same discovery, different language.
+You're ready to author the same protocol in Python — same contract, JSON-RPC over stdio, no .NET on the plugin side.
+
+**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
+**Continue:** → [Lesson 4.2: Python sidecar plugin](../lesson-2/README.md)
 
 ## Reference
 

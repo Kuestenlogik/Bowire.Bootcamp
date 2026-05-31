@@ -1,8 +1,8 @@
-# Lesson 02 — Multi-protocol session
+# Lesson 1.2: Multi-protocol session (REST + gRPC)
 
-**Time:** 10 minutes • **Prerequisites:** Lesson 01 done
+> **Difficulty:** Beginner | **Duration:** 10 min | **Prerequisites:** [Lesson 1.1](../lesson-1/README.md)
 
-## Goal
+## Overview
 
 Run two services side by side — the **REST** API from Lesson 01 *and* a new **gRPC** service — and point a single Bowire workbench at both. Both protocols show up in the same sidebar; clicking either renders the same form-driven invoke UI. That's the "one tool for every wire" claim with one wire's worth of sweat.
 
@@ -12,17 +12,17 @@ You'll also fire your first **server-streaming** call and watch frames arrive li
 
 ### 1. Keep the REST API running
 
-If the Lesson 01 sample (`HelloApi` on `localhost:5001`) is still up, leave it. Otherwise restart it:
+If the Lesson 1.1 sample (`HelloApi` on `localhost:5001`) is still up, leave it. Otherwise restart it:
 
 ```bash
-cd ../lesson-01-first-call/sample/HelloApi
+cd ../../unit-1/lesson-1/sample/HelloApi
 dotnet run
 ```
 
 ### 2. Start the gRPC service in a second terminal
 
 ```bash
-cd lesson-02-multi-protocol/sample/HelloGrpc
+cd units/unit-1/lesson-2/sample/HelloGrpc
 dotnet run
 ```
 
@@ -93,15 +93,19 @@ After the fifth frame the stream closes and you see the total duration.
 
 Both services are alive in the same workbench — clicking back into REST methods works without re-pointing or restarting. That's the headline: REST and gRPC share the same UI primitives (sidebar, invoke pane, response viewer, recording recorder), so a polyglot service mesh is one workbench, not five tabs.
 
-## What you just saw
+## Key Takeaways
 
-- **Two protocols, one URL list.** `--url` is repeatable; auto-discovery picks the right plugin per URL.
-- **Same UI for unary and streaming.** The response pane shape changes; everything else stays put.
-- **gRPC discovery via reflection.** No `.proto` upload, no manual service descriptor — Server Reflection on the gRPC service tells Bowire everything it needs.
+1. **Two protocols, one URL list.** `--url` is repeatable; auto-discovery picks the right plugin per URL.
+2. **Same UI for unary and streaming.** The response pane shape changes; everything else stays put.
+3. **gRPC discovery via reflection.** No `.proto` upload, no manual service descriptor — Server Reflection on the gRPC service tells Bowire everything it needs.
+4. **Polyglot service mesh = one workbench.** This pattern scales to any combination of bundled / installed protocols (REST + gRPC + GraphQL + MQTT + SignalR + &c) — `--url` just keeps being repeatable.
 
-## What's next
+## What's Next
 
-[Lesson 03 — Record & replay](../lesson-03-record-replay/) shows how to capture a session against either service, save it, and run the recording back as a local mock — same protocol on the wire, no real backend needed.
+You're ready to capture a session against one of these services and replay it as a self-contained mock.
+
+**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
+**Continue:** → [Unit 2: Record, Replay, Mock](../../unit-2/README.md)
 
 ## Reference
 

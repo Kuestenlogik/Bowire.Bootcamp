@@ -1,12 +1,12 @@
-# Lesson 06 — Author a Python sidecar plugin
+# Lesson 4.2: Author a Python sidecar plugin
 
-**Time:** 15 minutes • **Prerequisites:** Lesson 01 done • **Need:** Python 3.10+
+> **Difficulty:** Intermediate | **Duration:** 15 min | **Prerequisites:** [Lesson 4.1](../lesson-1/README.md), Python 3.10+
 
-## Goal
+## Overview
 
 Build a Bowire protocol plugin **in Python**, with no .NET project, no `IBowireProtocol` interface, no NuGet package. Ship it as a zip carrying a `sidecar.json` manifest at its root — Bowire's host extracts the zip into `~/.bowire/plugins/`, reads the manifest, spawns your Python plugin as a subprocess, and bridges JSON-RPC over stdio between the two.
 
-By the end you'll have a (silly) **Yoda Speak** protocol in the sidebar that does its translation in pure Python. The contrast with [Lesson 05's .NET Pirate plugin](../lesson-05-dotnet-plugin/) makes the polyglot story concrete: same SDK shape, same install command, same workbench, totally different language.
+By the end you'll have a (silly) **Yoda Speak** protocol in the sidebar that does its translation in pure Python. The contrast with [Lesson 4.1's .NET Pirate plugin](../lesson-1/README.md) makes the polyglot story concrete: same SDK shape, same install command, same workbench, totally different language.
 
 ## How it differs from Lesson 05
 
@@ -155,15 +155,19 @@ bowire plugin uninstall Bowire.Sidecar.Yoda
 
 Same removal command as a .NET plugin — `uninstall` doesn't care which side of the bridge a plugin lives on.
 
-## What you just saw
+## Key Takeaways
 
-- **The plugin host is language-agnostic.** Bowire spawns whatever `sidecar.json` says under `executable` / `args`, talks JSON-RPC 2.0 NDJSON over the pipe, and presents the result the same way `IBowireProtocol` plugins are presented. The wire contract is the integration surface; the language is yours.
-- **Same install command, different `--file` shape.** `bowire plugin install` is the single entry point — pass a NuGet package id and it talks to a feed; pass `--file <zip>` and it extracts a sidecar; pass `--file oci://...` and it pulls from a registry.
-- **The SDK does the JSON-RPC work.** Subclass `BowirePlugin`, override `discover` and `invoke` (plus `invoke_stream` / `open_channel` / `settings` / `shutdown` when relevant), call `run()`. The SDK handles the framing, the dispatch, and the streaming pump.
+1. **The plugin host is language-agnostic.** Bowire spawns whatever `sidecar.json` says under `executable` / `args`, talks JSON-RPC 2.0 NDJSON over the pipe, and presents the result the same way `IBowireProtocol` plugins are presented. The wire contract is the integration surface; the language is yours.
+2. **Same install command, different `--file` shape.** `bowire plugin install` is the single entry point — pass a NuGet package id and it talks to a feed; pass `--file <zip>` and it extracts a sidecar; pass `--file oci://...` and it pulls from a registry.
+3. **The SDK does the JSON-RPC work.** Subclass `BowirePlugin`, override `discover` and `invoke` (plus `invoke_stream` / `open_channel` / `settings` / `shutdown` when relevant), call `run()`. The SDK handles the framing, the dispatch, and the streaming pump.
+4. **Polyglot is for *when the wire library lives elsewhere*.** Reach for sidecar plugins when the reference implementation of your protocol is already in Python / Node / Go / Rust — port the wrapper, not the protocol.
 
-## What's next
+## What's Next
 
-[Lesson 07 — Schema export + mock-as-stand-in](../lesson-07-schema-export/) goes back to using Bowire as a workbench: discover an API → export its OpenAPI / AsyncAPI → run the export through `bowire mock` → point a second Bowire at the mock and peer-discover the same surface. The "mock as stand-in" arc the [mock-as-stand-in docs](https://bowire.io/docs/architecture/mock-as-stand-in.html) walk through.
+You're ready to head back to the workbench and the mock — Unit 5 wires Bowire into your CI pipeline as a regression-test runner and mock-server fixture.
+
+**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
+**Continue:** → [Unit 5: CI Integration](../../unit-5/README.md)
 
 ## Reference
 
