@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Grpc.AspNetCore brings in the runtime + the build-time proto
+         compiler (Grpc.Tools). The .proto file below gets compiled
+         to C# automatically on every build. -->
+    <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+    <!-- Server reflection lets Bowire's gRPC plugin walk the service
+         list at discovery time without a .proto upload. Separate
+         package because most production gRPC servers leave it off
+         by default. -->
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.71.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\greeter.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+</Project>

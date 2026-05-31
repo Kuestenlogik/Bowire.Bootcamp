@@ -1,0 +1,30 @@
+// Bootcamp Lesson 02 — minimal gRPC service for the multi-protocol
+// session. One unary method + one server-streaming method, so the
+// workbench sidebar has both shapes to demonstrate.
+
+syntax = "proto3";
+
+option csharp_namespace = "HelloGrpc";
+
+package greeter;
+
+service Greeter {
+  // Unary: ask once, get one greeting back.
+  rpc Hello (HelloRequest) returns (HelloReply);
+
+  // Server-streaming: ask once, get N greetings back at one-per-second
+  // cadence. Lets the workbench's streaming UI show frames arriving live.
+  rpc HelloStream (HelloRequest) returns (stream HelloReply);
+}
+
+message HelloRequest {
+  string name = 1;
+  // Server-streaming only — how many greetings to emit before
+  // closing the stream. Ignored by Hello.
+  int32 count = 2;
+}
+
+message HelloReply {
+  string greeting = 1;
+  string received_at = 2;
+}
