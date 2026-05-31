@@ -1,0 +1,60 @@
+{
+  "id": "lesson-03-hello-tour",
+  "name": "Hello tour",
+  "description": "Three REST calls against HelloApi (Lesson 01) — sample recording for Bowire Bootcamp Lesson 03.",
+  "createdAt": 1748736000000,
+  "recordingFormatVersion": 2,
+  "steps": [
+    {
+      "id": "step-1",
+      "capturedAt": 1748736005000,
+      "protocol": "rest",
+      "service": "HelloApi",
+      "method": "GetGreeting",
+      "methodType": "Unary",
+      "serverUrl": "http://localhost:5001",
+      "body": "{}",
+      "messages": ["{}"],
+      "metadata": {},
+      "status": "OK",
+      "durationMs": 12,
+      "response": "{\"greeting\":\"Hello, Bowire!\",\"receivedAt\":\"2026-05-31T20:00:05.123Z\"}",
+      "httpPath": "/hello/{name}",
+      "httpVerb": "GET"
+    },
+    {
+      "id": "step-2",
+      "capturedAt": 1748736010000,
+      "protocol": "rest",
+      "service": "HelloApi",
+      "method": "PostEcho",
+      "methodType": "Unary",
+      "serverUrl": "http://localhost:5001",
+      "body": "{\"message\":\"Hello mock\"}",
+      "messages": ["{\"message\":\"Hello mock\"}"],
+      "metadata": { "content-type": "application/json" },
+      "status": "OK",
+      "durationMs": 8,
+      "response": "{\"message\":\"Hello mock\",\"receivedAt\":\"2026-05-31T20:00:10.456Z\"}",
+      "httpPath": "/echo",
+      "httpVerb": "POST"
+    },
+    {
+      "id": "step-3",
+      "capturedAt": 1748736015000,
+      "protocol": "rest",
+      "service": "HelloApi",
+      "method": "GetHealth",
+      "methodType": "Unary",
+      "serverUrl": "http://localhost:5001",
+      "body": "{}",
+      "messages": ["{}"],
+      "metadata": {},
+      "status": "OK",
+      "durationMs": 3,
+      "response": "{\"status\":\"up\"}",
+      "httpPath": "/health",
+      "httpVerb": "GET"
+    }
+  ]
+}
