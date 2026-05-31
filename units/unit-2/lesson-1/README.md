@@ -1,8 +1,8 @@
-# Lesson 03 — Record & replay
+# Lesson 2.1: Record & Replay
 
-**Time:** 10 minutes • **Prerequisites:** Lesson 01 done (Lesson 02 optional)
+> **Difficulty:** Beginner | **Duration:** 10 min | **Prerequisites:** [Lesson 1.1](../../unit-1/lesson-1/README.md) (Lesson 1.2 optional)
 
-## Goal
+## Overview
 
 Capture a sequence of API calls in the Bowire workbench, save the trace as a `.bwr` file, then run that file back as a **local mock server** — same sidebar, same methods, no live backend needed.
 
@@ -10,10 +10,10 @@ This is the "scaffolding for frontend work" / "fixture for tests" / "demo withou
 
 ## Steps
 
-### 1. Start the REST API from Lesson 01
+### 1. Start the REST API from Lesson 1.1
 
 ```bash
-cd ../lesson-01-first-call/sample/HelloApi
+cd ../../unit-1/lesson-1/sample/HelloApi
 dotnet run
 ```
 
@@ -97,16 +97,19 @@ curl http://127.0.0.1:7070/hello/anyone
 
 Note the path template — the recorded step's `httpPath` was `/hello/{name}`, so anything you put in the `{name}` slot matches the same response. Path templates are auto-detected when the recorded path contains `{`; literal paths stay literal.
 
-## What you just saw
+## Key Takeaways
 
-- **One button to capture, one command to replay.** No fixture writing, no protocol-specific serialisation — Bowire records what flows through it, the mock plays it back.
-- **Self-contained on disk.** The `.bwr` file is portable JSON. Check it into your repo as a test fixture; share it with a teammate; drop it into a CI job.
-- **Same wire on replay.** Recording captures REST → replay serves REST; same with gRPC, GraphQL, &c. The mock isn't a generic HTTP echo — it speaks each protocol's contract correctly.
-- **Path-template matching** — `/users/{id}` style placeholders auto-bind on replay, so a recording made with one ID matches calls with any ID. Literal paths stay strict.
+1. **One button to capture, one command to replay.** No fixture writing, no protocol-specific serialisation — Bowire records what flows through it, the mock plays it back.
+2. **Self-contained on disk.** The `.bwr` file is portable JSON. Check it into your repo as a test fixture, share it with a teammate, drop it into a CI job.
+3. **Same wire on replay.** REST recording → REST mock, gRPC recording → gRPC mock, &c. The mock isn't a generic HTTP echo; it speaks each protocol's contract correctly.
+4. **Path-template matching.** `/users/{id}` style placeholders auto-bind on replay, so a recording made with one ID matches calls with any ID. Literal paths stay strict.
 
-## What's next
+## What's Next
 
-[Lesson 04 — AI-agent integration](../lesson-04-ai-agents/) wires Bowire into Claude Desktop / Cursor over MCP so an agent can call any of these protocols on your behalf — and yes, the agent can record sessions and run them back too.
+You're ready to extend the recording with the source schema, so the mock also exposes the *full* original contract to peer-discovery clients.
+
+**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
+**Continue:** → [Lesson 2.2: Schema export + mock-as-stand-in](../lesson-2/README.md)
 
 ## Reference
 

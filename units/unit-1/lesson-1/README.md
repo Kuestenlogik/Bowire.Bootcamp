@@ -1,17 +1,30 @@
-# Lesson 01 — Your first call
+# Lesson 1.1: Your first call (REST + OpenAPI)
 
-**Time:** 5 minutes • **Prerequisites:** [.NET 10 SDK](https://dotnet.microsoft.com/download), Bowire installed (`dotnet tool install --global Kuestenlogik.Bowire.Tool`)
+> **Difficulty:** Beginner | **Duration:** 5 min | **Prerequisites:** [Unit 0](../../unit-0/README.md) complete, [.NET 10 SDK](https://dotnet.microsoft.com/download), Bowire CLI installed
 
-## Goal
+## Overview
 
-Run a sample REST API on `localhost`, point `bowire` at it, invoke a method from the browser UI, see the response. That's the whole loop — same shape no matter which protocol you're working with later.
+Run a sample REST API on `localhost`, point the `bowire` CLI at it, invoke a method from the browser UI, see the response. That's the entire workbench loop — same shape no matter which protocol you're working with later.
+
+## How auto-discovery works
+
+Bowire never asks you to import a collection or upload a `.proto` file when the server already advertises its own schema. The bundled plugins each know one or two conventional discovery endpoints; pointing `bowire --url <host>` at the server is enough to fetch them.
+
+| Protocol | What the plugin probes for |
+|---|---|
+| REST | `/openapi/v1.json`, `/swagger/v1/swagger.json`, `/openapi.json`, `/swagger.json` |
+| gRPC | Server Reflection (`grpc.reflection.v1.ServerReflection/ServerReflectionInfo`) |
+| GraphQL | `POST /graphql` with `IntrospectionQuery` |
+| MCP | Streamable-HTTP handshake (`initialize` → `tools/list`, `resources/list`, `prompts/list`) |
+
+This lesson exercises the REST flavour.
 
 ## Steps
 
 ### 1. Start the sample API
 
 ```bash
-cd lesson-01-first-call/sample/HelloApi
+cd units/unit-1/lesson-1/sample/HelloApi
 dotnet run
 ```
 
@@ -38,7 +51,7 @@ This:
 - Auto-opens your browser to it
 - Tells the workbench: "the server is at `http://localhost:5001`"
 
-The REST plugin probes for an OpenAPI document at the conventional paths (`/openapi/v1.json`, `/swagger.json`, …), finds the one `.NET 10`'s `MapOpenApi()` generated, parses it, and renders each operation as a method node in the sidebar.
+The REST plugin probes for an OpenAPI document at the conventional paths, finds the one `.NET 10`'s `MapOpenApi()` generated, parses it, and renders each operation as a method node in the sidebar.
 
 ### 3. Invoke a method
 
@@ -60,15 +73,28 @@ You'll see the JSON response:
 
 Try **PostEcho** too — the form auto-builds a JSON body editor from the `EchoRequest` schema.
 
-## What you just saw
+## Why Bowire over a generic API client?
 
-- **Auto-discovery.** Bowire didn't need a manual collection or a `.proto` import. It saw the OpenAPI doc the API publishes, walked it, and rendered the UI.
-- **Form-driven invoke.** Every operation has a form built from the schema. No hand-crafting JSON bodies for the simple cases.
-- **Two-process model.** Your service runs in one terminal, the workbench in another. The workbench is a debugger, not a runtime — it doesn't replace your server.
+| Workflow | Postman / Insomnia / Bruno | Bowire |
+|---|---|---|
+| Add an endpoint | Manually create a request, fill in URL + method + headers | Pointed at a server → auto-discovered |
+| Change a contract | Update each saved request to match | Re-discover, the UI re-renders against the new schema |
+| Multi-protocol | One tool per protocol family (REST in client A, gRPC in client B, MQTT in client C) | One workbench, every wire |
+| Hand it to an AI agent | Build an integration per tool | Already an MCP server (Unit 3) |
 
-## What's next
+## Key Takeaways
 
-[Lesson 02 — Multi-protocol session](../lesson-02-multi-protocol/) brings up a gRPC service alongside the REST one and shows them both in the same workbench. This is where Bowire's "one tool for every wire" story starts paying off.
+1. **Auto-discovery beats hand-curated collections** — the server already knows its own surface; the workbench just asks.
+2. **Form-driven invoke** — every operation has a form built from the schema. No hand-crafting JSON bodies for the simple cases.
+3. **Two-process model** — your service runs in one terminal, the workbench in another. The workbench is a debugger, not a runtime — it doesn't replace your server.
+4. **Same UI primitives across protocols** — what you learn here transfers verbatim to gRPC / GraphQL / MQTT / SignalR / &c.
+
+## What's Next
+
+You're ready to add a second protocol next to the REST one and see them both side-by-side in the same workbench.
+
+**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
+**Continue:** → [Lesson 1.2: Multi-protocol session](../lesson-2/README.md)
 
 ## Reference
 
