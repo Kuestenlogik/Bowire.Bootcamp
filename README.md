@@ -13,7 +13,7 @@ The [reference docs](https://bowire.io/docs/) answer **what does X do**. This bo
 | 03 | [Record & replay](lesson-03-record-replay/) | 10 min | Capture a session in the workbench, save it as `.bwr`, run it back as a local mock with `bowire mock` |
 | 04 | [AI-agent integration](lesson-04-ai-agents/) | 10 min | Spawn `bowire mcp serve` from Claude Desktop / Cursor, drive REST + gRPC + recordings from the chat |
 | 05 | [Author a .NET protocol plugin](lesson-05-dotnet-plugin/) | 15 min | Scaffold via `dotnet new bowire-plugin`, swap the demo for a Pirate-Speak `IBowireProtocol`, `dotnet pack` → `bowire plugin install` |
-| 06 | [Author a Python sidecar plugin](lesson-06-python-sidecar/) | 15 min | Subclass `BowirePlugin`, ship via `sidecar.json` + zip, no .NET required |
+| 06 | [Author a Python sidecar plugin](lesson-06-python-sidecar/) | 15 min | `dotnet new bowire-plugin --Sidecar python`, swap the demo for a Yoda-Speak `BowirePlugin`, `pip wheel` → zip → `bowire plugin install --file` |
 | 07 | [Schema export + mock-as-stand-in](lesson-07-schema-export/) | 10 min | Discover → export OpenAPI/AsyncAPI → mock → peer-discover through the mock |
 | 08 | [CI integration](lesson-08-ci/) | 15 min | `bowire test` in GitHub Actions; mock-server as a job service for downstream tests |
 
