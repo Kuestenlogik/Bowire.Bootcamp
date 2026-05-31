@@ -10,7 +10,7 @@ The [reference docs](https://bowire.io/docs/) answer **what does X do**. This bo
 |---|---|---|---|
 | 01 | [First call](lesson-01-first-call/) | 5 min | Install `bowire`, run a sample API, invoke a method from the browser UI |
 | 02 | [Multi-protocol session](lesson-02-multi-protocol/) | 10 min | Add a gRPC service to the same workbench, discover both wires at once |
-| 03 | [Record & replay](lesson-03-record-replay/) | 10 min | Capture a session, save it as `.bwr`, run it back as a local mock |
+| 03 | [Record & replay](lesson-03-record-replay/) | 10 min | Capture a session in the workbench, save it as `.bwr`, run it back as a local mock with `bowire mock` |
 | 04 | [AI-agent integration](lesson-04-ai-agents/) | 10 min | Run `bowire mcp serve`, wire Bowire into Claude Desktop / Cursor as an MCP tool source |
 | 05 | [Author a .NET protocol plugin](lesson-05-dotnet-plugin/) | 15 min | Implement `IBowireProtocol`, install your package into Bowire, see it discovered |
 | 06 | [Author a Python sidecar plugin](lesson-06-python-sidecar/) | 15 min | Subclass `BowirePlugin`, ship via `sidecar.json` + zip, no .NET required |
