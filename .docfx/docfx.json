@@ -11,6 +11,7 @@
                     "capstone/**/REQUIREMENTS.md",
                     "capstone/**/ARCHITECTURE.md",
                     "capstone/**/toc.yml",
+                    "README.md",
                     "LEARNING_PATHS.md",
                     "units-overview.md",
                     "ROADMAP.md",
