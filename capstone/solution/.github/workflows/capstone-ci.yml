@@ -1,0 +1,81 @@
+# Capstone CI — bootcamp Unit 5.1 patterns applied to the Harbor Tour
+# scenario end-to-end. Two jobs:
+#
+#   1. bowire-test           — runs the recording as a regression suite
+#                              against the LIVE HarborTour, catches
+#                              backend drift.
+#
+#   2. integration-tests     — gated behind the first; brings the mock
+#                              up as a service container, points
+#                              downstream tests at the mock URL.
+
+name: Capstone CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  bowire-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install Bowire CLI
+        run: dotnet tool install --global Kuestenlogik.Bowire.Tool
+
+      - name: Build HarborTour
+        run: dotnet build capstone/sample/HarborTour -c Release
+
+      - name: Start HarborTour
+        run: |
+          dotnet run --project capstone/sample/HarborTour -c Release --no-build &
+          # Wait until the backend is responding before testing it.
+          timeout 30 bash -c 'until curl -sf http://localhost:5101/api/health > /dev/null; do sleep 1; done'
+
+      - name: Bowire regression — replay the recording against the live backend
+        run: |
+          bowire test \
+            --recording capstone/solution/recording.bwr \
+            --target http://localhost:5101
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: bowire-test   # only run downstream tests if the recording is still faithful
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install Bowire CLI
+        run: dotnet tool install --global Kuestenlogik.Bowire.Tool
+
+      - name: Start the mock from the recording
+        run: |
+          bowire mock \
+            --recording capstone/solution/recording.bwr \
+            --port 7090 \
+            --no-watch &
+          timeout 30 bash -c 'until curl -sf http://localhost:7090/api/health > /dev/null; do sleep 1; done'
+
+      - name: Run downstream integration tests against the mock
+        # Replace this with your own service-under-test's `dotnet test`
+        # invocation, pointing its UPSTREAM_URL config at the mock.
+        # The smoke step below just proves the mock is up + serving the
+        # canonical REST + gRPC traffic.
+        run: |
+          curl -fS http://localhost:7090/api/health
+          curl -fS http://localhost:7090/api/containers | head -c 200
+          curl -fS http://localhost:7090/openapi.json | head -c 60

@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option csharp_namespace = "HarborTour.Grpc";
+
+package crane;
+
+// Live telemetry from the harbour's container cranes. One unary call for
+// the latest reading, one server-streaming call for a live feed.
+service CraneTelemetry {
+  // Latest reading from a single crane. Useful for one-off dashboards.
+  rpc GetLatest (CraneRequest) returns (CraneReading);
+
+  // Live stream of readings for a single crane. Emits one frame per
+  // second for `count` seconds, then closes. Used in the capstone to
+  // demonstrate Bowire's streaming-pane and the recording's
+  // ReceivedMessages list shape.
+  rpc Watch (CraneWatchRequest) returns (stream CraneReading);
+}
+
+message CraneRequest {
+  string crane_id = 1;
+}
+
+message CraneWatchRequest {
+  string crane_id = 1;
+  int32 count = 2;
+}
+
+message CraneReading {
+  string crane_id = 1;
+  string status = 2;          // "idle" | "lifting" | "lowering" | "maintenance"
+  double load_tons = 3;       // current load, 0 when idle
+  string container_id = 4;    // ISO 6346 container code, empty when idle
+  string captured_at = 5;     // ISO-8601 timestamp
+}
