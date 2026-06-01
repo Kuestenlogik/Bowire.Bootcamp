@@ -147,6 +147,21 @@ units/unit-N/lesson-M/
 
 So you can `cd units/unit-N/lesson-M/sample && dotnet run` (or `python -m sample`) and follow along without leaving the directory.
 
+## Hosting
+
+The published Bootcamp lives at **https://bowire.io/bootcamp/**. The DocFX
+output is built by the main Bowire repo's `Documentation` workflow, which
+clones this repo and mounts the `artifacts/docs-learn/` output under
+`/bootcamp/` in its combined GitHub Pages bundle.
+
+`.github/workflows/notify-bowire.yml` fires a `bootcamp-updated`
+`repository_dispatch` at `Kuestenlogik/Bowire` whenever lesson content
+lands on `main`, so the bowire.io deploy refreshes immediately — no daily
+polling cron. The dispatch needs a PAT stored as `BOWIRE_DISPATCH_TOKEN`
+in this repo's Actions secrets, scoped `repo` on `Kuestenlogik/Bowire`.
+A path filter on the trigger keeps internal infra-edits (release scripts,
+gitignore tweaks, &c.) from re-deploying bowire.io unnecessarily.
+
 ## License
 
 Apache 2.0 — same as the main Bowire repo. Lessons + samples can be lifted into your own training material; please link back when you do.

@@ -20,3 +20,6 @@ Thumbs.db
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+
+# DocFX build output
+artifacts/

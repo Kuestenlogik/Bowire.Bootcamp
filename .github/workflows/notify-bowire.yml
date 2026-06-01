@@ -1,0 +1,47 @@
+name: Notify Bowire of Bootcamp update
+
+# The Bootcamp is served at bowire.io/bootcamp/ but its sources live in
+# this repo. When something here lands on main, the Bowire main repo
+# needs to re-build its combined Pages deploy with the new Bootcamp
+# DocFX output. This workflow fires a `bootcamp-updated`
+# repository_dispatch at Kuestenlogik/Bowire so its Documentation
+# workflow picks up the change immediately (no daily polling cron).
+#
+# Requires a PAT stored as `BOWIRE_DISPATCH_TOKEN` secret in this repo,
+# with `repo` scope on Kuestenlogik/Bowire so it can call the
+# repository-dispatch API.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      # Only the content paths that actually affect the published DocFX
+      # output. Internal infra-edits (release scripts, gitignore tweaks,
+      # &c.) don't need to re-deploy bowire.io.
+      - 'units/**'
+      - 'capstone/**'
+      - 'index.md'
+      - 'README.md'
+      - 'LEARNING_PATHS.md'
+      - 'ROADMAP.md'
+      - 'toc.yml'
+      - 'units-overview.md'
+      - '.docfx/**'
+      - 'scripts/build-learn.ps1'
+      - '.github/workflows/notify-bowire.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Bowire deploy
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.BOWIRE_DISPATCH_TOKEN }}
+          repository: Kuestenlogik/Bowire
+          event-type: bootcamp-updated
+          client-payload: '{"source_sha": "${{ github.sha }}", "source_ref": "${{ github.ref }}"}'
