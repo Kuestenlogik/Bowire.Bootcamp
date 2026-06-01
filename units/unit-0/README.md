@@ -4,6 +4,12 @@
 
 Understand what Bowire is, install the CLI, and verify the workbench renders against a real API.
 
+## Prerequisites
+
+- [.NET 10 SDK](https://dotnet.microsoft.com/download) — required for the `dotnet tool install` step in Lesson 0.2.
+- A modern web browser — the workbench opens in-browser automatically, no separate client install.
+- An internet connection — Lesson 0.3 points at the public Petstore reference API.
+
 ## Lessons
 
 | Lesson | Topic | What You'll Learn |

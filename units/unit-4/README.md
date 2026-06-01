@@ -1,8 +1,18 @@
 # Unit 4: Extending Bowire
 
-*Time: ~30 minutes • Lessons: 2 • Prerequisites: [Unit 1](../unit-1/README.md)*
+*Time: ~30 minutes • Lessons: 2 • Previous: [Unit 1](../unit-1/README.md)*
 
 Author your own protocol plugin — once in .NET (in-process `IBowireProtocol` implementation, ships as a NuGet package), once in Python (sidecar plugin, ships as a zip with `sidecar.json` at its root). Same workbench, same install command, different language under the hood.
+
+## Prerequisites
+
+- [Unit 1](../unit-1/README.md) complete — you need a feel for how the host renders a discovered protocol before writing one.
+- [.NET 10 SDK](https://dotnet.microsoft.com/download) + Bowire CLI.
+- `dotnet new bowire-plugin` template installed:
+  ```bash
+  dotnet new install Kuestenlogik.Bowire.Templates
+  ```
+- **Python 3.10+** with `pip` — only for Lesson 4.2 (the sidecar half). Lesson 4.1 needs nothing beyond the .NET SDK.
 
 ## Lessons
 
