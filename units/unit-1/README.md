@@ -1,8 +1,14 @@
 # Unit 1: Workbench Basics
 
-*Time: ~15 minutes • Lessons: 2 • Prerequisites: [Unit 0](../unit-0/README.md)*
+*Time: ~15 minutes • Lessons: 2 • Previous: [Unit 0](../unit-0/README.md)*
 
 Drive Bowire's two foundational mechanics — protocol auto-discovery and the unified invoke form — across two wires at once.
+
+## Prerequisites
+
+- [Unit 0](../unit-0/README.md) complete (Bowire CLI installed + verified).
+- [.NET 10 SDK](https://dotnet.microsoft.com/download) — the bootcamp's `HelloApi` (REST, Lesson 1.1) and `HelloGrpc` (gRPC, Lesson 1.2) sample servers run on it.
+- A second free TCP port — by default the workbench listens on `5080`, `HelloApi` on `5001`, `HelloGrpc` on `5002`. Override via `--port` if any of those are taken.
 
 ## Lessons
 

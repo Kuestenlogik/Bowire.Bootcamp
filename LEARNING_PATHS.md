@@ -2,6 +2,8 @@
 
 Five role-based paths through the Bowire Bootcamp. Or, complete all units in order for the full picture (~3 hours).
 
+Every path lists its **path-level prerequisites** (the toolchain you need before starting any of its units). Individual lessons also list their own prerequisites — those are subsets of the path-level list.
+
 ---
 
 ## 1. Workbench Fundamentals
@@ -9,6 +11,10 @@ Five role-based paths through the Bowire Bootcamp. Or, complete all units in ord
 **For:** All API developers picking up Bowire for the first time.
 **Duration:** ~45 min
 **Units:** 3
+
+**Prerequisites:**
+- [.NET 10 SDK](https://dotnet.microsoft.com/download) — for the sample REST + gRPC backends.
+- A modern web browser — workbench UI runs in-browser, opens automatically.
 
 | # | Unit | Why it matters |
 |---|------|----------------|
@@ -24,6 +30,10 @@ Five role-based paths through the Bowire Bootcamp. Or, complete all units in ord
 **Duration:** ~30 min
 **Units:** 2
 
+**Prerequisites:**
+- [.NET 10 SDK](https://dotnet.microsoft.com/download) — the bootcamp's sample backend uses it; production frontend devs can swap in their own.
+- Bowire CLI: `dotnet tool install --global Kuestenlogik.Bowire.Tool`.
+
 | # | Unit | Why it matters |
 |---|------|----------------|
 | 1 | [Unit 2.1: Record & Replay](units/unit-2/lesson-1/README.md) | Capture once, replay forever — no live backend required |
@@ -37,6 +47,10 @@ Five role-based paths through the Bowire Bootcamp. Or, complete all units in ord
 **Duration:** ~20 min
 **Units:** 2
 
+**Prerequisites:**
+- [.NET 10 SDK](https://dotnet.microsoft.com/download) + Bowire CLI.
+- **Claude Desktop** or **Cursor** installed (any other MCP-aware host also works — the config snippet is portable).
+
 | # | Unit | Why it matters |
 |---|------|----------------|
 | 1 | [Unit 1: Workbench Basics](units/unit-1/README.md) | Understand Bowire's discovery + invoke surface first (the toolset the agent will drive) |
@@ -49,6 +63,11 @@ Five role-based paths through the Bowire Bootcamp. Or, complete all units in ord
 **For:** Protocol-plugin authors — anyone shipping a new protocol on top of Bowire's host.
 **Duration:** ~50 min
 **Units:** 3
+
+**Prerequisites:**
+- [.NET 10 SDK](https://dotnet.microsoft.com/download) + Bowire CLI.
+- **Python 3.10+** + `pip` — only for the Unit 4.2 sidecar lesson. Unit 4.1 (.NET plugin) needs nothing beyond the SDK.
+- [`dotnet new bowire-plugin`](https://github.com/Kuestenlogik/Bowire.Templates) template installed: `dotnet new install Kuestenlogik.Bowire.Templates`.
 
 | # | Unit | Why it matters |
 |---|------|----------------|
@@ -64,6 +83,11 @@ Five role-based paths through the Bowire Bootcamp. Or, complete all units in ord
 **Duration:** ~40 min
 **Units:** 2
 
+**Prerequisites:**
+- [.NET 10 SDK](https://dotnet.microsoft.com/download) + Bowire CLI.
+- **Docker** (for the CI examples that run the mock as a service container — optional in local dev).
+- A **GitHub repository** you can push the sample workflow to (any other CI runner works analogously; the lesson examples are GitHub Actions).
+
 | # | Unit | Why it matters |
 |---|------|----------------|
 | 1 | [Unit 2.1: Record & Replay](units/unit-2/lesson-1/README.md) | Recordings as portable test fixtures |
@@ -74,5 +98,14 @@ Five role-based paths through the Bowire Bootcamp. Or, complete all units in ord
 ## Or: the full bootcamp
 
 Complete every unit in order — ~3 hours, ~9 lessons, plus the capstone.
+
+**Prerequisites (everything):**
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+- Bowire CLI: `dotnet tool install --global Kuestenlogik.Bowire.Tool`
+- `dotnet new bowire-plugin` template: `dotnet new install Kuestenlogik.Bowire.Templates`
+- **Python 3.10+** (Unit 4.2 only)
+- **Claude Desktop** or **Cursor** (Unit 3.1 only)
+- **Docker** (Unit 5.1 only — optional in local dev)
+- A **GitHub repository** (Unit 5.1 only)
 
 - [Unit 0](units/unit-0/README.md) → [Unit 1](units/unit-1/README.md) → [Unit 2](units/unit-2/README.md) → [Unit 3](units/unit-3/README.md) → [Unit 4](units/unit-4/README.md) → [Unit 5](units/unit-5/README.md) → [Capstone](capstone/README.md)
