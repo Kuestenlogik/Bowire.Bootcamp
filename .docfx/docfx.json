@@ -24,12 +24,19 @@
             { "files": ["images/**"], "src": "." }
         ],
         "dest": "../artifacts/docs-learn",
-        "template": ["default", "modern"],
+        "template": ["default", "modern", "templates/bowire"],
         "globalMetadata": {
             "_appTitle": "Bowire Bootcamp",
-            "_appName": "Bowire Learn",
+            "_appName": "Bowire Bootcamp",
+            "_appFaviconPath": "favicon.svg",
             "_enableSearch": true,
-            "_disableContribution": true
+            "_enableNewTab": true,
+            "_disableContribution": true,
+            "_gitContribute": {
+                "repo": "https://github.com/Kuestenlogik/Bowire.Bootcamp",
+                "branch": "main"
+            },
+            "_gitUrlPattern": "github"
         },
         "postProcessors": ["ExtractSearchIndex"]
     }

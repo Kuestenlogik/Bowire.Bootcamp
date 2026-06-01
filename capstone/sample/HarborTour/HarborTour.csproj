@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- REST: ASP.NET 10 ships an OpenAPI generator; Microsoft.AspNetCore.OpenApi
+         brings in MapOpenApi(). -->
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <!-- gRPC: same packages Unit 1.2's HelloGrpc uses, plus server
+         reflection so Bowire can discover services without a .proto upload. -->
+    <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.71.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\crane.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,9 @@
+{
+  "_comment": "Drop the `bowire` entry into your Claude Desktop / Cursor MCP config. The --allow-arbitrary-urls flag lets the agent reach the capstone mock at any port; pin it tighter (or run the embedded HTTP MCP role with AllowedServerUrls) in a shared dev env.",
+  "mcpServers": {
+    "bowire": {
+      "command": "bowire",
+      "args": ["mcp", "serve", "--allow-arbitrary-urls"]
+    }
+  }
+}

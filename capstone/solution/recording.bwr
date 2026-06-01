@@ -1,0 +1,65 @@
+{
+  "id": "capstone-harbor-tour",
+  "name": "Harbor Tour reference recording",
+  "description": "Reference recording for the Bowire Bootcamp capstone. Three REST steps against HarborTour (capstone/sample) — ListContainers, GetContainer, GetHealth. Carries the source OpenAPI in sourceSchema so the mock re-emits the full contract for peer discovery. The gRPC Watch step is captured live (see capstone/solution/README.md) because Bowire's recording format carries protobuf descriptors per gRPC step.",
+  "createdAt": 1748764800000,
+  "recordingFormatVersion": 2,
+  "sourceSchema": {
+    "format": "openapi-3.0",
+    "sourceUrl": "http://localhost:5101/openapi/v1.json",
+    "content": "openapi: 3.0.4\ninfo:\n  title: HarborTour\n  version: 1.0.0\n  description: Bowire Bootcamp capstone sample — shipping-yard backend exposing container manifests over REST and crane telemetry over gRPC.\nservers:\n  - url: http://localhost:5101/\npaths:\n  /api/containers:\n    get:\n      tags: [HarborTour]\n      operationId: ListContainers\n      summary: List every container known to the harbour, summary view.\n      responses:\n        '200':\n          description: OK\n          content:\n            application/json:\n              schema:\n                type: array\n                items: { $ref: '#/components/schemas/ContainerSummary' }\n    post:\n      tags: [HarborTour]\n      operationId: UpsertContainer\n      summary: Add or update a container manifest in the harbour's registry.\n      requestBody:\n        required: true\n        content:\n          application/json:\n            schema: { $ref: '#/components/schemas/ContainerManifest' }\n      responses:\n        '201':\n          description: Created\n          content:\n            application/json:\n              schema: { $ref: '#/components/schemas/ContainerManifest' }\n  /api/containers/{id}:\n    get:\n      tags: [HarborTour]\n      operationId: GetContainer\n      summary: Full manifest for one container (ISO 6346 code).\n      parameters:\n        - name: id\n          in: path\n          required: true\n          schema: { type: string }\n      responses:\n        '200':\n          description: OK\n          content:\n            application/json:\n              schema: { $ref: '#/components/schemas/ContainerManifest' }\n        '404':\n          description: Not Found\n  /api/health:\n    get:\n      tags: [HarborTour]\n      operationId: GetHealth\n      summary: Liveness probe — always returns OK.\n      responses:\n        '200':\n          description: OK\ncomponents:\n  schemas:\n    ContainerSummary:\n      type: object\n      properties:\n        id: { type: string }\n        carrier: { type: string }\n        destinationPort: { type: string }\n    ContainerManifest:\n      type: object\n      properties:\n        id: { type: string }\n        carrier: { type: string }\n        originPort: { type: string }\n        destinationPort: { type: string }\n        contents: { type: string }\n        weightTons: { type: number, format: double }\n"
+  },
+  "steps": [
+    {
+      "id": "step-1-list-containers",
+      "capturedAt": 1748764810000,
+      "protocol": "rest",
+      "service": "HarborTour",
+      "method": "ListContainers",
+      "methodType": "Unary",
+      "serverUrl": "http://localhost:5101",
+      "body": "{}",
+      "messages": ["{}"],
+      "metadata": {},
+      "status": "OK",
+      "durationMs": 14,
+      "response": "[{\"id\":\"HLCU7654321\",\"carrier\":\"Hapag-Lloyd\",\"destinationPort\":\"Antwerp\"},{\"id\":\"MAEU1234567\",\"carrier\":\"Maersk\",\"destinationPort\":\"Rotterdam\"},{\"id\":\"MSCU1112223\",\"carrier\":\"MSC\",\"destinationPort\":\"Felixstowe\"}]",
+      "httpPath": "/api/containers",
+      "httpVerb": "GET"
+    },
+    {
+      "id": "step-2-get-container",
+      "capturedAt": 1748764820000,
+      "protocol": "rest",
+      "service": "HarborTour",
+      "method": "GetContainer",
+      "methodType": "Unary",
+      "serverUrl": "http://localhost:5101",
+      "body": "{}",
+      "messages": ["{}"],
+      "metadata": {},
+      "status": "OK",
+      "durationMs": 9,
+      "response": "{\"id\":\"MAEU1234567\",\"carrier\":\"Maersk\",\"originPort\":\"Hamburg\",\"destinationPort\":\"Rotterdam\",\"contents\":\"Electronics (HS 8517)\",\"weightTons\":18.4}",
+      "httpPath": "/api/containers/{id}",
+      "httpVerb": "GET"
+    },
+    {
+      "id": "step-3-get-health",
+      "capturedAt": 1748764830000,
+      "protocol": "rest",
+      "service": "HarborTour",
+      "method": "GetHealth",
+      "methodType": "Unary",
+      "serverUrl": "http://localhost:5101",
+      "body": "{}",
+      "messages": ["{}"],
+      "metadata": {},
+      "status": "OK",
+      "durationMs": 3,
+      "response": "{\"status\":\"up\",\"service\":\"HarborTour\"}",
+      "httpPath": "/api/health",
+      "httpVerb": "GET"
+    }
+  ]
+}
