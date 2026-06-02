@@ -282,13 +282,20 @@
               own repo and isn't hosted alongside the marketing site.
               The "Bootcamp" link is the in-place self-anchor that
               shows as is-active for every page in this site. ------}}
+        {{!--- Top nav mirrors site/_includes/header.html + the main
+              Bowire docs nav exactly so the jump between marketing
+              site ↔ docs ↔ bootcamp doesn't look like a navigation
+              break. Path / Units / Capstone live in the bootcamp's
+              own sidebar (driven by toc.yml) — they're internal
+              bootcamp navigation, not site-level. -----------------}}
         <nav class="bowire-docs-nav">
-          <a href="https://bowire.io/" target="_blank" rel="noopener">Home</a>
-          <a href="https://bowire.io/docs/" target="_blank" rel="noopener">Documentation</a>
+          <a href="https://bowire.io/quickstart.html">Quickstart</a>
+          <a href="https://bowire.io/features.html">Features</a>
+          <a href="https://bowire.io/solutions.html">Solutions</a>
+          <a href="https://bowire.io/downloads.html">Downloads</a>
+          <a href="https://bowire.io/docs/">Documentation</a>
           <a href="{{_rel}}index.html" class="is-active">Bootcamp</a>
-          <a href="{{_rel}}LEARNING_PATHS.html">Paths</a>
-          <a href="{{_rel}}units-overview.html">Units</a>
-          <a href="{{_rel}}capstone/README.html">Capstone</a>
+          <a href="https://bowire.io/community.html">Community</a>
         </nav>
         <div class="bowire-docs-header-actions">
           {{!--- Pagefind search trigger — opens the overlay defined at
@@ -989,25 +996,30 @@
             </span>
             <span class="bowire-docs-footer-tagline">is tied by <a href="https://kuestenlogik.com" target="_blank" rel="noopener">K&uuml;stenlogik</a> in Northern Germany</span>
           </div>
+          {{!--- Footer mirrors site/_includes/footer.html + the main
+                Bowire docs footer column-for-column (Product / Open
+                source / Info). All links resolve against the marketing
+                site root via absolute URLs since the bootcamp lives
+                under /bootcamp/. ---------------------------------}}
           <nav class="bowire-docs-footer-nav" aria-label="Footer navigation">
             <div class="bowire-docs-footer-nav-col">
-              <div class="bowire-docs-footer-nav-title">Bootcamp</div>
-              <a href="{{_rel}}index.html">Home</a>
-              <a href="{{_rel}}LEARNING_PATHS.html">Learning paths</a>
-              <a href="{{_rel}}units-overview.html">All units</a>
-              <a href="{{_rel}}capstone/README.html">Capstone</a>
-            </div>
-            <div class="bowire-docs-footer-nav-col">
-              <div class="bowire-docs-footer-nav-title">Bowire</div>
-              <a href="https://bowire.io/" target="_blank" rel="noopener">Marketing site</a>
-              <a href="https://bowire.io/docs/" target="_blank" rel="noopener">Documentation</a>
-              <a href="https://bowire.io/downloads.html" target="_blank" rel="noopener">Downloads</a>
+              <div class="bowire-docs-footer-nav-title">Product</div>
+              <a href="https://bowire.io/features.html">Features</a>
+              <a href="https://bowire.io/solutions.html">Solutions</a>
+              <a href="https://bowire.io/downloads.html">Downloads</a>
+              <a href="https://bowire.io/docs/">Documentation</a>
             </div>
             <div class="bowire-docs-footer-nav-col">
               <div class="bowire-docs-footer-nav-title">Open source</div>
-              <a href="https://github.com/Kuestenlogik/Bowire" target="_blank" rel="noopener">Bowire on GitHub</a>
-              <a href="https://github.com/Kuestenlogik/Bowire.Bootcamp" target="_blank" rel="noopener">Bootcamp on GitHub</a>
-              <a href="https://github.com/Kuestenlogik/Bowire.Bootcamp/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+              <a href="https://github.com/Kuestenlogik/Bowire" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://bowire.io/community.html">Community</a>
+              <a href="https://github.com/Kuestenlogik/Bowire/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+            </div>
+            <div class="bowire-docs-footer-nav-col">
+              <div class="bowire-docs-footer-nav-title">Info</div>
+              <a href="https://bowire.io/about.html">About Bowire</a>
+              <a href="https://bowire.io/legal.html">Legal notice</a>
+              <a href="https://bowire.io/privacy.html">Privacy</a>
             </div>
           </nav>
         </div>
