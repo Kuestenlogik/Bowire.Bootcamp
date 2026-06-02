@@ -28,7 +28,12 @@ Choose a [Learning Path](LEARNING_PATHS.md) based on your role:
 | [AI & Automation](LEARNING_PATHS.md#3-ai--automation) | Agent / LLM builders | 2 units |
 | [Plugin Author](LEARNING_PATHS.md#4-plugin-author) | Protocol-plugin authors (.NET + polyglot) | 3 units |
 | [Production / CI](LEARNING_PATHS.md#5-production--ci) | DevOps, platform engineers | 2 units |
-| [Embedded Backend Workflow](LEARNING_PATHS.md#6-embedded-backend-workflow) | Backend devs mounting the workbench inside their service | 3 units |
+
+Unit 1 splits into two parallel **setup tracks** — pick [CLI](units/unit-1-cli/README.md) or [Embedded](units/unit-1-embedded/README.md) based on your deployment shape. From Unit 2 onwards the tracks merge.
+
+## Capstone
+
+Once the units are done, work through the **[Multi-Protocol API Tour](capstone/README.md)** — a single end-to-end scenario that weaves recording, mocking, AI integration, and CI into one runnable project. Comes with a [sample backend](capstone/sample/HarborTour/) and a [reference solution](capstone/solution/README.md).
 
 ## Prerequisites
 
