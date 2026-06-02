@@ -14,8 +14,6 @@ This lesson closes the gap. You'll:
 
 The end state: a self-contained mock server that stands in for the real backend completely, **including the schema endpoint** anyone who wires up a Bowire / Swagger UI / contract-test runner against it expects to find.
 
-> **Path-split is narrow this lesson.** Only "get the OpenAPI" (Step 2) differs by deployment shape. Mock-replay and peer-discovery are wire-level features of the standalone mock process — independent of how the recording got captured.
-
 ## Steps
 
 ### 1. Have HelloApi running
@@ -29,38 +27,21 @@ dotnet run                                # → http://localhost:5001
 
 ### 2. Get the OpenAPI document
 
-#### Path A — `bowire export` from outside
-
-In a second terminal:
+Two equivalent ways — both work regardless of which Unit 1 track you walked:
 
 ```bash
+# Via Bowire's discovery + export (works for every protocol Bowire understands):
 bowire export openapi http://localhost:5001 --output hello.openapi.yaml
-```
 
-The CLI:
-
-1. Loads the REST plugin.
-2. Calls `DiscoverAsync` against `http://localhost:5001`.
-3. Maps the resulting `ServiceInfo` / `MethodInfo` tree into an OpenAPI 3.0 document.
-4. Writes it to `hello.openapi.yaml`.
-
-Open the file — three operations (`GetGreeting`, `PostEcho`, `GetHealth`) plus the component schemas. Same shape as the real `MapOpenApi()` output, but built from Bowire's discovery rather than the host's reflection.
-
-> Try `bowire export openapi http://localhost:5001 --format json` if you prefer JSON, or `bowire export asyncapi <messaging-url>` for AsyncAPI when you're working over MQTT / NATS / Kafka.
-
-#### Path B — read it straight off the host
-
-Embedded `HelloApi` already exposes its own OpenAPI through `MapOpenApi()`. Grab it directly:
-
-```bash
+# Or pull the host's own MapOpenApi() output directly (REST/OpenAPI only):
 curl -sSL http://localhost:5001/openapi/v1.json -o hello.openapi.json
-# YAML form if you'd rather diff it as YAML
-bowire export openapi http://localhost:5001 --output hello.openapi.yaml   # still works embedded
 ```
 
-The host's own `MapOpenApi()` output is the canonical contract — Bowire's `bowire export` produces the same document via discovery, so either source is fine. The difference is conceptual: in embedded mode you already *have* the contract by design; the export is useful when you want the YAML / JSON file on disk for diff-against-prod / contract-test pipelines.
+Both produce the same contract — the host's `MapOpenApi()` reflects the route table, and `bowire export` reconstructs the same information through discovery. Pick whichever you reach for first.
 
-> When does `bowire export` add value in embedded mode? When the contract isn't OpenAPI-native — for messaging plugins (MQTT / NATS / Kafka) Bowire's AsyncAPI export is the only way to materialise the contract as a file, because `MapBowire()` discovers the channels but the host doesn't render an `/asyncapi.yaml` of its own.
+> `bowire export` earns its keep when the contract isn't OpenAPI-native — for messaging plugins (MQTT / NATS / Kafka) the AsyncAPI export is the only way to materialise the contract as a file, because hosts don't render an `/asyncapi.yaml` of their own. Try `bowire export asyncapi <messaging-url>` once you get to those protocols.
+
+Open `hello.openapi.yaml` — three operations (`GetGreeting`, `PostEcho`, `GetHealth`) plus the component schemas. That's the full contract; the mock will re-emit it in Step 5.
 
 ### 3. Use the bundled sample recording with embedded schema
 
