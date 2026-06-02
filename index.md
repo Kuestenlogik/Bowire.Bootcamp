@@ -28,6 +28,7 @@ Choose a [Learning Path](LEARNING_PATHS.md) based on your role:
 | [AI & Automation](LEARNING_PATHS.md#3-ai--automation) | Agent / LLM builders | 2 units |
 | [Plugin Author](LEARNING_PATHS.md#4-plugin-author) | Protocol-plugin authors (.NET + polyglot) | 3 units |
 | [Production / CI](LEARNING_PATHS.md#5-production--ci) | DevOps, platform engineers | 2 units |
+| [Embedded Backend Workflow](LEARNING_PATHS.md#6-embedded-backend-workflow) | Backend devs mounting the workbench inside their service | 3 units |
 
 ## Prerequisites
 

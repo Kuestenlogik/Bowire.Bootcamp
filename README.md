@@ -1,6 +1,6 @@
 # Bowire Bootcamp
 
-A hands-on, self-paced tutorial that takes you from zero to "I can ship a new protocol plugin" with [Bowire](https://bowire.io) — Küstenlogik's multi-protocol API workbench. 6 units, 9 lessons, 5 learning paths, 1 capstone.
+A hands-on, self-paced tutorial that takes you from zero to "I can ship a new protocol plugin" with [Bowire](https://bowire.io) — Küstenlogik's multi-protocol API workbench. Six units, six learning paths (including a dedicated Embedded Backend Workflow), one capstone — both deployment shapes (standalone CLI and embedded `AddBowire()` + `MapBowire()`) covered side by side.
 
 ## Goal
 
