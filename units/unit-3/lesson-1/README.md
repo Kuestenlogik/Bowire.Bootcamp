@@ -1,12 +1,20 @@
 # Lesson 3.1: AI-Agent Integration (Claude Desktop + Cursor over MCP)
 
-> **Difficulty:** Intermediate | **Duration:** 10 min | **Prerequisites:** [Unit 1](../../unit-1/README.md) complete, Claude Desktop **or** Cursor installed
+> **Difficulty:** Intermediate | **Duration:** 10 min (CLI) · 12 min (Embedded) | **Prerequisites:** [Unit 1](../../unit-1/README.md) complete, Claude Desktop **or** Cursor installed
 
 ## Overview
 
 Wire Bowire into an AI agent over **MCP** (Model Context Protocol). The agent gains a `bowire.discover` / `bowire.invoke` / `bowire.recordings.list` toolset and can drive your APIs in plain English — list services, call methods, inspect recordings — without leaving the chat window.
 
-Same Bowire CLI you ran in Lessons 01-03, different consumer: instead of a browser, a language model.
+Two paths, same agent experience:
+
+- **Path A (CLI / stdio)** — agent spawns `bowire mcp serve` as a subprocess and pipes JSON-RPC over stdin/stdout. The Claude-Desktop / Cursor default; no port to manage.
+- **Path B (Embedded / HTTP)** — your ASP.NET host exposes Bowire's discovered services as MCP tools at `<host>/bowire/mcp` via `AddBowireMcpAdapter()` + `MapBowireMcpAdapter()`. Agent connects over HTTP; one shared endpoint for every agent that can reach the URL.
+
+When to pick which:
+- Desktop AI on your laptop → Path A (subprocess lifecycle handled by the agent).
+- Hosted Bowire workbench (internal-tools, multi-user) → Path B (remote agents, no per-laptop install).
+- Want both? Run both — Claude Desktop reads stdio (Path A) while a remote Cursor or a CI agent hits the HTTP endpoint (Path B).
 
 ## How this fits
 
@@ -21,9 +29,9 @@ Bowire and MCP cross paths in [four distinct ways](https://bowire.io/docs/protoc
 
 Role 4 is the one Claude Desktop / Cursor speak natively — they spawn `bowire mcp serve` as a subprocess and pipe JSON-RPC over stdio. No HTTP server to manage, no port to pick.
 
-## Steps
+## Path A — CLI / stdio (Claude-Desktop default)
 
-### 1. Keep the Unit 1 sample APIs running
+### A1. Keep the Unit 1 sample APIs running
 
 ```bash
 # Terminal A — REST
@@ -37,7 +45,7 @@ dotnet run                                    # → http://localhost:5002
 
 Both stay up for the rest of the lesson.
 
-### 2. Verify `bowire mcp serve` works standalone
+### A2. Verify `bowire mcp serve` works standalone
 
 In a third terminal, sanity-check the stdio server before wiring it into Claude:
 
@@ -55,7 +63,7 @@ You'll see `bowire.discover`, `bowire.invoke`, `bowire.subscribe`, `bowire.recor
 
 `--allow-arbitrary-urls` means **any URL the agent asks about will be probed**. Fine for local dev against `localhost:*`; not fine on a shared dev box. See the security note at the bottom of the lesson.
 
-### 3. Wire it into Claude Desktop
+### A3. Wire it into Claude Desktop
 
 Open Claude Desktop's MCP config file:
 
@@ -82,7 +90,71 @@ If `bowire` isn't on Claude's `PATH` (the dotnet global tool dir varies), use th
 
 Restart Claude Desktop. The new chat window should show a small **🔌 1 MCP server connected** badge (click it to confirm `bowire` is listed and 10 tools are exposed).
 
-### 4. Drive REST from the chat
+Skip Path B below; jump to **Drive REST from the chat**.
+
+## Path B — Embedded / HTTP (one shared MCP endpoint)
+
+### B1. Add the MCP adapter to your embedded host
+
+You already have the embedded `HelloApi` from Lesson 1.1 Path B with `AddBowire()` + `MapBowire()`. Add the MCP-adapter calls right next to them:
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddOpenApi();
+builder.Services.AddBowire();
+builder.Services.AddBowireMcpAdapter("http://localhost:5001");   // ← new
+
+var app = builder.Build();
+app.MapOpenApi();
+app.MapBowire();
+app.MapBowireMcpAdapter("");                                     // ← new (mounts /mcp)
+
+// ...your routes...
+app.Run("http://localhost:5001");
+```
+
+`AddBowireMcpAdapter(serverUrl)` registers the MCP server into DI and pins it to the URL the workbench discovers against (here the host itself). `MapBowireMcpAdapter("")` mounts the streamable-HTTP endpoint at `/mcp` at the site root; pass a prefix (e.g. `MapBowireMcpAdapter("/bowire")`) when you want it nested.
+
+### B2. Run the host and verify the endpoint
+
+```bash
+dotnet run                                # → http://localhost:5001
+```
+
+Confirm the MCP endpoint responds to a discovery probe:
+
+```bash
+curl -s -X POST http://localhost:5001/mcp \
+     -H "Content-Type: application/json" \
+     -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+```
+
+You'll get a JSON-RPC response listing tools that name every method discovered against the host — `HelloApi.GetGreeting`, `HelloApi.PostEcho`, &c. (One MCP tool per discovered method; the adapter pattern differs from the CLI's `bowire.discover` / `bowire.invoke` toolset on purpose — see the note below.)
+
+### B3. Wire it into Cursor (or any HTTP-MCP client)
+
+Cursor's MCP config takes HTTP endpoints:
+
+```json
+{
+  "mcpServers": {
+    "bowire-hello": {
+      "url": "http://localhost:5001/mcp"
+    }
+  }
+}
+```
+
+Open `Settings → MCP` and paste the snippet (or edit `~/.cursor/mcp.json` directly). Cursor connects over HTTP — no subprocess, no `command` field. Claude Desktop's stdio-only config (Step A3) doesn't accept HTTP URLs as of writing; Claude users stay on Path A.
+
+> **Path A vs Path B tool surfaces differ on purpose.**
+> Path A (CLI / stdio, role 4 in the [MCP docs](https://bowire.io/docs/protocols/mcp.html)) exposes Bowire's *own* toolset: `bowire.discover`, `bowire.invoke`, `bowire.recordings.list`, `bowire.mock.start`. The agent asks Bowire to do things; Bowire decides how.
+> Path B (Embedded / HTTP, role 3) exposes the *discovered services* as MCP tools directly: `HelloApi.GetGreeting`, `HelloApi.PostEcho`. The agent calls a service method as if it were a native tool; Bowire is invisible plumbing.
+> Both work; both have use-cases. Role 4 is broader (agent can drive Bowire end-to-end including recordings + mocks); role 3 is leaner (agent doesn't need to know Bowire exists, it just sees domain methods).
+
+## Drive REST from the chat
+
+Both paths work the same in the chat window — the only difference is whose name shows up in the MCP-server list (Path A: `bowire`; Path B: `bowire-hello`). For brevity the rest of this lesson uses Claude Desktop + Path A in the snippets; substitute your Cursor-with-Path-B equivalents word-for-word.
 
 In a new Claude conversation, type:
 
@@ -103,7 +175,7 @@ Claude picks the method, builds the JSON payload, and calls `bowire.invoke` — 
 }
 ```
 
-### 5. Drive gRPC from the same chat
+## Drive gRPC from the same chat
 
 Without restarting anything, ask:
 
@@ -117,7 +189,7 @@ Without restarting anything, ask:
 
 > Note: server-streaming methods (`HelloStream`) come back through `bowire.subscribe`, which samples a bounded window of frames rather than streaming live into the chat. Ask Claude to "subscribe to HelloStream for 3 seconds" and it'll collect a handful of frames and summarise them.
 
-### 6. Bonus — replay a recording through the agent
+## Bonus — replay a recording through the agent (Path A only)
 
 If you finished Lesson 03 with the `hello-tour.bwr` recording in hand:
 
@@ -129,16 +201,16 @@ If you finished Lesson 03 with the `hello-tour.bwr` recording in hand:
 
 → Claude calls `bowire.mock.start` to spin the mock up in-process, then `bowire.invoke` against `http://localhost:7080`. You get the frozen response from the recording. Tell Claude to "stop the mock" and `bowire.mock.stop` shuts it down.
 
-### 7. Cursor (optional)
+## Cursor (Path A stdio variant)
 
 Cursor uses the same `mcpServers` shape. Open `Settings → MCP` (or edit `~/.cursor/mcp.json`) and paste the same snippet from step 3.
 
 ## Key Takeaways
 
-1. **The agent drives Bowire, not the other way around.** Roles 1 / 2 / 3 of MCP integration treat Bowire as the consumer; Role 4 treats the agent as the consumer. Same SDK, same toolset, different direction.
-2. **Protocol-agnostic at the LLM layer.** Claude doesn't need to know what gRPC is. It just calls `bowire.discover` and `bowire.invoke`; the protocol-side semantics live in the Bowire plugins.
-3. **Stdio over HTTP for desktop AI.** The agent owns the subprocess lifecycle (spawn, kill, restart). No port to manage, no firewall rule, no auth surface. The HTTP role (3) is for when *your own service* hosts the MCP endpoint.
-4. **Recordings transit the toolset too.** `bowire.recordings.list` / `bowire.mock.start` let the agent reach into your saved sessions and stand up mocks on demand — closing the loop with Unit 2.
+1. **Two paths, two MCP shapes.** Path A (CLI / stdio) exposes Bowire's own toolset (`bowire.discover`, `bowire.invoke`, &c.) — agent drives Bowire. Path B (Embedded / HTTP) exposes the discovered services as MCP tools directly (`HelloApi.GetGreeting`, &c.) — agent doesn't see Bowire, just domain methods.
+2. **Protocol-agnostic at the LLM layer.** Claude doesn't need to know what gRPC is — the protocol-side semantics live in the Bowire plugins either way.
+3. **Stdio for desktop AI, HTTP for hosted setups.** Path A (the agent owns the subprocess lifecycle) fits laptop AI. Path B (one shared HTTP endpoint per Bowire host) fits internal-tools deployments where remote agents + CI runners want the same MCP surface without per-machine installs.
+4. **Path A reaches into recordings + mocks; Path B doesn't (yet).** `bowire.recordings.list` / `bowire.mock.start` are Path-A tools — the CLI-side MCP server has access to Bowire's own state. Path B's adapter is service-centric; recording / mock control over the embedded MCP-adapter is tracked at [#37](https://github.com/Kuestenlogik/Bowire/issues/37).
 
 ## Security
 
