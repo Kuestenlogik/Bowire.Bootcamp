@@ -143,7 +143,6 @@ Note the path template — the recorded step's `httpPath` was `/hello/{name}`, s
 
 You're ready to extend the recording with the source schema, so the mock also exposes the *full* original contract to peer-discovery clients.
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Lesson 2.2: Schema export + mock-as-stand-in](../lesson-2/README.md)
 
 ## Reference

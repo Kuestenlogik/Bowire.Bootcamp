@@ -178,7 +178,6 @@ The bundled plugins are untouched — `uninstall` only removes the directory und
 
 You're ready to author the same protocol in Python — same contract, JSON-RPC over stdio, no .NET on the plugin side.
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Lesson 4.2: Python sidecar plugin](../lesson-2/README.md)
 
 ## Reference

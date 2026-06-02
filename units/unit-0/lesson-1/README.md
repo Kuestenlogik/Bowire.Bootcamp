@@ -134,7 +134,6 @@ The shorter version: **Bowire is what you reach for when your stack is polyglot 
 
 You're ready to install the `bowire` global tool and verify the bundled plugins ship correctly.
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Lesson 0.2: Setup](../lesson-2/README.md)
 
 ## Reference

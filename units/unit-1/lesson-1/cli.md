@@ -62,7 +62,6 @@ Try **PostEcho** too — the form auto-builds a JSON body editor from the `EchoR
 
 ## What's Next
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue on the CLI path:** → [Lesson 1.2 — Path A (CLI)](../lesson-2/cli.md)
 
 Switched your mind? → [Path B (Embedded) walkthrough](embedded.md)

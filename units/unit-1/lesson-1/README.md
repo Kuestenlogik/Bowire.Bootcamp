@@ -46,7 +46,6 @@ This lesson exercises the REST flavour.
 
 Once you've finished your chosen path:
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Lesson 1.2: Multi-protocol session](../lesson-2/README.md) — picks up where your chosen path leaves off
 
 ## Reference

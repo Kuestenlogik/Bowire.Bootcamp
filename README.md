@@ -140,9 +140,8 @@ Every lesson directory looks the same:
 
 ```
 units/unit-N/lesson-M/
-├── README.md              # The walkthrough text — open this first
-├── KNOWLEDGE_ASSESSMENT.md  # Short quiz that locks in the takeaways
-└── sample/                  # Runnable .NET / Python / shell sample (when applicable)
+├── README.md   # The walkthrough text — open this first (path-split lessons add cli.md / embedded.md)
+└── sample/     # Runnable .NET / Python / shell sample (when applicable)
 ```
 
 So you can `cd units/unit-N/lesson-M/sample && dotnet run` (or `python -m sample`) and follow along without leaving the directory.

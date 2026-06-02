@@ -104,7 +104,6 @@ Petstore's REST endpoints are all unary. To see the streaming-pane shape, point 
 
 You're done with Unit 0. Time to bring up your own sample API and drive REST + gRPC side-by-side in the same workbench.
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Unit 1: Workbench Basics](../../unit-1/README.md)
 
 ## Reference
