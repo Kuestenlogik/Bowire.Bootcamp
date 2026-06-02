@@ -1,12 +1,12 @@
 # Unit 2: Record, Replay, Mock
 
-*Time: ~20 minutes • Lessons: 2 • Previous: [Unit 1](../unit-1/README.md)*
+*Time: ~20 minutes • Lessons: 2 • Previous: Unit 1 — [CLI track](../unit-1-cli/README.md) or [Embedded track](../unit-1-embedded/README.md)*
 
 Capture a session against a real backend, replay it as a local mock server, and use the original schema sidecar to give consumers the *full* contract — not just the slice you happened to record.
 
 ## Prerequisites
 
-- [Unit 1](../unit-1/README.md) complete (REST + gRPC workbench experience).
+- Unit 1 complete on either track ([CLI](../unit-1-cli/README.md) or [Embedded](../unit-1-embedded/README.md)) — REST + gRPC workbench experience.
 - The Lesson 1.1 `HelloApi` sample available — both Unit 2 lessons capture sessions against it.
 - A free TCP port for the mock server (Lesson 2.1 uses `7070`, Lesson 2.2 uses `7080`).
 - `curl` (or any HTTP client) on PATH — Lesson 2.2 verifies the mock's schema endpoint with it.

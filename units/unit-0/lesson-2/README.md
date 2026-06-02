@@ -158,7 +158,7 @@ If you want to add a plugin that isn't bundled, reference its NuGet next to `Kue
 | `bowire plugin list` errors with `Access denied` | A | Check `~/.bowire/plugins/` exists and is writable. The directory is created on first install; manual creation needs `mkdir -p`. |
 | Tool install times out behind a corporate proxy | A · B | Configure `dotnet nuget` proxy settings (`dotnet nuget config -s <feed>`) or set `HTTP_PROXY` / `HTTPS_PROXY`. |
 | `/bowire` returns 404 in the embedded host | B | Make sure `app.MapBowire()` runs **after** `var app = builder.Build()` but **before** `app.Run()`. ASP.NET ignores route registrations after `Run()` starts the host. |
-| Workbench renders but discovers no endpoints | B | The host has no services registered yet. Either add a sample route (`app.MapGet("/api/ping", () => "pong")`) or skip ahead to [Unit 1](../../unit-1/README.md) which adds a discovery target. |
+| Workbench renders but discovers no endpoints | B | The host has no services registered yet. Either add a sample route (`app.MapGet("/api/ping", () => "pong")`) or skip ahead to [Unit 1 — Embedded track](../../unit-1-embedded/README.md) which adds a discovery target. |
 
 ## Key Takeaways
 

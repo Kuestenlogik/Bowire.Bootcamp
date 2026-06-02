@@ -1,6 +1,6 @@
 # Lesson 3.1: AI-Agent Integration (Claude Desktop + Cursor over MCP)
 
-> **Difficulty:** Intermediate | **Duration:** 10 min (CLI) · 12 min (Embedded) | **Prerequisites:** [Unit 1](../../unit-1/README.md) complete, Claude Desktop **or** Cursor installed
+> **Difficulty:** Intermediate | **Duration:** 10 min (CLI) · 12 min (Embedded) | **Prerequisites:** Unit 1 complete ([CLI](../../unit-1-cli/README.md) or [Embedded](../../unit-1-embedded/README.md) track), Claude Desktop **or** Cursor installed
 
 ## Overview
 
@@ -35,11 +35,11 @@ Role 4 is the one Claude Desktop / Cursor speak natively — they spawn `bowire 
 
 ```bash
 # Terminal A — REST
-cd ../../unit-1/lesson-1/sample/HelloApi
+cd ../../unit-1-samples/HelloApi
 dotnet run                                    # → http://localhost:5001
 
 # Terminal B — gRPC
-cd ../../unit-1/lesson-2/sample/HelloGrpc
+cd ../../unit-1-samples/HelloGrpc
 dotnet run                                    # → http://localhost:5002
 ```
 

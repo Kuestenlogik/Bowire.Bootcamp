@@ -31,7 +31,7 @@ Existing manual assertions are kept; the convert is append-only.
 Make sure the sample backend is running:
 
 ```bash
-cd ../../unit-1/lesson-1/sample/HelloApi
+cd ../../unit-1-samples/HelloApi
 dotnet run                              # → http://localhost:5001
 ```
 
@@ -82,7 +82,7 @@ jobs:
 
       - name: Start the sample API
         run: |
-          dotnet run --project units/unit-1/lesson-1/sample/HelloApi &
+          dotnet run --project units/unit-1-samples/HelloApi &
           # Wait until the API is responding before continuing.
           timeout 30 bash -c 'until curl -sf http://localhost:5001/health > /dev/null; do sleep 1; done'
 

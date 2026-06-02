@@ -78,15 +78,24 @@ Understand what Bowire is and verify your environment.
 | [0.2](units/unit-0/lesson-2/README.md) | Setup | Install the bowire CLI, the bundled plugins, the workbench host |
 | [0.3](units/unit-0/lesson-3/README.md) | Hello Bowire | Launch the workbench, point it at a public REST API, invoke your first method |
 
-### Unit 1: Workbench Basics
-*Time: ~15 minutes*
+### Unit 1: Workbench Basics — pick your setup track
+*Time: ~15 minutes per track (you only walk one)*
 
-Drive Bowire's discovery and invoke surface across two protocols at once.
+Drive Bowire's discovery and invoke surface across two protocols at once. Two parallel tracks based on your deployment shape — pick one and the rest of the bootcamp (Unit 2+) is shared.
+
+**[CLI track](units/unit-1-cli/README.md)** — for the `bowire --url <service>` two-process shape:
 
 | Lesson | Topic | What You'll Build |
 |--------|-------|-------------------|
-| [1.1](units/unit-1/lesson-1/README.md) | First call (REST + OpenAPI) | A REST sample API, discovered through its OpenAPI doc, invoked from the workbench |
-| [1.2](units/unit-1/lesson-2/README.md) | Multi-protocol session (REST + gRPC) | A gRPC sample side-by-side with REST, both discovered automatically, server-streaming demo |
+| [1.1](units/unit-1-cli/lesson-1/README.md) | First call (REST + OpenAPI) | A REST sample API, discovered through its OpenAPI doc, invoked from the workbench |
+| [1.2](units/unit-1-cli/lesson-2/README.md) | Multi-protocol session (REST + gRPC) | A gRPC sample side-by-side with REST via repeated `--url`, server-streaming demo |
+
+**[Embedded track](units/unit-1-embedded/README.md)** — for the `AddBowire()` / `MapBowire()` in-process shape:
+
+| Lesson | Topic | What You'll Build |
+|--------|-------|-------------------|
+| [1.1](units/unit-1-embedded/lesson-1/README.md) | Mount the workbench in your host | `AddBowire()` + `MapBowire()` in `Program.cs`, workbench at `/bowire` on the host's port |
+| [1.2](units/unit-1-embedded/lesson-2/README.md) | Add a second protocol (gRPC) | gRPC co-hosted in the same ASP.NET process; the workbench picks both up through DI |
 
 ### Unit 2: Record, Replay, Mock
 *Time: ~20 minutes*
