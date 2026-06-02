@@ -8,7 +8,11 @@ Bowire is a **multi-protocol API workbench** for .NET. One tool that discovers, 
 
 This lesson covers what Bowire *is*, how it positions next to the tools you've probably already used (Postman, Insomnia, Bruno), and when to pick it. The next two lessons in this unit get you installed and verify the workbench renders against a real API.
 
-## The two-process model
+## Two ways to run Bowire
+
+Bowire ships in two deployment shapes. Both expose the same workbench surface and the same features — they differ in **where the workbench runs** relative to the service you're working with.
+
+### Two-process (standalone CLI) — point at any URL
 
 ```mermaid
 graph LR
@@ -18,7 +22,47 @@ graph LR
     Bowire --> Service
 ```
 
-You run your service on its own port. You run `bowire --url http://your-service`. The CLI boots a local browser UI on `localhost:5080/bowire` and acts as a debugger that *talks to* your service — it doesn't host or replace it.
+`dotnet tool install --global Kuestenlogik.Bowire.Tool`, then `bowire --url http://your-service`. The CLI is a separate process; it boots a local browser UI on `localhost:5080/bowire` and acts as a debugger that *talks to* the target service over the wire. The target can be your laptop service, a staging URL, a teammate's port-forward — anything Bowire can reach.
+
+### Single-process (embedded) — mount the workbench inside your service
+
+```mermaid
+graph LR
+    subgraph Process["Your ASP.NET service — one process"]
+        Routes["Your API routes<br/>/api/..."]
+        Workbench["Bowire workbench<br/>/bowire"]
+        DI["IServiceProvider · ILogger · [Authorize]<br/>(shared by both)"]
+        Routes --> DI
+        Workbench --> DI
+    end
+    Browser["Browser UI"] --> Workbench
+    Workbench --> Routes
+```
+
+Two lines in `Program.cs`:
+
+```csharp
+builder.Services.AddBowire();
+// ... your existing middleware ...
+app.MapBowire();
+```
+
+The workbench lives **inside** your service process — same `IServiceProvider`, same `[Authorize]` policies, same `IOptions<T>` config, same logging providers. Discovery reads endpoint sources (gRPC reflection, OpenAPI document provider, SignalR hub registry) directly through DI — no schema round-trip, no version drift between workbench and live service.
+
+### Which one do you pick?
+
+| If you... | Use |
+|---|---|
+| Debug **someone else's** API | CLI |
+| Build / debug **your own** ASP.NET service | Embedded |
+| Run security scans / contract exports in CI | CLI |
+| Ship a debug UI alongside your binary's normal routes | Embedded |
+| Drive Bowire from an AI agent (MCP) against many targets | CLI (`bowire mcp serve`) |
+| Drive a single in-process service from an AI agent | Embedded + `--enable-mcp-adapter` |
+| Air-gapped CI box, no extra `dotnet new web` needed | CLI |
+| Internal-tools team — workbench inherits your auth + DI | Embedded |
+
+Most teams use **both**, in different contexts. This bootcamp covers the CLI path by default; embedded variants appear as side-by-side tabs in the lessons where the wire-in is the only thing that differs ([#55](https://github.com/Kuestenlogik/Bowire/issues/55) tracks bringing the embedded path to full parity with the CLI path).
 
 ## Why a "workbench" instead of an "API client"?
 
