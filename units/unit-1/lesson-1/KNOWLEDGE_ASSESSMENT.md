@@ -16,31 +16,31 @@
 
 </details>
 
-### 2. Which port does the standalone `bowire` workbench listen on by default?
+### 2. Where does the workbench mount on each deployment shape?
 
-- [ ] A) `localhost:5000`
-- [ ] B) `localhost:5080/bowire`
-- [ ] C) `localhost:8080`
-- [ ] D) Whatever port the target API is on
+- [ ] A) Both at `localhost:8080/bowire`
+- [ ] B) CLI at `localhost:5080/bowire`; embedded at `<your-host>/bowire`
+- [ ] C) Both at the same port the target API is on
+- [ ] D) CLI only — embedded mode has no browser UI
 
 <details>
 <summary>Answer</summary>
 
-**B)** `localhost:5080/bowire`. The `bowire` CLI boots a local browser UI on port 5080 and mounts the workbench under `/bowire`. The `--url` flag tells the workbench which server(s) to discover, not what port to listen on.
+**B)** The standalone CLI boots its own host on `localhost:5080` and mounts the workbench at `/bowire`. The embedded path mounts the workbench at `/bowire` inside whichever ASP.NET host called `MapBowire()` — so on whatever port that host is already listening on (in this lesson's sample: `localhost:5001/bowire`). Same UI, different host process.
 
 </details>
 
-### 3. What's the two-process model of the standalone CLI?
+### 3. What's the difference between the two-process (CLI) and single-process (embedded) models?
 
-- [ ] A) The workbench replaces your service while it's open
-- [ ] B) Your service runs in one terminal, the workbench in another, the workbench connects to your service
-- [ ] C) Both processes share the same port
-- [ ] D) The workbench can only run as part of a `dotnet test` invocation
+- [ ] A) CLI replaces your service while it's open; embedded shares its database
+- [ ] B) CLI runs as a separate process and talks to your service over the wire; embedded mounts the workbench inside your service's process, sharing its DI / auth / logging
+- [ ] C) Both run as separate processes; only the port differs
+- [ ] D) Embedded is read-only — you can browse but not invoke
 
 <details>
 <summary>Answer</summary>
 
-**B)** Two independent processes. The sample API runs in terminal A (here on port 5001); the workbench runs in terminal B (port 5080). The workbench is a debugger that talks to your service — it doesn't host or replace it.
+**B)** Two-process (CLI): the workbench is a separate process that talks to your service over the wire — same pattern as a debugger attached to a target. Single-process (embedded): the workbench mounts inside your service's process via `AddBowire()` + `MapBowire()` and shares the host's `IServiceProvider`, `[Authorize]` policies, `IOptions<T>` config, and logging providers. Same UI surface, different relationship to the host.
 
 </details>
 
