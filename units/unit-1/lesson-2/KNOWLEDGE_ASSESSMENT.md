@@ -2,17 +2,17 @@
 
 ## Multiple Choice
 
-### 1. How does the `bowire` CLI handle multiple `--url` flags?
+### 1. How does each deployment shape pick up multiple protocols at once?
 
-- [ ] A) The last `--url` wins; earlier ones are ignored.
-- [ ] B) The CLI errors out, demanding a single URL.
-- [ ] C) `--url` is repeatable; each URL is probed by every loaded plugin, and the matching plugin claims it.
+- [ ] A) Both paths require a separate `bowire` instance per protocol.
+- [ ] B) CLI: repeat `--url` for each target. Embedded: every protocol registered in the host's DI container (`AddGrpc()`, `AddSignalR()`, REST routes, &c.) lands in the workbench automatically.
+- [ ] C) Embedded only — the CLI is single-protocol.
 - [ ] D) URLs must be comma-separated in a single `--url` flag.
 
 <details>
 <summary>Answer</summary>
 
-**C)** `--url` is repeatable. Each URL is probed by every loaded plugin in turn; whichever protocol matches each URL claims it and renders the discovered services in the same sidebar.
+**B)** Different mechanisms, same end result. The CLI's `--url` flag is repeatable; each URL is probed by every loaded plugin and the matching protocol claims it. The embedded path doesn't need a URL list at all — `MapBowire()` reads the host's registered endpoint sources (gRPC reflection registry, OpenAPI document provider, SignalR hub registry, &c.) straight off the DI container in one pass.
 
 </details>
 
