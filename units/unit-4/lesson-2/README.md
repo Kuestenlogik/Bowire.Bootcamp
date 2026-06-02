@@ -21,6 +21,8 @@ By the end you'll have a (silly) **Yoda Speak** protocol in the sidebar that doe
 
 Both end up as a regular protocol tab in the sidebar; the user can't tell which language wrote it.
 
+> **Sidecars are shape-agnostic by default.** They install into `~/.bowire/plugins/<id>/` and both the CLI host and embedded hosts scan that directory at startup. Path A walks the `bowire plugin install --file` flow below; Path B users can reuse the same install — the embedded host picks up the sidecar from `~/.bowire/plugins/` automatically. For production embedded deploys where you don't want a user-state dependency, ship the extracted sidecar folder inside your deploy bundle and point `Bowire:PluginDir` at it via config.
+
 ## Steps
 
 ### 1. Install the template scaffold (if you didn't already)
@@ -120,11 +122,17 @@ The `[sidecar: yoda]` tag distinguishes it from `[nuget: ...]` .NET plugins (lik
 
 ### 7. Run Bowire and invoke your protocol
 
-Same as Lesson 05 — Yoda Speak has no real wire, so any URL works:
+Same as Lesson 05 — Yoda Speak has no real wire, so any URL works.
+
+#### Path A — CLI
 
 ```bash
 bowire --url http://yoda.local
 ```
+
+#### Path B — Embedded
+
+Add `http://yoda.local` to the host's `Bowire:ServerUrls` config (`appsettings.json` or `--Bowire:ServerUrls:0=http://yoda.local` flag) and `dotnet run`. The sidecar entry shows up at `<your-host>/bowire` next to whatever other plugins the host runs — identical sidebar shape on both paths, identical subprocess spawn under the covers.
 
 The sidebar now contains:
 
