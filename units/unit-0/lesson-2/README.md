@@ -172,7 +172,6 @@ If you want to add a plugin that isn't bundled, reference its NuGet next to `Kue
 
 You're ready to point the freshly-installed `bowire` at a real REST API and see the workbench render.
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Lesson 0.3: Hello Bowire](../lesson-3/README.md)
 
 ## Reference

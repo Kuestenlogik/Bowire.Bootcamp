@@ -175,7 +175,6 @@ Now the team that codes against the mock sees the gap explicitly: GetHealth is i
 
 You're done with Unit 2's mock arc. Next: hand the workbench's toolset to an AI agent.
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Unit 3: AI-Agent Integration](../../unit-3/README.md)
 
 ## Reference

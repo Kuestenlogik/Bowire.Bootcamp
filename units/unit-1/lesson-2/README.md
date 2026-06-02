@@ -212,7 +212,6 @@ Both services are alive in the same workbench — clicking back into REST method
 
 You're ready to capture a session against one of these services and replay it as a self-contained mock.
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Unit 2: Record, Replay, Mock](../../unit-2/README.md)
 
 ## Reference

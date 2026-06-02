@@ -5,7 +5,6 @@
                 "files": [
                     "units/**/README.md",
                     "units/**/INSTRUCTIONS.md",
-                    "units/**/KNOWLEDGE_ASSESSMENT.md",
                     "units/**/cli.md",
                     "units/**/embedded.md",
                     "units/**/toc.yml",

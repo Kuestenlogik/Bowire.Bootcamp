@@ -224,7 +224,6 @@ The MCP server is "shell access" for an agent. Treat it that way.
 
 You're ready to leave the AI side behind and start building protocol plugins yourself — first in .NET, then in Python.
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Unit 4: Extending Bowire](../../unit-4/README.md)
 
 ## Reference

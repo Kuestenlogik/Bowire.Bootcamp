@@ -174,7 +174,6 @@ Same removal command as a .NET plugin — `uninstall` doesn't care which side of
 
 You're ready to head back to the workbench and the mock — Unit 5 wires Bowire into your CI pipeline as a regression-test runner and mock-server fixture.
 
-**Test your knowledge:** → [Knowledge Assessment](KNOWLEDGE_ASSESSMENT.md)
 **Continue:** → [Unit 5: CI Integration](../../unit-5/README.md)
 
 ## Reference
