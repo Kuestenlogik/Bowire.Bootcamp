@@ -1,10 +1,15 @@
 # Lesson 1.1: Your first call (REST + OpenAPI)
 
-> **Difficulty:** Beginner | **Duration:** 5 min | **Prerequisites:** [Unit 0](../../unit-0/README.md) complete, [.NET 10 SDK](https://dotnet.microsoft.com/download), Bowire CLI installed
+> **Difficulty:** Beginner | **Duration:** 5 min (CLI) · 10 min (Embedded) | **Prerequisites:** [Unit 0](../../unit-0/README.md) complete, [.NET 10 SDK](https://dotnet.microsoft.com/download), one of CLI install (Path A) or embedded NuGet (Path B)
 
 ## Overview
 
-Run a sample REST API on `localhost`, point the `bowire` CLI at it, invoke a method from the browser UI, see the response. That's the entire workbench loop — same shape no matter which protocol you're working with later.
+Run a sample REST API and invoke its methods from the workbench. Same loop, two ways to wire it:
+
+- **Path A (CLI)** — start the sample on its own port, point `bowire --url …` at it from a second terminal. Same as you did against Petstore in [Lesson 0.3](../../unit-0/lesson-3/README.md), but now against a service on `localhost`.
+- **Path B (Embedded)** — call `AddBowire()` + `MapBowire()` from inside the same sample so the workbench mounts at `/bowire` alongside the API routes. One process, no second terminal, no second port.
+
+Both end up at the same screen — every operation discovered, form-driven invoke. Pick whichever matches your day-to-day; the rest of the bootcamp's wire-level behaviour is identical either way.
 
 ## How auto-discovery works
 
@@ -19,9 +24,9 @@ Bowire never asks you to import a collection or upload a `.proto` file when the 
 
 This lesson exercises the REST flavour.
 
-## Steps
+## Path A — CLI (two-process)
 
-### 1. Start the sample API
+### A1. Start the sample API
 
 ```bash
 cd units/unit-1/lesson-1/sample/HelloApi
@@ -37,7 +42,7 @@ Application started. Press Ctrl+C to shut down.
 
 Leave this terminal open.
 
-### 2. Point Bowire at it
+### A2. Point Bowire at it
 
 Open a second terminal:
 
@@ -53,7 +58,62 @@ This:
 
 The REST plugin probes for an OpenAPI document at the conventional paths, finds the one `.NET 10`'s `MapOpenApi()` generated, parses it, and renders each operation as a method node in the sidebar.
 
-### 3. Invoke a method
+Skip Path B below; jump to **Invoke a method**.
+
+## Path B — Embedded (single-process)
+
+### B1. Add the embedded NuGet to the sample
+
+Open `units/unit-1/lesson-1/sample/HelloApi/HelloApi.csproj` and add the `Kuestenlogik.Bowire` package next to the existing OpenAPI one:
+
+```bash
+cd units/unit-1/lesson-1/sample/HelloApi
+dotnet add package Kuestenlogik.Bowire
+```
+
+### B2. Wire the workbench into `Program.cs`
+
+Edit `Program.cs`. Two changes — one line near the `AddOpenApi()` registration, one line near `MapOpenApi()`:
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddOpenApi();
+builder.Services.AddBowire();        // ← new
+var app = builder.Build();
+
+app.MapOpenApi();
+app.MapBowire();                     // ← new
+
+app.MapGet("/hello/{name}", …);      // your existing routes stay put
+// ...
+app.Run("http://localhost:5001");
+```
+
+`AddBowire()` registers the plugin host into DI; `MapBowire()` mounts the workbench at `/bowire`. Your existing routes stay exactly where they are.
+
+### B3. Run the host
+
+```bash
+dotnet run
+```
+
+You should see:
+
+```
+Now listening on: http://localhost:5001
+Application started. Press Ctrl+C to shut down.
+```
+
+One process now — no second terminal needed. Open <http://localhost:5001/bowire> in your browser. The workbench reads the same OpenAPI document `MapOpenApi()` already serves, plus any further endpoint sources the host registered through DI (gRPC reflection, SignalR hubs, &c.).
+
+> **Note.** Both paths target the same `HelloApi`. If you started with Path A and now want to try Path B, stop the CLI (`Ctrl+C` in the second terminal) and the host (`Ctrl+C` in the first terminal), make the `Program.cs` edits above, then `dotnet run` once. Embedded mode replaces the CLI in this context — the workbench is now part of the host.
+
+## Invoke a method
+
+The next steps are identical on both paths — only the URL differs:
+
+- Path A: <http://localhost:5080/bowire>
+- Path B: <http://localhost:5001/bowire>
 
 In the workbench:
 
@@ -86,7 +146,7 @@ Try **PostEcho** too — the form auto-builds a JSON body editor from the `EchoR
 
 1. **Auto-discovery beats hand-curated collections** — the server already knows its own surface; the workbench just asks.
 2. **Form-driven invoke** — every operation has a form built from the schema. No hand-crafting JSON bodies for the simple cases.
-3. **Two-process model** — your service runs in one terminal, the workbench in another. The workbench is a debugger, not a runtime — it doesn't replace your server.
+3. **Two deployment shapes, same workbench** — CLI mounts a separate process at `localhost:5080/bowire` (great for external targets); embedded mounts the workbench at `/bowire` next to your own routes (great when you're building / debugging your own service). The discovered surface, the invoke form, and the response rendering are identical.
 4. **Same UI primitives across protocols** — what you learn here transfers verbatim to gRPC / GraphQL / MQTT / SignalR / &c.
 
 ## What's Next
