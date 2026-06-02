@@ -1,12 +1,14 @@
 # Lesson 0.3: Hello Bowire
 
-> **Difficulty:** Beginner | **Duration:** 5 min | **Prerequisites:** [Lesson 0.2](../lesson-2/README.md)
+> **Difficulty:** Beginner | **Duration:** 5 min | **Prerequisites:** [Lesson 0.2](../lesson-2/README.md) — Path A (CLI)
 
 ## Overview
 
 Point your freshly-installed `bowire` at a public REST API, watch the workbench discover it, invoke one method. The smallest end-to-end loop that proves the install works — without writing any code or running any sample server yet.
 
 You'll bring your own sample API in [Unit 1.1](../../unit-1/lesson-1/README.md); this lesson uses one that's already on the public web.
+
+> **Embedded users (Path B):** This lesson is CLI-native — pointing the workbench at a public URL is the CLI's day job. Skip ahead to [Unit 1.1](../../unit-1/lesson-1/README.md) which walks the equivalent loop against an in-process service. You can come back to this lesson later if you ever want to drive an external target.
 
 ## Steps
 

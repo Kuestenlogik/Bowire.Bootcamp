@@ -6,6 +6,17 @@ _layout: landing
 
 Welcome to the Bowire Bootcamp — a hands-on tutorial that takes you from your first API call to building, mocking, AI-integrating and shipping protocol plugins for [Bowire](https://bowire.io), Küstenlogik's multi-protocol API workbench.
 
+## Pick your deployment shape
+
+Bowire runs in two shapes; both expose the same workbench. The bootcamp covers both side by side.
+
+| Shape | Best for | Wire-in |
+|---|---|---|
+| **CLI (two-process)** | Pointing at any URL — your own service, a teammate's port-forward, a public API, CI scans, MCP agents | `bowire --url …` after `dotnet tool install --global Kuestenlogik.Bowire.Tool` |
+| **Embedded (single-process)** | Building / debugging your own ASP.NET service — workbench inherits your DI, `[Authorize]` policies, logging, config | `AddBowire()` + `MapBowire()` in `Program.cs` |
+
+[Unit 0 → Lesson 0.1](units/unit-0/lesson-1/README.md) breaks the choice down with diagrams; [Lesson 0.2](units/unit-0/lesson-2/README.md) walks both installs.
+
 ## Getting Started
 
 Choose a [Learning Path](LEARNING_PATHS.md) based on your role:
@@ -21,11 +32,13 @@ Choose a [Learning Path](LEARNING_PATHS.md) based on your role:
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- Bowire CLI (`dotnet tool install --global Kuestenlogik.Bowire.Tool`)
+- **One** of:
+  - Bowire CLI (`dotnet tool install --global Kuestenlogik.Bowire.Tool`), or
+  - The `Kuestenlogik.Bowire` NuGet referenced from your ASP.NET service for embedded mode (`dotnet add package Kuestenlogik.Bowire`)
 - Docker (only for Units 2 + 5)
 - Python 3.10+ (only for Unit 4.2)
 - Claude Desktop or Cursor (only for Unit 3.1)
 
 ## Start Learning
 
-Begin with [Unit 0: Introduction](units/unit-0/README.md) to understand what Bowire is and verify your install.
+Begin with [Unit 0: Introduction](units/unit-0/README.md) to pick your deployment shape and verify the install.
