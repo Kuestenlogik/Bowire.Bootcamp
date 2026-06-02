@@ -6,9 +6,9 @@
 
 Point your freshly-installed `bowire` at a public REST API, watch the workbench discover it, invoke one method. The smallest end-to-end loop that proves the install works — without writing any code or running any sample server yet.
 
-You'll bring your own sample API in [Unit 1.1](../../unit-1/lesson-1/README.md); this lesson uses one that's already on the public web.
+You'll bring your own sample API in [Unit 1 — CLI track Lesson 1.1](../../unit-1-cli/lesson-1/README.md); this lesson uses one that's already on the public web.
 
-> **Embedded users (Path B):** This lesson is CLI-native — pointing the workbench at a public URL is the CLI's day job. Skip ahead to [Unit 1.1](../../unit-1/lesson-1/README.md) which walks the equivalent loop against an in-process service. You can come back to this lesson later if you ever want to drive an external target.
+> **Embedded users:** This lesson is CLI-native — pointing the workbench at a public URL is the CLI's day job. Skip ahead to [Unit 1 — Embedded track Lesson 1.1](../../unit-1-embedded/lesson-1/README.md) which walks the equivalent loop against an in-process service. You can come back to this lesson later if you ever want to drive an external target.
 
 ## Steps
 
@@ -104,7 +104,10 @@ Petstore's REST endpoints are all unary. To see the streaming-pane shape, point 
 
 You're done with Unit 0. Time to bring up your own sample API and drive REST + gRPC side-by-side in the same workbench.
 
-**Continue:** → [Unit 1: Workbench Basics](../../unit-1/README.md)
+**Continue:** Unit 1 — pick your setup track:
+
+- [CLI track](../../unit-1-cli/README.md)
+- [Embedded track](../../unit-1-embedded/README.md)
 
 ## Reference
 

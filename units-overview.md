@@ -5,7 +5,7 @@
 | Unit | Title | Lessons |
 |------|-------|---------|
 | [Unit 0](units/unit-0/README.md) | Introduction | 3 |
-| [Unit 1](units/unit-1/README.md) | Workbench Basics | 2 |
+| Unit 1 — pick one track: [CLI](units/unit-1-cli/README.md) or [Embedded](units/unit-1-embedded/README.md) | Workbench Basics — setup track for your deployment shape | 2 per track |
 
 ## Record, Replay, Mock (Unit 2)
 

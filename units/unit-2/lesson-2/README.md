@@ -23,7 +23,7 @@ The end state: a self-contained mock server that stands in for the real backend 
 If the Lesson 1.1 sample isn't already up:
 
 ```bash
-cd ../../unit-1/lesson-1/sample/HelloApi
+cd ../../unit-1-samples/HelloApi
 dotnet run                                # → http://localhost:5001
 ```
 

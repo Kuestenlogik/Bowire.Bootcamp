@@ -1,6 +1,6 @@
 # Lesson 2.1: Record & Replay
 
-> **Difficulty:** Beginner | **Duration:** 10 min | **Prerequisites:** [Lesson 1.1](../../unit-1/lesson-1/README.md) (Lesson 1.2 optional)
+> **Difficulty:** Beginner | **Duration:** 10 min | **Prerequisites:** Unit 1 Lesson 1.1 — [CLI track](../../unit-1-cli/lesson-1/README.md) or [Embedded track](../../unit-1-embedded/lesson-1/README.md) (Lesson 1.2 optional)
 
 ## Overview
 
@@ -19,7 +19,7 @@ The **mock-replay step** is shared. `bowire mock --recording <file>` runs as a s
 ### A1. Start the REST API from Lesson 1.1
 
 ```bash
-cd ../../unit-1/lesson-1/sample/HelloApi
+cd ../../unit-1-samples/HelloApi
 dotnet run
 ```
 
@@ -58,7 +58,7 @@ Skip Path B below; jump to **Run the mock server**.
 ### B1. Run the embedded `HelloApi` from Lesson 1.1
 
 ```bash
-cd units/unit-1/lesson-1/sample/HelloApi
+cd units/unit-1-samples/HelloApi
 dotnet run
 ```
 
