@@ -11,6 +11,8 @@ Fold Bowire into CI. Two complementary patterns fall out once you have a `.bwr` 
 
 You'll wire both into a single GitHub Actions workflow.
 
+> **CI is CLI-only.** Lesson 5.1 walks the CLI path because CI agents run discrete test commands against the *deployed* service over the wire — there's no embedded host to mount the workbench into at CI time. The deployed service itself might run embedded Bowire in dev / staging (the [Embedded Backend Workflow path](../../LEARNING_PATHS.md#6-embedded-backend-workflow) covers that part of the loop); CI's job is to verify what the deploy artefact exposes, with no Bowire inside it.
+
 ## Steps
 
 ### 1. Convert a recording into an assertion suite
