@@ -8,11 +8,13 @@ A mock is most useful when consumers can see two things at once: the **full cont
 
 This lesson closes the gap. You'll:
 
-1. Export the live API's OpenAPI document with `bowire export openapi`.
+1. Get the live API's OpenAPI document — `bowire export openapi` from outside, or read the host's own `MapOpenApi()` output from inside.
 2. Capture a recording that carries the source schema verbatim (workbench captures this automatically as of v1.7).
 3. Run the recording as a mock — and watch the mock re-emit `/openapi.json` to peer-discovery clients, exposing the full surface, not just the replayed slice.
 
 The end state: a self-contained mock server that stands in for the real backend completely, **including the schema endpoint** anyone who wires up a Bowire / Swagger UI / contract-test runner against it expects to find.
+
+> **Path-split is narrow this lesson.** Only "get the OpenAPI" (Step 2) differs by deployment shape. Mock-replay and peer-discovery are wire-level features of the standalone mock process — independent of how the recording got captured.
 
 ## Steps
 
@@ -25,7 +27,9 @@ cd ../../unit-1/lesson-1/sample/HelloApi
 dotnet run                                # → http://localhost:5001
 ```
 
-### 2. Export the live OpenAPI
+### 2. Get the OpenAPI document
+
+#### Path A — `bowire export` from outside
 
 In a second terminal:
 
@@ -43,6 +47,20 @@ The CLI:
 Open the file — three operations (`GetGreeting`, `PostEcho`, `GetHealth`) plus the component schemas. Same shape as the real `MapOpenApi()` output, but built from Bowire's discovery rather than the host's reflection.
 
 > Try `bowire export openapi http://localhost:5001 --format json` if you prefer JSON, or `bowire export asyncapi <messaging-url>` for AsyncAPI when you're working over MQTT / NATS / Kafka.
+
+#### Path B — read it straight off the host
+
+Embedded `HelloApi` already exposes its own OpenAPI through `MapOpenApi()`. Grab it directly:
+
+```bash
+curl -sSL http://localhost:5001/openapi/v1.json -o hello.openapi.json
+# YAML form if you'd rather diff it as YAML
+bowire export openapi http://localhost:5001 --output hello.openapi.yaml   # still works embedded
+```
+
+The host's own `MapOpenApi()` output is the canonical contract — Bowire's `bowire export` produces the same document via discovery, so either source is fine. The difference is conceptual: in embedded mode you already *have* the contract by design; the export is useful when you want the YAML / JSON file on disk for diff-against-prod / contract-test pipelines.
+
+> When does `bowire export` add value in embedded mode? When the contract isn't OpenAPI-native — for messaging plugins (MQTT / NATS / Kafka) Bowire's AsyncAPI export is the only way to materialise the contract as a file, because `MapBowire()` discovers the channels but the host doesn't render an `/asyncapi.yaml` of its own.
 
 ### 3. Use the bundled sample recording with embedded schema
 
@@ -151,6 +169,7 @@ Now the team that codes against the mock sees the gap explicitly: GetHealth is i
 2. **The mock serves the schema back at conventional URLs.** `/openapi.json`, `/openapi.yaml`, `/swagger.json` for REST; `/asyncapi.yaml` / `.yml` / `.json` for messaging.
 3. **Peer discovery against the mock returns the full surface.** Consumers see *what the API claims to do*, not just *what the recording happens to replay*.
 4. **`x-bowire-coverage` makes the gap explicit.** `bowire export ... --recording <file>` annotates every operation with `recorded: true/false` + `stepCount`, so consumers can plan around the replay gap.
+5. **Embedded hosts already have the OpenAPI** via their own `MapOpenApi()`; `bowire export` is the way to get the equivalent for messaging contracts (AsyncAPI from MQTT / NATS / Kafka plugins) since hosts don't render those natively.
 
 ## What's Next
 
