@@ -67,6 +67,20 @@ Or complete all units in order for the full picture (~3 hours).
 
 ## Curriculum
 
+Six units plus a capstone — ~2 hours end-to-end if you walk every lesson, half that if you skip the optional protocol-plugin authoring (Unit 4).
+
+| Unit | Topic | Time | Lessons |
+|---|---|---|---|
+| [Unit 0](units/unit-0/README.md) | **Introduction.** What Bowire is, install verification, your first call against a public REST API. | ~30 min | 3 |
+| Unit 1 — pick one track: [CLI](units/unit-1-cli/README.md) or [Embedded](units/unit-1-embedded/README.md) | **Workbench Basics.** REST + gRPC discovered side-by-side; walked through the deployment shape that matches your service. | ~15 min | 2 per track |
+| [Unit 2](units/unit-2/README.md) | **Record, Replay, Mock.** Capture sessions, replay through `bowire mock`, attach the source schema so peer workbenches discover the *full* contract. | ~20 min | 2 |
+| [Unit 3](units/unit-3/README.md) | **AI-Agent Integration.** Hand the workbench to Claude Desktop / Cursor over MCP. | ~10 min | 1 |
+| [Unit 4](units/unit-4/README.md) | **Extending Bowire.** Author your own protocol plugin — once in .NET, once in Python. *Optional unless you're authoring plugins.* | ~30 min | 2 |
+| [Unit 5](units/unit-5/README.md) | **CI Integration.** `bowire test` as a regression-test runner, mock-server as a job service. | ~15 min | 1 |
+| [Capstone](capstone/README.md) | **Multi-Protocol API Tour.** End-to-end scenario combining recording, mocking, plugins, and CI. | ~30 min | 1 |
+
+Detail per unit follows below — pick a row above to jump straight in.
+
 ### Unit 0: Introduction
 *Time: ~30 minutes*
 
