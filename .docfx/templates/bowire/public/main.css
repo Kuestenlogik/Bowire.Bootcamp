@@ -1620,14 +1620,12 @@ nav#affix .nav-link:hover {
     font-size: 0.8125rem;
     color: var(--bs-tertiary-color);
 }
-/* Inline legal nav — sits on the same line as the © label with
-   middle-dot separators so the line reads as a single compact
-   "legal strip" rather than three disconnected anchors. */
-.bowire-docs-footer-legal { display: inline; }
-.bowire-docs-footer-legal::before { content: " · "; margin: 0 4px; }
-.bowire-docs-footer-legal a { color: inherit; text-decoration: none; }
-.bowire-docs-footer-legal a + a::before { content: " · "; margin: 0 4px; }
-.bowire-docs-footer-legal a:hover { color: var(--bowire-accent); }
+/* Inline legal strip — © + Legal + Privacy on one line. Separators
+   are literal HTML &middot;'s in the markup (explicit beats CSS
+   pseudo-elements + survives screen-reader linearisation). */
+.bowire-docs-footer-legal-sep { margin: 0 4px; opacity: 0.5; }
+.bowire-docs-footer-legal-link { color: inherit; text-decoration: none; }
+.bowire-docs-footer-legal-link:hover { color: var(--bowire-accent); }
 
 @media (max-width: 768px) {
     .bowire-docs-footer-top {
