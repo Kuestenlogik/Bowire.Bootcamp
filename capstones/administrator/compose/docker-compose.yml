@@ -1,0 +1,116 @@
+# Administrator capstone — compose starter.
+#
+# Fill in the four GAPS marked with `# GAP:`. The reference solution
+# under ../solution/docker-compose.yml has them all populated for a
+# laptop run.
+#
+# Image tags are pinned. Bump them deliberately; don't track `latest`.
+
+services:
+
+  bowire:
+    image: kuestenlogik/bowire:2.1.0
+    # The Tool image exposes :5080 (see
+    # src/Kuestenlogik.Bowire.Tool/Kuestenlogik.Bowire.Tool.csproj
+    # ContainerPort element in main Bowire). Keep it inside the
+    # compose network — Caddy fronts it.
+    expose:
+      - "5080"
+    environment:
+      # GAP 1 — point Bowire at the right OIDC issuer.
+      - BOWIRE_Bowire__Auth__ProviderId=oidc
+      - BOWIRE_Bowire__Auth__Oidc__Authority=        # GAP: e.g. https://login.example.com/
+      - BOWIRE_Bowire__Auth__Oidc__ClientId=         # GAP: your registered confidential client id
+      # Optional — gate by a group / tenant claim. Remove if you want
+      # any authenticated user.
+      # - BOWIRE_Bowire__Auth__Oidc__RequiredClaim__groups=bowire-users
+
+      # GAP 2 — OTLP endpoint for traces + metrics. Bowire honours the
+      # standard OTEL_* env vars (see
+      # BowireTelemetryServiceCollectionExtensions.cs).
+      - BOWIRE_Bowire__Telemetry__Enabled=true
+      - BOWIRE_Bowire__Telemetry__StripMethodLabels=true
+      - OTEL_EXPORTER_OTLP_ENDPOINT=                 # GAP: typically http://tempo:4317
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_SERVICE_NAME=bowire
+
+      # GAP 3 — plugin disable list. The Tool ships every first-party
+      # plugin via Bundle.Workbench; some may not pass your team's
+      # compliance posture. Names are protocol plugin ids; see
+      # BrowserUiOptions.DisabledPlugins binding + --disable-plugin flag.
+      - BOWIRE_Bowire__DisabledPlugins__0=           # GAP: e.g. soap
+      - BOWIRE_Bowire__DisabledPlugins__1=           # GAP: e.g. pulsar
+    volumes:
+      # ~/.bowire/ in the container. Workspaces, recordings, plugin
+      # cache live here. Mount a named volume so a container restart
+      # doesn't wipe state.
+      - bowire-data:/home/app/.bowire
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://loki:3100/loki/api/v1/push"
+        loki-retries: "5"
+        loki-batch-size: "400"
+    depends_on:
+      - tempo
+      - loki
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data       # Let's Encrypt account + cert storage
+      - caddy-config:/config
+    environment:
+      # GAP 4 — public hostname Caddy serves. Drives both the TLS
+      # certificate Caddy requests and the OIDC redirect URI's host.
+      - BOWIRE_PUBLIC_HOST=                         # GAP: e.g. bowire.team.example
+    depends_on:
+      - bowire
+
+  tempo:
+    image: grafana/tempo:2.5.0
+    command:
+      - "-config.file=/etc/tempo.yaml"
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml:ro
+      - tempo-data:/var/tempo
+    expose:
+      - "4317"  # OTLP/gRPC receive
+
+  loki:
+    image: grafana/loki:3.0.0
+    command:
+      - "-config.file=/etc/loki/local-config.yaml"
+    expose:
+      - "3100"
+
+  grafana:
+    image: grafana/grafana-oss:11.0.0
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana_admin_password
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml:ro
+    secrets:
+      - grafana_admin_password
+    depends_on:
+      - tempo
+      - loki
+
+volumes:
+  bowire-data:
+  caddy-data:
+  caddy-config:
+  tempo-data:
+  grafana-data:
+
+secrets:
+  grafana_admin_password:
+    # GAP optional: replace with `external: true` + a real secret. For
+    # laptop iteration the file form is fine.
+    file: ./secrets/grafana_admin_password.txt

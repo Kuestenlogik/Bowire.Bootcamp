@@ -1,0 +1,26 @@
+# Minimal Tempo config — receives OTLP/gRPC on :4317, stores traces
+# locally, no auth. Adequate for a 5-person internal-tools deploy;
+# swap to S3 / GCS / Azure Blob for retention beyond the volume's
+# lifetime.
+
+server:
+  http_listen_port: 3200
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+
+ingester:
+  trace_idle_period: 10s
+  max_block_duration: 5m
+
+storage:
+  trace:
+    backend: local
+    local:
+      path: /var/tempo/blocks
+    wal:
+      path: /var/tempo/wal

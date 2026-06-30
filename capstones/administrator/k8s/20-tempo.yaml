@@ -1,0 +1,62 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tempo-config
+  namespace: bowire
+data:
+  tempo.yaml: |
+    server:
+      http_listen_port: 3200
+    distributor:
+      receivers:
+        otlp:
+          protocols:
+            grpc:
+              endpoint: 0.0.0.0:4317
+    ingester:
+      trace_idle_period: 10s
+      max_block_duration: 5m
+    storage:
+      trace:
+        backend: local
+        local: { path: /var/tempo/blocks }
+        wal:   { path: /var/tempo/wal }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tempo
+  namespace: bowire
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: tempo } }
+  template:
+    metadata: { labels: { app: tempo } }
+    spec:
+      containers:
+        - name: tempo
+          image: grafana/tempo:2.5.0
+          args: ["-config.file=/etc/tempo.yaml"]
+          ports:
+            - { name: otlp-grpc, containerPort: 4317 }
+            - { name: http,      containerPort: 3200 }
+          volumeMounts:
+            - { name: config, mountPath: /etc/tempo.yaml, subPath: tempo.yaml }
+            - { name: data,   mountPath: /var/tempo }
+      volumes:
+        - name: config
+          configMap: { name: tempo-config }
+        - name: data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tempo
+  namespace: bowire
+spec:
+  selector: { app: tempo }
+  ports:
+    - { name: otlp-grpc, port: 4317, targetPort: 4317 }
+    - { name: http,      port: 3200, targetPort: 3200 }
