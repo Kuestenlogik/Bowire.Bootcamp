@@ -23,7 +23,7 @@
 
 | Unit | Title | Lessons |
 |------|-------|---------|
-| [Unit 4](units/unit-4/README.md) | Protocol Plugins (.NET + Polyglot) | 2 |
+| [Unit 4](units/unit-4/README.md) | Extension Seams — Protocol Plugins, Interceptor, UI Extensions | 4 |
 
 ## Production (Unit 5)
 
