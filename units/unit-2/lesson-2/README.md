@@ -9,7 +9,7 @@ A mock is most useful when consumers can see two things at once: the **full cont
 This lesson closes the gap. You'll:
 
 1. Get the live API's OpenAPI document — `bowire export openapi` from outside, or read the host's own `MapOpenApi()` output from inside.
-2. Capture a recording that carries the source schema verbatim (workbench captures this automatically as of v1.7).
+2. Capture a recording that carries the source schema verbatim (workbench captures this automatically — has done since v1.7; the v2.1 **Recordings** rail surfaces the same capture flow).
 3. Run the recording as a mock — and watch the mock re-emit `/openapi.json` to peer-discovery clients, exposing the full surface, not just the replayed slice.
 
 The end state: a self-contained mock server that stands in for the real backend completely, **including the schema endpoint** anyone who wires up a Bowire / Swagger UI / contract-test runner against it expects to find.
@@ -62,7 +62,7 @@ You'll see a `sourceSchema` block at the top:
 }
 ```
 
-Workbench-captured recordings (Lesson 2.1 style) auto-attach this block in v1.7+ — the workbench's recorder pulls the discovery cache's verbatim schema text into the recording when it saves through `PUT /api/recordings`. No user action needed.
+Workbench-captured recordings (Lesson 2.1 style) auto-attach this block (since v1.7; unchanged through v2.1's Recordings-rail rewrite) — the workbench's recorder pulls the discovery cache's verbatim schema text into the recording when it saves through `PUT /api/recordings`. No user action needed.
 
 The Lesson 2.2 sample also deliberately includes **only 2 of the 3 contract operations** (`GetGreeting` + `PostEcho`, no `GetHealth`) so you can see the coverage-gap story.
 
@@ -146,7 +146,7 @@ Now the team that codes against the mock sees the gap explicitly: GetHealth is i
 
 ## Key Takeaways
 
-1. **Recordings carry the original schema verbatim.** Workbench-captured `.bwr` files auto-attach the OpenAPI / AsyncAPI source text as of v1.7. Hand-written recordings can include the `sourceSchema` block too (see the sample).
+1. **Recordings carry the original schema verbatim.** Workbench-captured `.bwr` files auto-attach the OpenAPI / AsyncAPI source text (since v1.7; the v2.1 **Recordings** rail surfaces the same capture flow). Hand-written recordings can include the `sourceSchema` block too (see the sample).
 2. **The mock serves the schema back at conventional URLs.** `/openapi.json`, `/openapi.yaml`, `/swagger.json` for REST; `/asyncapi.yaml` / `.yml` / `.json` for messaging.
 3. **Peer discovery against the mock returns the full surface.** Consumers see *what the API claims to do*, not just *what the recording happens to replay*.
 4. **`x-bowire-coverage` makes the gap explicit.** `bowire export ... --recording <file>` annotates every operation with `recorded: true/false` + `stepCount`, so consumers can plan around the replay gap.

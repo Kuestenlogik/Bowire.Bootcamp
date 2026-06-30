@@ -84,10 +84,10 @@ This is where `bowire plugin install` lays out installed-from-NuGet plugins (Uni
 | Path | What's there |
 |---|---|
 | `~/.bowire/plugins/` | User-installed plugins (Unit 4) |
-| `~/.bowire/recordings.json` | Recording store (Unit 2.1) |
-| `~/.bowire/environments.json` | Saved environments / variables (workbench UI) |
+| `~/.bowire/recordings.json` | Recording store (Unit 2.1) — backs the **Recordings** rail |
+| `~/.bowire/workspaces.json` | Saved **Workspaces** (v2.x replacement for the old "environments" concept — env vars are now workspace-scoped, lives in the **Workspaces** rail) |
 | `~/.bowire/secrets/` | Encrypted secret store for `--auth-provider` plugins |
-| `~/.bowire/config.json` | Per-user defaults (overridable per-invocation via `--config`) |
+| `~/.bowire/config.json` | Per-user defaults (overridable per-invocation via `--config`, or in-product via the **Settings** rail → System → Defaults) |
 
 The directory is created lazily — most files don't exist until you produce them through the workbench.
 
@@ -112,7 +112,9 @@ You'll end up with a `Program.cs`, a `BowireEmbeddedHost.csproj`, and a default 
 dotnet add package Kuestenlogik.Bowire
 ```
 
-This is the embedded-mode package — it pulls in the workbench host + every bundled protocol plugin. Same plugin surface as the CLI, no separate distribution.
+This is Bowire's **Core** package — workbench host, plugin infrastructure, the Compose / Recordings / Mocks / Flows / Workspaces / Settings rail surface. Same plugin surface the CLI exposes.
+
+> **Post-v2.1 packaging note (Welle 2):** the per-rail siblings — `Kuestenlogik.Bowire.Compose`, `.Recordings`, `.Mock`, `.Flows`, `.Interceptor`, `.Benchmarking`, `.Help`, `.Workspaces`, `.Map` — ship as separate NuGets (the `Rail.` prefix was dropped). Reference `Kuestenlogik.Bowire.Bundle.Workbench` for the full Tool-equivalent surface, or pick per-package for a slimmer embed (e.g. just `Kuestenlogik.Bowire` + `.Compose` for "tiny embedded probe" deploys; Bundle.Minimal carries Core + Home + Discover only). The lesson examples below all work against either bare `Kuestenlogik.Bowire` or `Bundle.Workbench`.
 
 ### B3. Wire it up in `Program.cs`
 
@@ -143,7 +145,7 @@ Open <http://localhost:5000/bowire> in your browser (or whatever port Kestrel pr
 
 ### B5. Discovery in embedded mode is in-process
 
-Embedded mode doesn't need a `~/.bowire/plugins/` directory — every plugin ships in-package with `Kuestenlogik.Bowire`. State (recordings, environments, secrets) is per-process by default and survives restarts via the host's regular config / data tier — not a process-wide `~/.bowire/` tree.
+Embedded mode doesn't need a `~/.bowire/plugins/` directory — every plugin ships in-package with `Kuestenlogik.Bowire`. State (recordings, Workspaces, secrets) is per-process by default and survives restarts via the host's regular config / data tier — not a process-wide `~/.bowire/` tree.
 
 If you want to add a plugin that isn't bundled, reference its NuGet next to `Kuestenlogik.Bowire` and the host's `AssemblyLoadContext` picks it up automatically. No `bowire plugin install` step.
 
@@ -163,7 +165,7 @@ If you want to add a plugin that isn't bundled, reference its NuGet next to `Kue
 ## Key Takeaways
 
 1. **One tool, every protocol.** Bundled plugins ship in the same NuGet (`Kuestenlogik.Bowire.Tool` for CLI, `Kuestenlogik.Bowire` for embedded) — no per-protocol install step on either path.
-2. **CLI state lives under `~/.bowire/`.** Plugins, recordings, environments, secrets — all under the user's home directory. Embedded mode skips that; state lives in the host process.
+2. **CLI state lives under `~/.bowire/`.** Plugins, recordings, **Workspaces** (v2.x replacement for the v1.x "environments" concept — env vars are now workspace-scoped), secrets — all under the user's home directory. Embedded mode skips that; state lives in the host process.
 3. **Embedded is two lines: `AddBowire()` + `MapBowire()`.** No separate distribution, no companion container.
 4. **The two paths are not exclusive.** Most teams have both — embedded for their own service, CLI for external targets and scripted use cases.
 5. **Updates differ by path.** CLI: `dotnet tool update -g Kuestenlogik.Bowire.Tool`. Embedded: bump the `Kuestenlogik.Bowire` PackageReference + redeploy.

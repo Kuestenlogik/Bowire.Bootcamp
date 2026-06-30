@@ -84,6 +84,8 @@ Petstore's REST endpoints are all unary. To see the streaming-pane shape, point 
 
 `Ctrl+C` in the terminal running `bowire`. The browser tab disconnects; nothing else to clean up.
 
+> **Finding help in-product.** Every rail surfaces its own help topics through the **Help rail** (the `?` icon at the bottom of the rail strip — promoted from a drawer to a top-level rail in v2.1). Hit `F1` from anywhere to open the per-rail topic drawer, or click the rail directly. Each rail's empty state also pops a guided tour for the first-time path.
+
 ## Troubleshooting
 
 | Symptom | Fix |

@@ -66,7 +66,21 @@ Most teams use **both**, in different contexts. This bootcamp covers the CLI pat
 
 ## Why a "workbench" instead of an "API client"?
 
-A workbench has more in mind than firing a request and inspecting the response:
+A workbench has more in mind than firing a request and inspecting the response. The v2.1 UI surfaces these capabilities as a **vertical rail strip** down the left edge — one rail per major activity:
+
+| Rail | Purpose |
+|---|---|
+| **Compose** | Hoppscotch-style request builder + per-protocol layouts + history + Collections + Presets |
+| **Recordings** | Capture → replay → export `.bwr` files (Unit 2.1) |
+| **Mocks** | Run recordings as stand-in services (Unit 2.2) |
+| **Flows** | Compose multi-step request flows |
+| **Interceptor** | Transparent middleware capture of host traffic (replaces v2.0's Proxy + Intercepted + Traffic rails) |
+| **Benchmarking** | Replay any historical request as a benchmark |
+| **Help** | In-product topic drawer + guided tours (per-rail) |
+| **Workspaces** | The workspace picker + per-workspace env vars (v2.x replacement for the v1.x "environments" concept) |
+| **Settings** | System + Plugins + Rails configuration |
+
+Throughout the bootcamp we name the rails explicitly so a v2.1 reader can click straight to the right surface. The full set + capability matrix:
 
 | Capability | What it means in Bowire |
 |---|---|
