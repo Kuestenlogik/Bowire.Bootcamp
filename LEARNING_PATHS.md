@@ -37,7 +37,7 @@ The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The
 
 **Audience entry:** "I want Bowire *inside* my service, and/or I want to ship something *on top of* Bowire."
 
-**Duration:** ~120 min · **Units touched:** 0, 1, 3, 4
+**Duration:** ~160 min · **Units touched:** 0, 1, 3, 4
 
 | # | Lesson | Why it matters |
 |---|---|---|
@@ -48,8 +48,8 @@ The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The
 | 5 | [Unit 3.1 — AI-Agent integration (Path B)](units/unit-3/lesson-1/README.md) | `MapBowireMcpAdapter()` embedded MCP |
 | 6 | [Unit 4.1 — .NET protocol plugin](units/unit-4/lesson-1/README.md) | `IBowireProtocol`, nupkg, `PackageReference` tab |
 | 7 | [Unit 4.2 — Python sidecar plugin](units/unit-4/lesson-2/README.md) | polyglot escape hatch, sidecar zip |
-| 8 | *Unit 4.3 — Interceptor / middleware* | **proposed for PR 4** — fills the v2.1 coverage gap |
-| 9 | *Unit 4.4 — Map widget / semantic kinds* | **proposed for PR 4** — fills the v2.1 coverage gap |
+| 8 | [Unit 4.3 — Interceptor / middleware](units/unit-4/lesson-3/README.md) | `app.UseBowireInterceptor()`, the Intercepted rail, `BowireInterceptorOptions` |
+| 9 | [Unit 4.4 — Map widget / semantic kinds](units/unit-4/lesson-4/README.md) | `IBowireUiExtension`, `[BowireExtension]`, `coordinate.wgs84` auto-mount |
 
 → Terminates in the [**Developer capstone**](capstones/developer/README.md): ship your own Bowire plugin as a NuGet package.
 
