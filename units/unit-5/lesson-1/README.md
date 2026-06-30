@@ -172,7 +172,7 @@ Recordings drift. A captured `.bwr` is a frozen baseline, and the backend it was
 
 Unit 5 ends the curriculum proper. The capstone weaves recording + mock + AI + plugin + CI into one continuous scenario.
 
-**Continue:** → [Capstone: Multi-Protocol API Tour](../../../capstone/README.md)
+**Continue:** → [Developer capstone: Multi-Protocol API Tour](../../../capstones/developer/README.md)
 
 ## Reference
 

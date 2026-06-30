@@ -5,7 +5,7 @@
 | Unit | Title | Lessons |
 |------|-------|---------|
 | [Unit 0](units/unit-0/README.md) | Introduction | 3 |
-| Unit 1 — pick one track: [CLI](units/unit-1-cli/README.md) or [Embedded](units/unit-1-embedded/README.md) | Workbench Basics — setup track for your deployment shape | 2 per track |
+| [Unit 1](units/unit-1/README.md) | Workbench Basics — shape (CLI vs Embedded) is a setup tab inside each lesson | 2 |
 
 ## Record, Replay, Mock (Unit 2)
 
@@ -31,8 +31,10 @@
 |------|-------|---------|
 | [Unit 5](units/unit-5/README.md) | CI Integration | 1 |
 
-## Capstone
+## Capstones (one per audience)
 
-| Project | Title |
-|---------|-------|
-| [Capstone](capstone/README.md) | Multi-Protocol API Tour — End-to-end Bowire scenario |
+| Capstone | Audience |
+|---------|----------|
+| [User](capstones/user/README.md) | Workbench & API operator — `.bww` workspace + diagnosis runbook |
+| [Developer](capstones/developer/README.md) | Embed & extend — ship a NuGet plugin |
+| [Administrator](capstones/administrator/README.md) | Deploy & run — `docker-compose.yml` / k8s + production runbook |

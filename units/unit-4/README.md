@@ -1,12 +1,12 @@
 # Unit 4: Extending Bowire
 
-*Time: ~30 minutes • Lessons: 2 • Previous: Unit 1 — [CLI track](../unit-1-cli/README.md) or [Embedded track](../unit-1-embedded/README.md)*
+*Time: ~30 minutes • Lessons: 2 • Previous: [Unit 1](../unit-1/README.md)*
 
 Author your own protocol plugin — once in .NET (in-process `IBowireProtocol` implementation, ships as a NuGet package), once in Python (sidecar plugin, ships as a zip with `sidecar.json` at its root). Same workbench, same install command, different language under the hood.
 
 ## Prerequisites
 
-- Unit 1 complete on either track ([CLI](../unit-1-cli/README.md) or [Embedded](../unit-1-embedded/README.md)) — you need a feel for how the host renders a discovered protocol before writing one.
+- [Unit 1](../unit-1/README.md) complete in either shape (CLI or Embedded — the setup tab inside each Unit 1 lesson) — you need a feel for how the host renders a discovered protocol before writing one.
 - [.NET 10 SDK](https://dotnet.microsoft.com/download) + Bowire CLI.
 - `dotnet new bowire-plugin` template installed:
   ```bash

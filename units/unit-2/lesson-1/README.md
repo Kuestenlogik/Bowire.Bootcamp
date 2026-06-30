@@ -1,6 +1,6 @@
 # Lesson 2.1: Record & Replay
 
-> **Difficulty:** Beginner | **Duration:** 10 min | **Prerequisites:** Unit 1 Lesson 1.1 — [CLI track](../../unit-1-cli/lesson-1/README.md) or [Embedded track](../../unit-1-embedded/lesson-1/README.md) (Lesson 1.2 optional)
+> **Difficulty:** Beginner | **Duration:** 10 min | **Prerequisites:** [Unit 1 Lesson 1.1](../../unit-1/lesson-1/README.md) (CLI or Embedded shape — both work; Lesson 1.2 optional)
 
 ## Overview
 

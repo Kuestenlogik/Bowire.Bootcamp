@@ -28,7 +28,7 @@ You build it with Bowire.
 
 Everything you need is already in the bootcamp:
 
-- The [Harbor Tour sample](#) (TBD — to be added under `capstone/sample/`) — runnable .NET app exposing the three protocols, used to record a representative session against.
+- The [Harbor Tour sample](#) (TBD — to be added under `capstones/developer/sample/`) — runnable .NET app exposing the three protocols, used to record a representative session against.
 - The DocFX site's [Architecture diagram](#) (TBD — to be added under `ARCHITECTURE.md`).
 - The [Requirements list](#) (TBD — to be added under `REQUIREMENTS.md`).
 

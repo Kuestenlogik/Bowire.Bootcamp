@@ -28,4 +28,4 @@ Unit 5 wires both into a GitHub Actions workflow.
 
 ---
 
-**Next:** → [Capstone](../../capstone/README.md)
+**Next:** → [Capstones](../../capstones/) (per-audience deliverable — Developer capstone is the established one; User + Administrator capstones are scaffolds being filled in PR 3)

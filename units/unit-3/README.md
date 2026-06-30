@@ -1,12 +1,12 @@
 # Unit 3: AI-Agent Integration
 
-*Time: ~10 minutes • Lessons: 1 • Previous: Unit 1 — [CLI track](../unit-1-cli/README.md) or [Embedded track](../unit-1-embedded/README.md)*
+*Time: ~10 minutes • Lessons: 1 • Previous: [Unit 1](../unit-1/README.md)*
 
 Wire the workbench into a language model over MCP. The agent gains a `bowire.discover` / `bowire.invoke` / `bowire.recordings.list` toolset and can drive any of your APIs in plain English.
 
 ## Prerequisites
 
-- Unit 1 complete on either track ([CLI](../unit-1-cli/README.md) or [Embedded](../unit-1-embedded/README.md)) — understand the discovery + invoke surface before handing it to an agent.
+- [Unit 1](../unit-1/README.md) complete in either shape (CLI or Embedded — the setup tab inside each Unit 1 lesson) — understand the discovery + invoke surface before handing it to an agent.
 - **Claude Desktop** *or* **Cursor** installed locally. Any other MCP-aware host (custom MCP gateway, Continue.dev, &c) works too — the config snippet is portable; only the location of the `mcpServers` config file changes.
 - The Unit 1 sample servers (`HelloApi` + `HelloGrpc`) ideally still running — the lesson drives the agent against them.
 
