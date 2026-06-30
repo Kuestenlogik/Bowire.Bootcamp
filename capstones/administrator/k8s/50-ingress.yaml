@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bowire
+  namespace: bowire
+  annotations:
+    # Adjust to your cluster's controller. The starter assumes
+    # nginx-ingress + cert-manager.
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "32m"   # recording uploads
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts: ["bowire.team.example"]     # GAP: your public hostname
+      secretName: bowire-tls
+  rules:
+    - host: bowire.team.example          # GAP: your public hostname
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: bowire
+                port: { number: 80 }

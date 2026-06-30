@@ -1,0 +1,60 @@
+{
+  "format": "bowire-workspace",
+  "version": 2,
+  "exportedAt": "2026-06-30T12:00:00.0000000+00:00",
+  "workspace": {
+    "id": "checkout-flake",
+    "name": "checkout-flake",
+    "color": "#6366f1",
+    "description": "User capstone reference workspace — three-hop diagnosis of a flaky checkout endpoint.",
+    "pluginPins": null
+  },
+  "data": {
+    "urls": [
+      "http://localhost:5301",
+      "grpc@http://localhost:5302",
+      "ws://localhost:5303/orders/stream"
+    ],
+    "urlMeta": {
+      "http://localhost:5301": { "label": "Checkout (REST)" },
+      "grpc@http://localhost:5302": { "label": "Inventory (gRPC)" },
+      "ws://localhost:5303/orders/stream": { "label": "Order status (WebSocket)" }
+    },
+    "environments": [],
+    "activeEnvironmentId": null,
+    "globals": {},
+    "collections": [
+      {
+        "id": "tab-checkout-happy",
+        "name": "checkout — happy path",
+        "url": "http://localhost:5301",
+        "method": "POST /api/checkout",
+        "body": "{ \"items\": [{ \"sku\": \"WIDGET-001\", \"qty\": 1 }], \"buyer\": \"ada\" }"
+      },
+      {
+        "id": "tab-reserve-direct",
+        "name": "reserve — direct probe",
+        "url": "grpc@http://localhost:5302",
+        "method": "inventory.Inventory/Reserve",
+        "body": "{ \"sku\": \"WIDGET-001\", \"quantity\": 1 }"
+      },
+      {
+        "id": "tab-orderstream",
+        "name": "order status — subscribe",
+        "url": "ws://localhost:5303/orders/stream",
+        "method": "orders/stream"
+      }
+    ],
+    "recordings": [
+      {
+        "id": "flake-session-1",
+        "name": "flake-session-1",
+        "note": "Captured against the live scenario stack; 20+ checkout calls, 10 direct Reserve probes, 30 s of order-status frames. The reference RUNBOOK.md cites step ids from this recording."
+      }
+    ],
+    "scripts": [],
+    "flows": [],
+    "presets": {},
+    "requestBuilderHistory": []
+  }
+}

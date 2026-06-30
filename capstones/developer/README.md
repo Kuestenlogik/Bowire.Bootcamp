@@ -1,8 +1,12 @@
-# Capstone: Multi-Protocol API Tour
+# Developer capstone: Ship a Bowire plugin (and use it on a multi-protocol stack)
 
-*Difficulty: Intermediate • Time: ~2 hours • Prerequisites: [Unit 1–5](../README.md#curriculum) complete*
+*Difficulty: Intermediate • Time: ~2 hours • Prerequisites: [Units 0–5](../../units/README.md) complete*
 
-The capstone weaves every Bowire mechanic the bootcamp covered into one continuous scenario: discover a multi-protocol API surface, capture a representative session, replay the recording as a stand-in for the real backend, expose the stand-in through the agent integration, and ship the whole thing as a CI fixture.
+The Developer audience's capstone is **shipping a Bowire plugin**: a NuGet package implementing one of the v2.1 extension points — a protocol plugin (most common), a UI extension, a rail contribution, or a Settings module. You build the plugin against a realistic multi-protocol scenario ("Harbor Tour" below); the plugin is the deliverable that proves you can extend Bowire, the scenario is the stage that proves it lights up in a real workbench.
+
+You then weave the plugin into the rest of the toolchain: capture a representative session as a `.bwr` recording, replay it as a mock for downstream consumers, expose the mock via the AI-agent MCP integration, and pin the whole thing as a CI fixture so the plugin doesn't regress on the next refactor.
+
+The optional second half — "wire it into CI as a fixture for other teams" — is in scope for the capstone but not the *point* of it; the point is that the plugin exists, ships through NuGet, and lights up in a real workbench against a real backend.
 
 ## Scenario
 
@@ -12,17 +16,17 @@ You're a platform engineer on a team that ships a hybrid REST + gRPC + MQTT stac
 - A **mock fixture** they can run in their own dev environment + CI.
 - An **AI-driven testing harness** so QA can write checks against the API in natural language.
 
-You build it with Bowire.
+You build it with Bowire — and if your real stack speaks a wire Bowire doesn't already bundle, you ship the missing protocol as a plugin.
 
 ## What you'll deliver
 
 | Deliverable | Built in |
 |---|---|
-| A captured `.bwr` recording covering REST + gRPC + MQTT | Unit 2.1 |
+| **A custom protocol plugin (or UI / rail / settings extension)** — the primary deliverable for this audience | Unit 4.1 / 4.2 |
+| A captured `.bwr` recording covering REST + gRPC + MQTT, exercising the plugin's surface where applicable | Unit 2.1 |
 | A mock-server setup serving the same recording, with the original OpenAPI / AsyncAPI / `.proto` reflection re-emitted to peer discoverers | Unit 2.2 + Unit 4 (sidecar story) |
 | A Claude Desktop / Cursor MCP config pointing at the mock | Unit 3.1 |
 | A GitHub Actions workflow running `bowire test` against the recording and bringing up the mock as a service container for downstream integration tests | Unit 5.1 |
-| (Optional) A custom protocol plugin if your real stack uses a wire Bowire doesn't bundle | Unit 4.1 / 4.2 |
 
 ## Reference materials
 

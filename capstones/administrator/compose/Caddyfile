@@ -1,0 +1,33 @@
+# Caddyfile — terminates TLS on the public hostname and reverse-proxies
+# Bowire on :5080 in the compose network. Caddy handles ACME (Let's
+# Encrypt) automatically as long as the host is publicly reachable on
+# :80 + :443.
+#
+# {$BOWIRE_PUBLIC_HOST} is substituted from the compose service's
+# BOWIRE_PUBLIC_HOST env var (see docker-compose.yml GAP 4).
+
+{$BOWIRE_PUBLIC_HOST} {
+    encode gzip
+
+    # Bowire's standalone Tool serves the workbench at "/" (see
+    # BrowserUiHost.cs::MapBowire("/")). The OIDC callback lands at
+    # /signin-oidc; everything under /api/* is the workbench HTTP
+    # surface. All of it goes to the same upstream.
+    reverse_proxy bowire:5080 {
+        # Preserve the original Host header so OIDC redirect URIs
+        # match the public host, not the compose service name.
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    # Standard hardening — Bowire's workbench JS is fine with these.
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "no-referrer"
+        # Optional: tighten this against the upstream IdP if you have a
+        # strict CSP posture. The default workbench is happy without one.
+        # Content-Security-Policy "default-src 'self'; ..."
+    }
+}

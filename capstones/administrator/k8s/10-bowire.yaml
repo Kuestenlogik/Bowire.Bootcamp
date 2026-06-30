@@ -1,0 +1,90 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bowire-config
+  namespace: bowire
+data:
+  # GAP 1 — OIDC issuer + client. Verified against
+  # OidcAuthProvider.cs in main Bowire.
+  BOWIRE_Bowire__Auth__ProviderId: "oidc"
+  BOWIRE_Bowire__Auth__Oidc__Authority: ""          # GAP: e.g. https://login.example.com/
+  BOWIRE_Bowire__Auth__Oidc__ClientId: ""           # GAP
+
+  # GAP 2 — OTLP wiring. Standard OTel envs; see
+  # BowireTelemetryServiceCollectionExtensions.cs.
+  BOWIRE_Bowire__Telemetry__Enabled: "true"
+  BOWIRE_Bowire__Telemetry__StripMethodLabels: "true"
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://tempo:4317"
+  OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+  OTEL_SERVICE_NAME: "bowire"
+
+  # GAP 3 — plugin disable list. Each list item lands as a separate
+  # indexed env var; see BrowserUiOptions.DisabledPlugins.
+  BOWIRE_Bowire__DisabledPlugins__0: ""             # GAP: e.g. soap
+  BOWIRE_Bowire__DisabledPlugins__1: ""             # GAP: e.g. pulsar
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bowire-data
+  namespace: bowire
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bowire
+  namespace: bowire
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: bowire }
+  template:
+    metadata:
+      labels: { app: bowire }
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1654         # the `app` user the chiseled image runs as
+        runAsGroup: 1654
+        fsGroup: 1654
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: bowire
+          image: kuestenlogik/bowire:2.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - { name: http, containerPort: 5080 }
+          envFrom:
+            - configMapRef: { name: bowire-config }
+          volumeMounts:
+            - { name: data, mountPath: /home/app/.bowire }
+          readinessProbe:
+            httpGet: { path: /api/health, port: http }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests: { cpu: "100m", memory: "256Mi" }
+            limits:   { cpu: "1",    memory: "1Gi" }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+      volumes:
+        - name: data
+          persistentVolumeClaim: { claimName: bowire-data }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bowire
+  namespace: bowire
+spec:
+  selector: { app: bowire }
+  ports:
+    - { name: http, port: 80, targetPort: 5080 }
