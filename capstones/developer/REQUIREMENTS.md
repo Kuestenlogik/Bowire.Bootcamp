@@ -6,7 +6,7 @@ The complete list of what the Multi-Protocol API Tour capstone has to deliver. T
 
 ## Backend
 
-- [ ] **Sample backend running locally on `localhost:5101`.** The `capstone/sample/HarborTour` project in this repo is a working starting point — `dotnet run --project capstone/sample/HarborTour`.
+- [ ] **Sample backend running locally on `localhost:5101`.** The `capstones/developer/sample/HarborTour` project in this repo is a working starting point — `dotnet run --project capstones/developer/sample/HarborTour`.
 - [ ] **REST surface auto-discovered via OpenAPI.** Bowire pointed at `http://localhost:5101` finds the container-manifest endpoints (`ListContainers`, `GetContainer`, `UpsertContainer`, `GetHealth`).
 - [ ] **gRPC surface auto-discovered via Server Reflection.** The `crane.CraneTelemetry` service shows up in the same Bowire sidebar with both `GetLatest` (unary) and `Watch` (server-streaming).
 
@@ -49,7 +49,7 @@ The complete list of what the Multi-Protocol API Tour capstone has to deliver. T
 
 You've completed the capstone when:
 
-1. A fresh clone + `dotnet run --project capstone/sample/HarborTour` + `bowire --url http://localhost:5101` shows the full sidebar (REST + gRPC).
+1. A fresh clone + `dotnet run --project capstones/developer/sample/HarborTour` + `bowire --url http://localhost:5101` shows the full sidebar (REST + gRPC).
 2. `bowire mock --recording solution/recording.bwr --port 7090` + `bowire --url http://localhost:7090` shows the same sidebar against the mock.
 3. The MCP integration: telling the agent "list the containers in the harbour" produces the manifest list.
 4. The GitHub Actions workflow runs green.

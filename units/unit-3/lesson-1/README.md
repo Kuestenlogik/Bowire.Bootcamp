@@ -1,6 +1,6 @@
 # Lesson 3.1: AI-Agent Integration (Claude Desktop + Cursor over MCP)
 
-> **Difficulty:** Intermediate | **Duration:** 10 min (CLI) · 12 min (Embedded) | **Prerequisites:** Unit 1 complete ([CLI](../../unit-1-cli/README.md) or [Embedded](../../unit-1-embedded/README.md) track), Claude Desktop **or** Cursor installed
+> **Difficulty:** Intermediate | **Duration:** 10 min (CLI) · 12 min (Embedded) | **Prerequisites:** [Unit 1](../../unit-1/README.md) complete (CLI or Embedded shape), Claude Desktop **or** Cursor installed
 
 ## Overview
 

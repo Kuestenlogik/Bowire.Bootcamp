@@ -1,6 +1,6 @@
 # Lesson 4.1: Author a .NET protocol plugin
 
-> **Difficulty:** Intermediate | **Duration:** 15 min | **Prerequisites:** Unit 1 ([CLI](../../unit-1-cli/README.md) or [Embedded](../../unit-1-embedded/README.md) track), .NET 10 SDK
+> **Difficulty:** Intermediate | **Duration:** 15 min | **Prerequisites:** [Unit 1](../../unit-1/README.md) (CLI or Embedded shape), .NET 10 SDK
 
 ## Overview
 
