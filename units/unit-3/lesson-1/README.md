@@ -96,13 +96,19 @@ Skip Path B below; jump to **Drive REST from the chat**.
 
 ### B1. Add the MCP adapter to your embedded host
 
-You already have the embedded `HelloApi` from Lesson 1.1 Path B with `AddBowire()` + `MapBowire()`. Add the MCP-adapter calls right next to them:
+You already have the embedded `HelloApi` from Lesson 1.1 Path B with `AddBowire()` + `MapBowire()`. The MCP-adapter surface lives in a separate sibling package post-Welle 2 — `Kuestenlogik.Bowire.Mcp`, no longer transitively rolled in by bare `Kuestenlogik.Bowire`. Reference it explicitly:
+
+```bash
+dotnet add package Kuestenlogik.Bowire.Mcp
+```
+
+Then add the MCP-adapter calls right next to `AddBowire()` / `MapBowire()`:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddBowire();
-builder.Services.AddBowireMcpAdapter("http://localhost:5001");   // ← new
+builder.Services.AddBowireMcpAdapter("http://localhost:5001");   // ← new (from Kuestenlogik.Bowire.Mcp)
 
 var app = builder.Build();
 app.MapOpenApi();
@@ -114,6 +120,8 @@ app.Run("http://localhost:5001");
 ```
 
 `AddBowireMcpAdapter(serverUrl)` registers the MCP server into DI and pins it to the URL the workbench discovers against (here the host itself). `MapBowireMcpAdapter("")` mounts the streamable-HTTP endpoint at `/mcp` at the site root; pass a prefix (e.g. `MapBowireMcpAdapter("/bowire")`) when you want it nested.
+
+> Hosts that reference `Kuestenlogik.Bowire.Bundle.Workbench` already get `Kuestenlogik.Bowire.Mcp` transitively (along with every other rail sibling) — the explicit `dotnet add package` line above is only needed for slim embeds that pinned bare `Kuestenlogik.Bowire`.
 
 ### B2. Run the host and verify the endpoint
 

@@ -48,12 +48,17 @@ The REST plugin probes for an OpenAPI document at the conventional paths, finds 
 
 ### 3. Invoke a method
 
-Open <http://localhost:5080/bowire> if it didn't auto-open. In the workbench:
+Open <http://localhost:5080/bowire> if it didn't auto-open. The workbench loads with the **vertical rail strip** down the left edge (see [Lesson 0.1](../../unit-0/lesson-1/README.md) for the full rail list). For first contact you'll mostly live in the top two rails:
 
-1. Click **HelloApi** (or whatever your sample's `info.title` says) in the sidebar.
+- **Compose rail** — the request builder (in v2.0 this was the "Design rail" / right pane / invoke form). Per-protocol layouts; you'll meet the REST one in a second.
+- **Workspaces rail** — the workspace picker (v2.x replacement for the v1.x "environments" concept). A workspace scopes your env vars, recordings, saved tabs to one named context. First boot lands you in a default workspace called `Default`; no need to create one to follow this lesson.
+
+In the Compose rail:
+
+1. Click **HelloApi** (or whatever your sample's `info.title` says) in the sidebar tree.
 2. Click **GetGreeting**.
-3. The right pane shows a form — fill in `name = "Bowire"`.
-4. Click **Invoke**.
+3. The Compose-rail layout shows a form — fill in `name = "Bowire"`.
+4. Click **Invoke** (or hit `Ctrl+Enter`).
 
 You'll see the JSON response:
 

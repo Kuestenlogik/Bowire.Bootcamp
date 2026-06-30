@@ -30,11 +30,11 @@ You should see `Now listening on: http://localhost:5001`. Leave it running.
 
 ### 2. Open the workbench
 
-Open the URL for your track from the table above. The `HelloApi` sidebar tree from Lesson 1.1 is there.
+Open the URL for your track from the table above. The workbench loads in the **Compose rail** with the `HelloApi` sidebar tree from Lesson 1.1. Everything you capture stays scoped to the current workspace from the **Workspaces rail** (`Default` unless you created one) — recordings, env vars, and saved tabs travel together.
 
 ### 3. Record three calls
 
-1. Click the red **● Record** button in the bottom action bar. It switches to **■ Stop** and pulses.
+1. In the Compose rail, click the red **● Record** button in the bottom action bar. It switches to **■ Stop** and pulses.
 2. **GetGreeting** — fill `name = "Bowire"`, click **Invoke**.
 3. **PostEcho** — fill `message = "Hello mock"`, click **Invoke**.
 4. **GetHealth** — no fields, click **Invoke**.
@@ -44,7 +44,7 @@ A toast confirms the recording was saved. CLI mode persists it to `~/.bowire/rec
 
 ### 4. Export the recording as a `.bwr` file
 
-Shift-click (or right-click) the record button to open the **Recordings manager**. Select the recording you just made and click **Export JSON**. Save it as `hello-tour.bwr` in this lesson's directory.
+Switch to the **Recordings rail** in the rail strip (the recording you just captured shows up at the top of the list). Select it and click **Export JSON**. Save it as `hello-tour.bwr` in this lesson's directory.
 
 > Skipped the recording phase? Use the pre-baked `sample/hello-tour.bwr` next to this README — same three steps, ready to mock.
 
@@ -63,6 +63,8 @@ Output:
    Replaying: Hello tour (3 steps)
    Press Ctrl+C to stop.
 ```
+
+> The same workspace's recordings are also drivable from the in-workbench **Mocks rail** (Compose-side tab strip) — click a recording, hit **Start mock**, and the workbench supervises the `bowire mock` process in the background. The CLI form above is what we use here so the lesson stays portable across CLI + Embedded tracks.
 
 ### 6. Point a second Bowire workbench at the mock
 
