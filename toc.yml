@@ -4,5 +4,11 @@
   href: LEARNING_PATHS.md
 - name: Units
   href: units-overview.md
-- name: Capstone
-  href: capstone/README.md
+- name: Capstones
+  items:
+    - name: User
+      href: capstones/user/README.md
+    - name: Developer
+      href: capstones/developer/README.md
+    - name: Administrator
+      href: capstones/administrator/README.md

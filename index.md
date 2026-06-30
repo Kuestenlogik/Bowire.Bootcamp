@@ -46,19 +46,21 @@ Bowire runs in two shapes; both expose the same workbench. The bootcamp covers b
 
 Choose a [Learning Path](LEARNING_PATHS.md) based on your role:
 
-| Path | For | Units |
-|------|-----|-------|
-| [Workbench Fundamentals](LEARNING_PATHS.md#1-workbench-fundamentals) | All API developers | 3 units |
-| [Mock-as-Stand-In](LEARNING_PATHS.md#2-mock-as-stand-in) | Frontend devs, QA engineers | 2 units |
-| [AI & Automation](LEARNING_PATHS.md#3-ai--automation) | Agent / LLM builders | 2 units |
-| [Plugin Author](LEARNING_PATHS.md#4-plugin-author) | Protocol-plugin authors (.NET + polyglot) | 3 units |
-| [Production / CI](LEARNING_PATHS.md#5-production--ci) | DevOps, platform engineers | 2 units |
+| Path | For | Duration |
+|------|-----|----------|
+| [Workbench & API operator](LEARNING_PATHS.md#1-workbench--api-operator-user-audience) | Developers, frontend engineers, QA, AI/agent operators | ~90 min |
+| [Developer / embed & extend](LEARNING_PATHS.md#2-developer--embed--extend-developer-audience) | Backend devs embedding Bowire, plugin authors, core contributors | ~120 min |
+| [Administrator / deploy & run](LEARNING_PATHS.md#3-administrator--deploy--run-administrator-audience) | Platform engineers, SREs, DevOps | ~75 min |
 
-Unit 1 splits into two parallel **setup tracks** — pick [CLI](units/unit-1-cli/README.md) or [Embedded](units/unit-1-embedded/README.md) based on your deployment shape. From Unit 2 onwards the tracks merge.
+The deployment shape (CLI vs Embedded) is a **setup tab inside each lesson**, not a path-level branch — the workbench walkthrough is identical regardless of which shape mounted it.
 
-## Capstone
+## Capstones (per audience)
 
-Once the units are done, work through the **[Multi-Protocol API Tour](capstone/README.md)** — a single end-to-end scenario that weaves recording, mocking, AI integration, and CI into one runnable project. Comes with a [sample backend](capstone/sample/HarborTour/) and a [reference solution](capstone/solution/README.md).
+Each path terminates in its own audience-appropriate capstone:
+
+- **[User](capstones/user/README.md)** — `.bww` workspace + diagnosis runbook for a mixed-protocol flaky endpoint.
+- **[Developer](capstones/developer/README.md)** — ship a NuGet package implementing one of v2.1's extension points (protocol / extension / rail / module). Comes with a [sample backend](capstones/developer/sample/HarborTour/) and a [reference solution](capstones/developer/solution/README.md).
+- **[Administrator](capstones/administrator/README.md)** — `docker-compose.yml` (or k8s) + production runbook with reverse-proxy, auth, observability, plugin disable list, backup strategy.
 
 ## Prerequisites
 

@@ -1,6 +1,6 @@
 # Bowire Bootcamp
 
-A hands-on, self-paced tutorial that takes you from zero to "I can ship a new protocol plugin" with [Bowire](https://bowire.io) — Küstenlogik's multi-protocol API workbench. Six units, six learning paths (including a dedicated Embedded Backend Workflow), one capstone — both deployment shapes (standalone CLI and embedded `AddBowire()` + `MapBowire()`) covered side by side.
+A hands-on, self-paced tutorial that takes you from zero to "I can ship a new protocol plugin" with [Bowire](https://bowire.io) — Küstenlogik's multi-protocol API workbench. Six units, three audience-bound learning paths (User / Developer / Administrator), and three per-audience capstones. The deployment shape — standalone CLI (`bowire --url …`) vs embedded host (`AddBowire()` / `MapBowire()`) — is a **setup tab inside each lesson**, not a top-level split: the workbench walkthrough after the wire-in is identical.
 
 ## Goal
 
@@ -49,15 +49,13 @@ The bootcamp ships a DocFX-powered learn site:
 
 ## Learning Paths
 
-Choose from 5 structured paths based on your role and goals:
+Choose from 3 audience-bound paths based on what you'll do with Bowire:
 
-| Path | Target Audience | Duration | Units |
-|------|-----------------|----------|-------|
-| **Workbench Fundamentals** | All API developers (start here) | ~45 min | 3 units |
-| **Mock-as-Stand-In** | Frontend devs, QA engineers | ~30 min | 2 units |
-| **AI & Automation** | Agent / LLM builders | ~20 min | 2 units |
-| **Plugin Author** | Protocol-plugin authors (.NET + polyglot) | ~50 min | 3 units |
-| **Production / CI** | DevOps, platform engineers | ~40 min | 2 units |
+| Path | Target Audience | Duration | Capstone |
+|------|-----------------|----------|----------|
+| **Workbench & API operator** | Developers, frontend engineers, QA, AI/agent operators driving APIs | ~90 min | `.bww` workspace + runbook |
+| **Developer / embed & extend** | Backend devs embedding Bowire, plugin authors, core contributors | ~120 min | NuGet plugin |
+| **Administrator / deploy & run** | Platform engineers, SREs, DevOps shipping Bowire into deploys | ~75 min | `docker-compose.yml` / k8s + runbook |
 
 Or complete all units in order for the full picture (~3 hours).
 
@@ -72,12 +70,12 @@ Six units plus a capstone — ~2 hours end-to-end if you walk every lesson, half
 | Unit | Topic | Time | Lessons |
 |---|---|---|---|
 | [Unit 0](units/unit-0/README.md) | **Introduction.** What Bowire is, install verification, your first call against a public REST API. | ~30 min | 3 |
-| Unit 1 — pick one track: [CLI](units/unit-1-cli/README.md) or [Embedded](units/unit-1-embedded/README.md) | **Workbench Basics.** REST + gRPC discovered side-by-side; walked through the deployment shape that matches your service. | ~15 min | 2 per track |
+| [Unit 1](units/unit-1/README.md) | **Workbench Basics.** REST + gRPC discovered side-by-side. Pick CLI or Embedded shape in the lesson's setup tab. | ~15 min | 2 |
 | [Unit 2](units/unit-2/README.md) | **Record, Replay, Mock.** Capture sessions, replay through `bowire mock`, attach the source schema so peer workbenches discover the *full* contract. | ~20 min | 2 |
 | [Unit 3](units/unit-3/README.md) | **AI-Agent Integration.** Hand the workbench to Claude Desktop / Cursor over MCP. | ~10 min | 1 |
 | [Unit 4](units/unit-4/README.md) | **Extending Bowire.** Author your own protocol plugin — once in .NET, once in Python. *Optional unless you're authoring plugins.* | ~30 min | 2 |
 | [Unit 5](units/unit-5/README.md) | **CI Integration.** `bowire test` as a regression-test runner, mock-server as a job service. | ~15 min | 1 |
-| [Capstone](capstone/README.md) | **Multi-Protocol API Tour.** End-to-end scenario combining recording, mocking, plugins, and CI. | ~30 min | 1 |
+| [Capstones](capstones/) | **Per-audience deliverable.** [User](capstones/user/README.md) (`.bww` + runbook), [Developer](capstones/developer/README.md) (NuGet plugin), [Administrator](capstones/administrator/README.md) (compose / k8s + runbook). | ~30–60 min | 3 |
 
 Detail per unit follows below — pick a row above to jump straight in.
 
@@ -92,24 +90,15 @@ Understand what Bowire is and verify your environment.
 | [0.2](units/unit-0/lesson-2/README.md) | Setup | Install the bowire CLI, the bundled plugins, the workbench host |
 | [0.3](units/unit-0/lesson-3/README.md) | Hello Bowire | Launch the workbench, point it at a public REST API, invoke your first method |
 
-### Unit 1: Workbench Basics — pick your setup track
-*Time: ~15 minutes per track (you only walk one)*
+### Unit 1: Workbench Basics
+*Time: ~15 minutes*
 
-Drive Bowire's discovery and invoke surface across two protocols at once. Two parallel tracks based on your deployment shape — pick one and the rest of the bootcamp (Unit 2+) is shared.
-
-**[CLI track](units/unit-1-cli/README.md)** — for the `bowire --url <service>` two-process shape:
+Drive Bowire's discovery and invoke surface across two protocols at once. Each lesson's setup section walks both shapes (standalone CLI and embedded host); the workbench walkthrough after the wire-in is identical.
 
 | Lesson | Topic | What You'll Build |
 |--------|-------|-------------------|
-| [1.1](units/unit-1-cli/lesson-1/README.md) | First call (REST + OpenAPI) | A REST sample API, discovered through its OpenAPI doc, invoked from the workbench |
-| [1.2](units/unit-1-cli/lesson-2/README.md) | Multi-protocol session (REST + gRPC) | A gRPC sample side-by-side with REST via repeated `--url`, server-streaming demo |
-
-**[Embedded track](units/unit-1-embedded/README.md)** — for the `AddBowire()` / `MapBowire()` in-process shape:
-
-| Lesson | Topic | What You'll Build |
-|--------|-------|-------------------|
-| [1.1](units/unit-1-embedded/lesson-1/README.md) | Mount the workbench in your host | `AddBowire()` + `MapBowire()` in `Program.cs`, workbench at `/bowire` on the host's port |
-| [1.2](units/unit-1-embedded/lesson-2/README.md) | Add a second protocol (gRPC) | gRPC co-hosted in the same ASP.NET process; the workbench picks both up through DI |
+| [1.1](units/unit-1/lesson-1/README.md) | First call (REST + OpenAPI) | A REST sample API discovered through its OpenAPI doc — CLI shape (`bowire --url …`) or Embedded shape (`AddBowire()` + `MapBowire()`) |
+| [1.2](units/unit-1/lesson-2/README.md) | Multi-protocol session (REST + gRPC) | A gRPC sample side-by-side with REST — CLI shape (repeated `--url`) or Embedded shape (`AddGrpc()` in the same host) |
 
 ### Unit 2: Record, Replay, Mock
 *Time: ~20 minutes*
@@ -153,7 +142,7 @@ Fold Bowire into your CI pipeline as a regression-test runner and mock-server fi
 
 | Project | Title |
 |---------|-------|
-| [Capstone](capstone/README.md) | Multi-Protocol API Tour — combine recording, mocking, plugins, CI into an end-to-end scenario |
+| [Developer capstone](capstones/developer/README.md) | Multi-Protocol API Tour — combine recording, mocking, plugins, CI into an end-to-end scenario (User + Administrator capstone scaffolds also live under [`capstones/`](capstones/)) |
 
 ---
 
