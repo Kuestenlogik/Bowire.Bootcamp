@@ -92,6 +92,8 @@ bowire plugin list --verbose
 
 You'll see `Bowire.Plugin.Pirate@1.0.0 [nuget: 1 files]` next to the bundled plugins (REST, gRPC, &c).
 
+> The same install also shows up in-product under the **Settings rail → Plugins** extension-point tree (post-v2.1 Settings IA) — kind + capability chips per loaded plugin, so the operator can see what's installed without dropping back to the CLI.
+
 #### Path B — `PackageReference` from the embedded host
 
 In your embedded host project (`HelloApi` from Lesson 1.1 Path B, or any other ASP.NET host with `AddBowire()` + `MapBowire()`), reference the nupkg directly:
