@@ -5,7 +5,7 @@
 | Item | Status |
 |------|--------|
 | 6 units (Intro, Workbench Basics, Record/Replay+Mock, AI, Plugins, CI) | scaffolded |
-| 9 lessons across the 6 units | shipped — Unit 0 (3), Unit 1 (2), Unit 2 (2), Unit 3 (1), Unit 4 (2), Unit 5 (1) |
+| 11 lessons across the 6 units | shipped — Unit 0 (3), Unit 1 (2), Unit 2 (2), Unit 3 (1), Unit 4 (2), Unit 5 (3) |
 | DocFX learn-site scaffolding (`.docfx/`, `scripts/build-learn.ps1`, `toc.yml`) | shipped — minimal modern template, branding to follow |
 | Capstone project — Multi-Protocol API Tour | scaffolded; needs requirements + architecture + reference solution |
 

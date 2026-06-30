@@ -74,7 +74,7 @@ Six units plus a capstone — ~2 hours end-to-end if you walk every lesson, half
 | [Unit 2](units/unit-2/README.md) | **Record, Replay, Mock.** Capture sessions, replay through `bowire mock`, attach the source schema so peer workbenches discover the *full* contract. | ~20 min | 2 |
 | [Unit 3](units/unit-3/README.md) | **AI-Agent Integration.** Hand the workbench to Claude Desktop / Cursor over MCP. | ~10 min | 1 |
 | [Unit 4](units/unit-4/README.md) | **Extending Bowire.** Author your own protocol plugin — once in .NET, once in Python. *Optional unless you're authoring plugins.* | ~30 min | 2 |
-| [Unit 5](units/unit-5/README.md) | **CI Integration.** `bowire test` as a regression-test runner, mock-server as a job service. | ~15 min | 1 |
+| [Unit 5](units/unit-5/README.md) | **CI · deploy · operate.** `bowire test` in CI + the two production deployment shapes + observability with `BowireTelemetry` and the day-1 ops runbook. | ~50 min | 3 |
 | [Capstones](capstones/) | **Per-audience deliverable.** [User](capstones/user/README.md) (`.bww` + runbook), [Developer](capstones/developer/README.md) (NuGet plugin), [Administrator](capstones/administrator/README.md) (compose / k8s + runbook). | ~30–60 min | 3 |
 
 Detail per unit follows below — pick a row above to jump straight in.
@@ -129,14 +129,16 @@ Author your own protocol plugin — once in .NET, once in Python.
 | [4.1](units/unit-4/lesson-1/README.md) | .NET protocol plugin | A Pirate-Speak `IBowireProtocol` packaged via `dotnet pack` → `bowire plugin install` |
 | [4.2](units/unit-4/lesson-2/README.md) | Python sidecar plugin | A Yoda-Speak `BowirePlugin` subclass packaged as a sidecar `.zip` → `bowire plugin install --file` |
 
-### Unit 5: CI Integration
-*Time: ~15 minutes*
+### Unit 5: CI · deploy · operate
+*Time: ~50 minutes*
 
-Fold Bowire into your CI pipeline as a regression-test runner and mock-server fixture.
+The Administrator unit. CI integration, the two production deployment shapes, and the observability + day-1 operations surface.
 
 | Lesson | Topic | What You'll Build |
 |--------|-------|-------------------|
 | [5.1](units/unit-5/lesson-1/README.md) | GitHub Actions integration | `bowire test` step running recordings as assertions, mock-server as a job service for downstream integration tests |
+| [5.2](units/unit-5/lesson-2/README.md) | Deployment patterns | Standalone CLI in container + systemd; embedded host gated for production; layered config (`appsettings.json` → `BOWIRE_*` env → CLI flags); reverse-proxy in front |
+| [5.3](units/unit-5/lesson-3/README.md) | Observability + operations | OTLP export wired against the `Kuestenlogik.Bowire` ActivitySource + Meter; plugin-health endpoint; `.bww` workspace backup; per-plugin disable |
 
 ### Capstone
 
