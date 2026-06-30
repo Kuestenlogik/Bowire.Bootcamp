@@ -205,15 +205,76 @@ The flat unit list is the same `units/unit-0/` … `units/unit-5/` it already is
 
 **Duration:** ~75 min once the new lessons land (~25 min today, Unit 5.1 only) · **Units touched:** 0, 5 · **Replaces** Production / CI (today's path 5) and absorbs every "this is CLI-only because there's no embedded host at this point in the lifecycle" footnote currently scattered across the units.
 
-### Path 4 — Capstone (optional, cross-audience)
+### Capstones — one per audience, not one cross-audience
 
-**For:** Anyone who finished at least one of paths 1-3 and wants to integrate.
+A single cross-audience capstone (the current `capstone/` scaffold) only really
+fits the Developer audience — "build / ship something on top of Bowire" reads as
+a plugin task. The other two audiences walk away from a generic capstone
+without a deliverable that matches what they actually do. Operator note:
+'ein capstone macht aktuell auch nur sinn, wenn man development macht.
+könnte ja ein eigenes plugin sein?' — translation, the User + Administrator
+paths each deserve their own capstone with an audience-appropriate artefact.
 
-| # | Lesson | Why it matters |
-|---|---|---|
-| 1 | Capstone — Multi-Protocol API Tour | End-to-end scenario weaving recording (User), embedded mounting (Developer), CI integration (Admin) |
+Each path therefore terminates in its own capstone:
 
-Unchanged from today's capstone scaffold, plus a refresh of vocabulary to match the v2.1 audit findings in Section 2.
+#### User capstone — "Diagnose a flaky API endpoint" runbook
+
+**Deliverable:** a `.bww` workspace file + a runbook `README.md`. The runbook
+walks a realistic mixed-protocol scenario (REST checkout endpoint + gRPC
+inventory sub-call + WebSocket order-status stream); the workspace pins the
+source URLs, recorded reproductions, mock-server config, AI-agent MCP config,
+and notes captured during the diagnosis. The user proves they can drive the
+full Workbench + Workspaces + Recording + Mock-Server + AI loop end-to-end.
+
+Alternative scenario: **"Mock backend for a frontend sprint"** — same
+`.bww`-plus-runbook deliverable, but the runbook documents how a frontend
+team picks up the workspace + mock and works against it without the live
+backend running.
+
+#### Developer capstone — Ship your own Bowire plugin
+
+**Deliverable:** a NuGet package implementing ONE of the v2.1 extension
+points — protocol plugin, UI extension, rail contribution, or Settings
+module. The current `capstone/` directory matches this audience; the
+refinement is to make the plugin shape primary (today it reads as
+"optional"). The capstone walks the operator from `dotnet new classlib`
+through `[BowireProtocol] / [BowireExtension] / [BowireRail] / [BowireModule]`
+attribute registration, plugin manifest, `dotnet pack`, and verifying the
+plugin lights up inside an embedded host's `/api/plugins` payload.
+
+#### Administrator capstone — Production deployment stack
+
+**Deliverable:** a `docker-compose.yml` (or k8s manifests) + a production
+runbook covering reverse-proxy in front (Caddy / nginx / Traefik), auth
+gating, observability wiring (Grafana / Prometheus / structured logs),
+plugin disable list, workspace-file backup strategy, and a smoke-test
+script that verifies the deployment from outside. The admin proves they can
+ship Bowire into a non-laptop environment and operate it past day one.
+
+#### Proposed folder layout
+
+```
+capstones/
+├── user/                                ← new (Path 1's terminating deliverable)
+│   ├── README.md                        scenario overview
+│   ├── REQUIREMENTS.md                  prerequisites + grading criteria
+│   ├── scenario/                        starter files (sample backend, partial workspace)
+│   └── solution/                        reference completed .bww + runbook
+├── developer/                           ← `git mv capstone/ capstones/developer/`
+│   ├── README.md                        plugin-shape primary
+│   ├── REQUIREMENTS.md
+│   ├── sample/                          starter project (`dotnet new classlib`)
+│   └── solution/                        reference plugin nupkg + verification host
+└── administrator/                       ← new (Path 3's terminating deliverable)
+    ├── README.md                        deploy scenario overview
+    ├── REQUIREMENTS.md
+    ├── compose/                         docker-compose starter (commented gaps)
+    ├── k8s/                             k8s manifest starter (commented gaps)
+    └── solution/                        reference complete stack + runbook
+```
+
+The Developer capstone is essentially `git mv capstone/ capstones/developer/`
+plus a framing rewrite — no lost work, just clearer audience targeting.
 
 ### Cross-audience flow diagram (proposed mermaid for LEARNING_PATHS.md)
 
@@ -224,17 +285,17 @@ graph LR
     U1 --> U3[Unit 3<br/>AI-Agent integration]
     U1 --> U4[Unit 4<br/>Extending Bowire]
     U1 --> U5[Unit 5<br/>CI · deploy · operate]
-    U2 --> CAP[Capstone]
-    U3 --> CAP
-    U4 --> CAP
-    U5 --> CAP
+    U2 --> CAP_U[User capstone<br/>.bww + runbook]
+    U3 --> CAP_U
+    U4 --> CAP_D[Developer capstone<br/>NuGet plugin]
+    U5 --> CAP_A[Administrator capstone<br/>compose / k8s + runbook]
 
     classDef user fill:#e3f2fd,stroke:#1976d2
     classDef dev  fill:#f3e5f5,stroke:#7b1fa2
     classDef adm  fill:#fff3e0,stroke:#f57c00
-    class U0,U1,U2,U3 user
-    class U0,U1,U3,U4 dev
-    class U0,U5 adm
+    class U0,U1,U2,U3,CAP_U user
+    class U0,U1,U3,U4,CAP_D dev
+    class U0,U5,CAP_A adm
 ```
 
 ### Verdict — Section 3
