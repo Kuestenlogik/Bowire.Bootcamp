@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "Inventory.V1";
+
+package inventory;
+
+// Inventory — the upstream service Checkout calls. The single Reserve
+// method reserves stock for an order; under the seeded chaos profile,
+// ~30 % of calls return RESOURCE_EXHAUSTED after a 200–500 ms stall.
+service Inventory {
+  rpc Reserve (ReserveRequest) returns (ReserveResponse);
+}
+
+message ReserveRequest {
+  string sku = 1;
+  int32 quantity = 2;
+}
+
+message ReserveResponse {
+  string reservation_id = 1;
+  bool ok = 2;
+}
