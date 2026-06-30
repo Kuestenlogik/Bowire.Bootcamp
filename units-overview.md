@@ -29,7 +29,7 @@
 
 | Unit | Title | Lessons |
 |------|-------|---------|
-| [Unit 5](units/unit-5/README.md) | CI Integration | 1 |
+| [Unit 5](units/unit-5/README.md) | CI · deploy · operate | 3 |
 
 ## Capstones (one per audience)
 

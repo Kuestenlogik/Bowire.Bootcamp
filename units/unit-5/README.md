@@ -1,31 +1,34 @@
-# Unit 5: CI Integration
+# Unit 5: CI · deploy · operate
 
-*Time: ~15 minutes • Lessons: 1 • Previous: [Unit 2](../unit-2/README.md)*
+*Time: ~50 minutes • Lessons: 3 • Previous: [Unit 4](../unit-4/README.md)*
 
-Fold Bowire into your CI pipeline. Recordings become reproducible regression assertions; the mock server becomes a job-level service container that backs the integration tests of everything downstream.
+The Administrator unit. Lesson 5.1 wires Bowire into CI; 5.2 walks the two production deployment shapes (standalone CLI vs embedded host); 5.3 covers the observability + day-1 operations surface.
 
 ## Prerequisites
 
-- [Unit 2](../unit-2/README.md) complete — you need a `.bwr` recording to feed into `bowire test` and `bowire mock`.
-- A **GitHub repository** you can push the sample workflow to (any other CI runner is fine analogously — the workflow file is GitHub Actions, the pattern is portable).
-- **Docker** is *optional* — only needed if you want to bring the mock up as a true container in `services:` rather than as a background process in the runner. The lesson covers both shapes.
-- The Bowire CLI installed *inside* the CI runner: the workflow snippet's `dotnet tool install --global Kuestenlogik.Bowire.Tool` step takes care of it.
+- [Unit 0](../unit-0/README.md) complete — you can install + launch Bowire in at least one shape.
+- For 5.1: a `.bwr` recording from [Unit 2](../unit-2/README.md) and a GitHub repository.
+- For 5.2: Docker, plus a Linux host (real or VM) if you want to run the systemd walkthrough.
+- For 5.3: a working OTLP collector locally (the lesson stands one up with Docker).
 
 ## Lessons
 
 | Lesson | Topic | What You'll Build |
 |--------|-------|-------------------|
-| [5.1](lesson-1/README.md) | GitHub Actions integration | `bowire test` step running recordings as assertions, mock-server as a job service for downstream integration tests |
+| [5.1](lesson-1/README.md) | GitHub Actions integration | `bowire test` as an assertion suite + `bowire mock` as a job-level service container |
+| [5.2](lesson-2/README.md) | Deployment patterns | Standalone `bowire` container + embedded host gated for production; reverse-proxy in front; layered config (`appsettings.json` → `BOWIRE_*` env → CLI flags) |
+| [5.3](lesson-3/README.md) | Observability + operations | OTLP export wired against `BowireTelemetry`; runbook for plugin disable, workspace backup, plugin-health probe |
 
 ## Why this unit
 
-A recording is portable — it's a JSON file you can check in. Once you have one, two CI patterns fall out naturally:
+A workbench that only lives on a laptop is a dev tool. A workbench you can ship into staging, production, or a CI runner — and keep running across upgrades, plugin breakage, and operator handovers — is infrastructure.
 
-1. **`bowire test`** — run the recording as an assertion suite. Each step expects a captured response; any drift fails the build. Zero test infrastructure, full regression coverage of whatever you captured.
-2. **`bowire mock` as a service container** — bring the mock up alongside your integration-test job. Downstream services point at the mock instead of a real backend, run their tests, tear down. No network round-trips, no flaky external dependencies.
+Unit 5 covers the three things that turn the first into the second:
 
-Unit 5 wires both into a GitHub Actions workflow.
+1. **CI integration** (5.1) — recordings as regression assertions; the mock server as a deterministic upstream for downstream test jobs.
+2. **Deployment shapes** (5.2) — when to pick the standalone CLI (one workbench across many backends) vs the embedded mount (one workbench co-deployed with its service), and how to package each.
+3. **Observability + ops** (5.3) — what Bowire emits (logs, traces, metrics under the `Kuestenlogik.Bowire` ActivitySource + Meter), how to point it at your collector, and the day-1 runbook (disable a misbehaving plugin, back up an operator's workspace, probe plugin health).
 
 ---
 
-**Next:** → [Capstones](../../capstones/) (per-audience deliverable — Developer capstone is the established one; User + Administrator capstones are scaffolds being filled in PR 3)
+**Next:** → [Capstones](../../capstones/) (the [Administrator capstone](../../capstones/administrator/README.md) closes the loop: a `docker-compose.yml` + production runbook drawing on every lesson in this unit)

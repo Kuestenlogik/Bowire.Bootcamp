@@ -61,15 +61,15 @@ The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The
 
 **Audience entry:** "I need to ship Bowire into a non-laptop environment and keep it running."
 
-**Duration:** ~75 min once the new lessons land (~25 min today, Unit 5.1 only) · **Units touched:** 0, 5
+**Duration:** ~60 min today (Unit 5.1 + 5.2 + 5.3 = ~50 min, plus Unit 0.1 + 0.2 setup) · **Units touched:** 0, 5
 
 | # | Lesson | Why it matters |
 |---|---|---|
 | 1 | [Unit 0.1 — What is Bowire?](units/unit-0/lesson-1/README.md) | Positioning, shapes — admins need to pick the deploy shape |
-| 2 | [Unit 0.2 — Setup (Administrator tab)](units/unit-0/lesson-2/README.md) | **proposed for PR 4** — systemd / Docker / IIS host of the CLI; embedded shape gating with `IsDevelopment()` / `#if DEBUG` |
+| 2 | [Unit 0.2 — Setup (Administrator tab)](units/unit-0/lesson-2/README.md) | **proposed for PR 5** — systemd / Docker / IIS host of the CLI; embedded shape gating with `IsDevelopment()` / `#if DEBUG` |
 | 3 | [Unit 5.1 — CI integration](units/unit-5/lesson-1/README.md) | `bowire test`, mock-as-service-container |
-| 4 | *Unit 5.2 — Deployment patterns* | **proposed for PR 5** — single-binary CLI sidecar; embedded gated behind `#if RELEASE`; Settings IA: System → Defaults; reverse-proxy mount paths |
-| 5 | *Unit 5.3 — Observability + operations* | **proposed for PR 5** — logs, structured output, v2.1 Settings IA's System tree, plugin extension-point tree in prod |
+| 4 | [Unit 5.2 — Deployment patterns](units/unit-5/lesson-2/README.md) | Standalone CLI in container / systemd; embedded host gated for production; layered config (`appsettings.json` → `BOWIRE_*` env → CLI flags); reverse-proxy in front |
+| 5 | [Unit 5.3 — Observability + operations](units/unit-5/lesson-3/README.md) | OTLP export wired against the `Kuestenlogik.Bowire` ActivitySource + Meter; plugin-health endpoint; `.bww` workspace backup; per-plugin disable |
 
 → Terminates in the [**Administrator capstone**](capstones/administrator/README.md): a `docker-compose.yml` / k8s stack + production runbook.
 
