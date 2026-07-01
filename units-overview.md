@@ -13,23 +13,23 @@
 |------|-------|---------|
 | [Unit 2](units/unit-2/README.md) | Record & Replay, Mock-as-Stand-In | 2 |
 
-## AI & Automation (Unit 3)
+## AI, Assertions, Coverage (Unit 3)
 
 | Unit | Title | Lessons |
 |------|-------|---------|
-| [Unit 3](units/unit-3/README.md) | AI-Agent Integration | 1 |
+| [Unit 3](units/unit-3/README.md) | AI agents, Flow assertions, regression coverage | 3 |
 
 ## Extending Bowire (Unit 4)
 
 | Unit | Title | Lessons |
 |------|-------|---------|
-| [Unit 4](units/unit-4/README.md) | Extension Seams — Protocol Plugins, Interceptor, UI Extensions | 4 |
+| [Unit 4](units/unit-4/README.md) | Extension Seams — Protocol Plugins, Interceptor, UI Extensions, Intercept-rail postures, Plugin lifecycle | 6 |
 
 ## Production (Unit 5)
 
 | Unit | Title | Lessons |
 |------|-------|---------|
-| [Unit 5](units/unit-5/README.md) | CI · deploy · operate | 3 |
+| [Unit 5](units/unit-5/README.md) | CI (recording + Flow), deploy, operate, workspace hygiene | 5 |
 
 ## Capstones (one per audience)
 

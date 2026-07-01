@@ -53,11 +53,11 @@ Choose from 3 audience-bound paths based on what you'll do with Bowire:
 
 | Path | Target Audience | Duration | Capstone |
 |------|-----------------|----------|----------|
-| **Workbench & API operator** | Developers, frontend engineers, QA, AI/agent operators driving APIs | ~90 min | `.bww` workspace + runbook |
-| **Developer / embed & extend** | Backend devs embedding Bowire, plugin authors, core contributors | ~120 min | NuGet plugin |
-| **Administrator / deploy & run** | Platform engineers, SREs, DevOps shipping Bowire into deploys | ~75 min | `docker-compose.yml` / k8s + runbook |
+| **Workbench & API operator** | Developers, frontend engineers, QA, AI/agent operators driving APIs | ~120 min | `.bww` workspace + runbook |
+| **Developer / embed & extend** | Backend devs embedding Bowire, plugin authors, core contributors | ~200 min | NuGet plugin |
+| **Administrator / deploy & run** | Platform engineers, SREs, DevOps shipping Bowire into deploys | ~90 min | `docker-compose.yml` / k8s + runbook |
 
-Or complete all units in order for the full picture (~3 hours).
+Or complete all units in order for the full picture (~4 hours).
 
 **[View Detailed Learning Paths →](LEARNING_PATHS.md)**
 
@@ -65,16 +65,16 @@ Or complete all units in order for the full picture (~3 hours).
 
 ## Curriculum
 
-Six units plus a capstone — ~2 hours end-to-end if you walk every lesson, half that if you skip the optional protocol-plugin authoring (Unit 4).
+Six units plus a capstone — ~4 hours end-to-end if you walk every lesson, less if you skip the optional protocol-plugin authoring (Unit 4).
 
 | Unit | Topic | Time | Lessons |
 |---|---|---|---|
 | [Unit 0](units/unit-0/README.md) | **Introduction.** What Bowire is, install verification, your first call against a public REST API. | ~30 min | 3 |
 | [Unit 1](units/unit-1/README.md) | **Workbench Basics.** REST + gRPC discovered side-by-side. Pick CLI or Embedded shape in the lesson's setup tab. | ~15 min | 2 |
 | [Unit 2](units/unit-2/README.md) | **Record, Replay, Mock.** Capture sessions, replay through `bowire mock`, attach the source schema so peer workbenches discover the *full* contract. | ~20 min | 2 |
-| [Unit 3](units/unit-3/README.md) | **AI-Agent Integration.** Hand the workbench to Claude Desktop / Cursor over MCP. | ~10 min | 1 |
-| [Unit 4](units/unit-4/README.md) | **Extending Bowire.** Author your own protocol plugin — once in .NET, once in Python. *Optional unless you're authoring plugins.* | ~30 min | 2 |
-| [Unit 5](units/unit-5/README.md) | **CI · deploy · operate.** `bowire test` in CI + the two production deployment shapes + observability with `BowireTelemetry` and the day-1 ops runbook. | ~50 min | 3 |
+| [Unit 3](units/unit-3/README.md) | **AI agents, assertions, coverage.** MCP-drive Bowire; layer declarative expectations on Flows; measure per-method coverage. | ~35 min | 3 |
+| [Unit 4](units/unit-4/README.md) | **Extending Bowire.** Six seams — .NET plugin, Python sidecar, interceptor, UI widget, Intercept rail postures, plugin lifecycle. *Optional unless you're authoring plugins or operating a shared workbench.* | ~105 min | 6 |
+| [Unit 5](units/unit-5/README.md) | **CI · deploy · operate.** `bowire test` (recording + Flow modes) + the two production deployment shapes + observability + workspace-deletion hygiene. | ~80 min | 5 |
 | [Capstones](capstones/) | **Per-audience deliverable.** [User](capstones/user/README.md) (`.bww` + runbook), [Developer](capstones/developer/README.md) (NuGet plugin), [Administrator](capstones/administrator/README.md) (compose / k8s + runbook). | ~30–60 min | 3 |
 
 Detail per unit follows below — pick a row above to jump straight in.
@@ -110,35 +110,43 @@ Capture sessions and run them back as local mock servers — with the original c
 | [2.1](units/unit-2/lesson-1/README.md) | Record & replay | A `.bwr` recording, replayed through `bowire mock` so the mock answers without the real backend running |
 | [2.2](units/unit-2/lesson-2/README.md) | Schema export + mock-as-stand-in | The recording carries the source OpenAPI, the mock serves `/openapi.json`, a peer Bowire discovers the *full* surface through it |
 
-### Unit 3: AI-Agent Integration
-*Time: ~10 minutes*
+### Unit 3: AI agents, assertions, coverage
+*Time: ~35 minutes*
 
-Hand the workbench to a language model.
+MCP-drive Bowire, layer declarative expectations on Flows, watch coverage decay across the discovered surface.
 
 | Lesson | Topic | What You'll Build |
 |--------|-------|-------------------|
 | [3.1](units/unit-3/lesson-1/README.md) | Claude Desktop + Cursor over MCP | `bowire mcp serve` wired into the agent's `mcpServers` config, drive REST + gRPC + recordings from the chat window |
+| [3.2](units/unit-3/lesson-2/README.md) | Flow assertions | A Flow with the five expectation kinds (status / header / body-path / body-text / latency), a red-then-green regression |
+| [3.3](units/unit-3/lesson-3/README.md) | Regression coverage | The per-method coverage chip (recent / stale / failing / uncovered) + the Settings → Data run-history view |
 
 ### Unit 4: Extending Bowire
-*Time: ~30 minutes*
+*Time: ~105 minutes*
 
-Author your own protocol plugin — once in .NET, once in Python.
+Six extension seams — from protocol plugins to the Intercept rail's four postures to runtime plugin lifecycle.
 
 | Lesson | Topic | What You'll Build |
 |--------|-------|-------------------|
 | [4.1](units/unit-4/lesson-1/README.md) | .NET protocol plugin | A Pirate-Speak `IBowireProtocol` packaged via `dotnet pack` → `bowire plugin install` |
 | [4.2](units/unit-4/lesson-2/README.md) | Python sidecar plugin | A Yoda-Speak `BowirePlugin` subclass packaged as a sidecar `.zip` → `bowire plugin install --file` |
+| [4.3](units/unit-4/lesson-3/README.md) | Interceptor middleware | `app.UseBowireInterceptor()` + a new `POST /api/orders` route observed in the Intercepted rail |
+| [4.4](units/unit-4/lesson-4/README.md) | Map widget / semantic kinds | A custom tactical entity rendered on the auto-mounted MapLibre viewer via the `coordinate.wgs84` kind |
+| [4.5](units/unit-4/lesson-5/README.md) | Intercept rail — four postures | Captured · Live overrides · Mock servers · Settings — seed an override from a real flow |
+| [4.6](units/unit-4/lesson-6/README.md) | Plugin lifecycle | Load / Unload / Restart / Reset-storage without process restart |
 
 ### Unit 5: CI · deploy · operate
-*Time: ~50 minutes*
+*Time: ~80 minutes*
 
-The Administrator unit. CI integration, the two production deployment shapes, and the observability + day-1 operations surface.
+The Administrator unit. CI integration (recording + Flow), the two production deployment shapes, the observability + day-1 operations surface, plus workspace-deletion hygiene.
 
 | Lesson | Topic | What You'll Build |
 |--------|-------|-------------------|
 | [5.1](units/unit-5/lesson-1/README.md) | GitHub Actions integration | `bowire test` step running recordings as assertions, mock-server as a job service for downstream integration tests |
 | [5.2](units/unit-5/lesson-2/README.md) | Deployment patterns | Standalone CLI in container + systemd; embedded host gated for production; layered config (`appsettings.json` → `BOWIRE_*` env → CLI flags); reverse-proxy in front |
 | [5.3](units/unit-5/lesson-3/README.md) | Observability + operations | OTLP export wired against the `Kuestenlogik.Bowire` ActivitySource + Meter; plugin-health endpoint; `.bww` workspace backup; per-plugin disable |
+| [5.4](units/unit-5/lesson-4/README.md) | `bowire test` in CI — Flow runs, JUnit XML, HTML | v2.2 Flow runner with `--report` / `--junit` / `--base-url` / `--env` wired into a GitHub Actions workflow |
+| [5.5](units/unit-5/lesson-5/README.md) | Workspace deletion — Soft vs Hard | Two deletion postures, Trash retention, Undo semantics across both |
 
 ### Capstone
 
