@@ -14,7 +14,7 @@ The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The
 
 **Audience entry:** "I want to call APIs (mine or someone else's) without the API-client churn."
 
-**Duration:** ~90 min · **Units touched:** 0, 1, 2, 3
+**Duration:** ~120 min · **Units touched:** 0, 1, 2, 3
 
 | # | Lesson | Why it matters |
 |---|---|---|
@@ -26,6 +26,8 @@ The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The
 | 6 | [Unit 2.1 — Record & Replay](units/unit-2/lesson-1/README.md) | Capture, mock-as-tape |
 | 7 | [Unit 2.2 — Schema export + mock-as-stand-in](units/unit-2/lesson-2/README.md) | Mock with the full contract attached |
 | 8 | [Unit 3.1 — AI-Agent integration (Path A)](units/unit-3/lesson-1/README.md) | Drive Bowire from Claude Desktop |
+| 9 | [Unit 3.2 — Flow Assertions](units/unit-3/lesson-2/README.md) | Turn "it ran" into "it's correct" — the five-kind assertion vocabulary |
+| 10 | [Unit 3.3 — Regression Coverage](units/unit-3/lesson-3/README.md) | Recent · stale · failing · uncovered — the four-state chip per method |
 
 → Terminates in the [**User capstone**](capstones/user/README.md): a `.bww` workspace + runbook that diagnoses a flaky mixed-protocol endpoint.
 
@@ -37,7 +39,7 @@ The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The
 
 **Audience entry:** "I want Bowire *inside* my service, and/or I want to ship something *on top of* Bowire."
 
-**Duration:** ~160 min · **Units touched:** 0, 1, 3, 4
+**Duration:** ~200 min · **Units touched:** 0, 1, 3, 4
 
 | # | Lesson | Why it matters |
 |---|---|---|
@@ -50,6 +52,8 @@ The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The
 | 7 | [Unit 4.2 — Python sidecar plugin](units/unit-4/lesson-2/README.md) | polyglot escape hatch, sidecar zip |
 | 8 | [Unit 4.3 — Interceptor / middleware](units/unit-4/lesson-3/README.md) | `app.UseBowireInterceptor()`, the Intercepted rail, `BowireInterceptorOptions` |
 | 9 | [Unit 4.4 — Map widget / semantic kinds](units/unit-4/lesson-4/README.md) | `IBowireUiExtension`, `[BowireExtension]`, `coordinate.wgs84` auto-mount |
+| 10 | [Unit 4.5 — Intercept rail — four postures](units/unit-4/lesson-5/README.md) | Captured · Live overrides · Mock servers · Settings — when to reach for which |
+| 11 | [Unit 4.6 — Plugin lifecycle](units/unit-4/lesson-6/README.md) | Load / Unload / Restart / Reset-storage without process restart |
 
 → Terminates in the [**Developer capstone**](capstones/developer/README.md): ship your own Bowire plugin as a NuGet package.
 
@@ -61,7 +65,7 @@ The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The
 
 **Audience entry:** "I need to ship Bowire into a non-laptop environment and keep it running."
 
-**Duration:** ~60 min today (Unit 5.1 + 5.2 + 5.3 = ~50 min, plus Unit 0.1 + 0.2 setup) · **Units touched:** 0, 5
+**Duration:** ~90 min today (Unit 5.1 + 5.2 + 5.3 + 5.4 + 5.5 = ~80 min, plus Unit 0.1 + 0.2 setup) · **Units touched:** 0, 5
 
 | # | Lesson | Why it matters |
 |---|---|---|
@@ -70,6 +74,8 @@ The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The
 | 3 | [Unit 5.1 — CI integration](units/unit-5/lesson-1/README.md) | `bowire test`, mock-as-service-container |
 | 4 | [Unit 5.2 — Deployment patterns](units/unit-5/lesson-2/README.md) | Standalone CLI in container / systemd; embedded host gated for production; layered config (`appsettings.json` → `BOWIRE_*` env → CLI flags); reverse-proxy in front |
 | 5 | [Unit 5.3 — Observability + operations](units/unit-5/lesson-3/README.md) | OTLP export wired against the `Kuestenlogik.Bowire` ActivitySource + Meter; plugin-health endpoint; `.bww` workspace backup; per-plugin disable |
+| 6 | [Unit 5.4 — `bowire test` in CI — Flow runs, JUnit XML, HTML](units/unit-5/lesson-4/README.md) | The v2.2 Flow-driven CI runner with `--report` + `--junit` wired into GitHub Actions |
+| 7 | [Unit 5.5 — Workspace deletion — Soft vs Hard](units/unit-5/lesson-5/README.md) | Two deletion postures, Trash retention, Undo semantics — the workspace-hygiene surface |
 
 → Terminates in the [**Administrator capstone**](capstones/administrator/README.md): a `docker-compose.yml` / k8s stack + production runbook.
 
@@ -89,7 +95,7 @@ Each path terminates in its own capstone with an audience-appropriate deliverabl
 
 ## Or: the full bootcamp
 
-Complete every unit in order — ~3 hours, ~10 lessons today, plus your audience's capstone (or all three).
+Complete every unit in order — ~4 hours, ~16 lessons today, plus your audience's capstone (or all three).
 
 **Prerequisites (everything):**
 
