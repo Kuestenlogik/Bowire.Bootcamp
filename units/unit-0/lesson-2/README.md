@@ -1,183 +1,70 @@
-# Lesson 0.2: Setup
+# Lesson 0.2: The two deployment shapes
 
-> **Difficulty:** Beginner | **Duration:** 5 min (CLI) · 10 min (embedded) | **Prerequisites:** [.NET 10 SDK](https://dotnet.microsoft.com/download)
+> **Difficulty:** Beginner | **Duration:** 8 min | **Prerequisites:** [Lesson 0.1](../lesson-1/README.md)
 
 ## Overview
 
-Bowire ships in two deployment shapes (see [Lesson 0.1](../lesson-1/README.md)). This lesson sets up whichever one you picked:
+Bowire ships in two **deployment shapes**. Both expose the exact same workbench surface and the same features — they differ only in **where the workbench runs** relative to the service you're working with. This lesson is the *mental model* and the *decision criteria*. It does **not** install anything: setup steps live in the unit that matches your shape, and this bootcamp's [courses](../../LEARNING_PATHS.md) already point you at the right one.
 
-- **Path A: CLI** — install the global tool. Five minutes. Best when you want to point at any URL.
-- **Path B: Embedded** — scaffold a sample ASP.NET service and mount the workbench inside it. Ten minutes. Best when you're building / debugging your own service.
+## Two-process (standalone CLI) — point at any URL
 
-You can come back and add the other path later — the bootcamp's remaining lessons annotate which path each one targets.
-
-## Common: verify the .NET SDK
-
-```bash
-dotnet --version
+```mermaid
+graph LR
+    Service["Your service<br/>localhost:5001"] --> Bowire["bowire CLI<br/>localhost:5080"]
+    Bowire --> Browser["Browser UI<br/>(workbench)"]
+    Browser --> Bowire
+    Bowire --> Service
 ```
 
-Expect 10.0.x or newer. If not, install from [dotnet.microsoft.com/download](https://dotnet.microsoft.com/download).
+The `bowire` CLI is a **separate process**. It boots a local browser UI and acts as a debugger that *talks to* the target service over the wire. The target can be your laptop service, a staging URL, a teammate's port-forward — anything Bowire can reach.
 
----
+→ Install + first call: **[Unit 3: CLI & operations](../../unit-3/README.md)**.
 
-## Path A — CLI (two-process)
+## Single-process (embedded) — mount the workbench inside your service
 
-### A1. Install the global tool
-
-```bash
-dotnet tool install --global Kuestenlogik.Bowire.Tool
+```mermaid
+graph LR
+    subgraph Process["Your ASP.NET service — one process"]
+        Routes["Your API routes<br/>/api/..."]
+        Workbench["Bowire workbench<br/>/bowire"]
+        DI["IServiceProvider · ILogger · [Authorize]<br/>(shared by both)"]
+        Routes --> DI
+        Workbench --> DI
+    end
+    Browser["Browser UI"] --> Workbench
+    Workbench --> Routes
 ```
 
-The tool packs the workbench host + every bundled protocol plugin (REST, gRPC, GraphQL, MCP, MQTT, NATS, SignalR, WebSocket, Socket.IO, SOAP, Pulsar, JSON-RPC) into a single 50 MB tool. No per-protocol opt-in.
+The workbench lives **inside** your service process — same `IServiceProvider`, same `[Authorize]` policies, same `IOptions<T>` config, same logging. Discovery reads endpoint sources (gRPC reflection, OpenAPI document provider, SignalR hub registry) directly through DI — no schema round-trip, no version drift.
 
-Verify:
+→ Wire-in + first mount: **[Unit 4: Embed Bowire](../../unit-4/README.md)**.
 
-```bash
-bowire --version
-```
+## Which shape does your work call for?
 
-You should see something like `1.6.1+<commit-sha>`.
-
-### A2. List the bundled plugins
-
-```bash
-bowire plugin list --bundled
-```
-
-Expect a table like:
-
-```
-  Bundled plugins (12):
-
-    Kuestenlogik.Bowire.Protocol.Rest       (built-in)
-    Kuestenlogik.Bowire.Protocol.Grpc       (built-in)
-    Kuestenlogik.Bowire.Protocol.GraphQL    (built-in)
-    Kuestenlogik.Bowire.Protocol.Mcp        (built-in)
-    Kuestenlogik.Bowire.Protocol.Mqtt       (built-in)
-    Kuestenlogik.Bowire.Protocol.Nats       (built-in)
-    Kuestenlogik.Bowire.Protocol.SignalR    (built-in)
-    Kuestenlogik.Bowire.Protocol.WebSocket  (built-in)
-    Kuestenlogik.Bowire.Protocol.SocketIo   (built-in)
-    Kuestenlogik.Bowire.Protocol.Soap       (built-in)
-    Kuestenlogik.Bowire.Protocol.Pulsar     (built-in)
-    Kuestenlogik.Bowire.Protocol.JsonRpc    (built-in)
-```
-
-Bundled plugins update via `dotnet tool update -g Kuestenlogik.Bowire.Tool`.
-
-### A3. Find the user-managed plugin directory
-
-```bash
-bowire plugin list
-```
-
-Note the **Plugin directory** line at the bottom — it's typically:
-
-- **Windows:** `C:\Users\<you>\.bowire\plugins\`
-- **macOS / Linux:** `~/.bowire/plugins/`
-
-This is where `bowire plugin install` lays out installed-from-NuGet plugins (Unit 4.1) and extracted sidecar zips (Unit 4.2). Today it should be empty.
-
-### A4. Find the rest of the `~/.bowire/` user-state directory
-
-| Path | What's there |
-|---|---|
-| `~/.bowire/plugins/` | User-installed plugins (Unit 4) |
-| `~/.bowire/recordings.json` | Recording store (Unit 2.1) — backs the **Recordings** rail |
-| `~/.bowire/workspaces.json` | Saved **Workspaces** (v2.x replacement for the old "environments" concept — env vars are now workspace-scoped, lives in the **Workspaces** rail) |
-| `~/.bowire/secrets/` | Encrypted secret store for `--auth-provider` plugins |
-| `~/.bowire/config.json` | Per-user defaults (overridable per-invocation via `--config`, or in-product via the **Settings** rail → System → Defaults) |
-
-The directory is created lazily — most files don't exist until you produce them through the workbench.
-
----
-
-## Path B — Embedded (single-process)
-
-### B1. Scaffold an empty ASP.NET host (skip if you have one)
-
-If you don't already have an ASP.NET host to mount the workbench inside, create a bare-bones one to follow along:
-
-```bash
-dotnet new web -o BowireEmbeddedHost
-cd BowireEmbeddedHost
-```
-
-You'll end up with a `Program.cs`, a `BowireEmbeddedHost.csproj`, and a default route printing `Hello World!`. Bowire mounts alongside whatever routes the host already exposes.
-
-### B2. Add the Bowire NuGet package
-
-```bash
-dotnet add package Kuestenlogik.Bowire
-```
-
-This is Bowire's **Core** package — workbench host, plugin infrastructure, the Compose / Recordings / Mocks / Flows / Workspaces / Settings rail surface. Same plugin surface the CLI exposes.
-
-> **Post-v2.1 packaging note (Welle 2):** the per-rail siblings — `Kuestenlogik.Bowire.Compose`, `.Recordings`, `.Mock`, `.Flows`, `.Interceptor`, `.Benchmarking`, `.Help`, `.Workspaces`, `.Map` — ship as separate NuGets (the `Rail.` prefix was dropped). Reference `Kuestenlogik.Bowire.Bundle.Workbench` for the full Tool-equivalent surface, or pick per-package for a slimmer embed (e.g. just `Kuestenlogik.Bowire` + `.Compose` for "tiny embedded probe" deploys; Bundle.Minimal carries Core + Home + Discover only). The lesson examples below all work against either bare `Kuestenlogik.Bowire` or `Bundle.Workbench`.
-
-### B3. Wire it up in `Program.cs`
-
-```csharp
-var builder = WebApplication.CreateBuilder(args);
-
-// Your existing service registrations stay where they are.
-builder.Services.AddBowire();
-
-var app = builder.Build();
-
-// Your existing middleware stays where it is.
-app.MapGet("/", () => "Hello World!");
-app.MapBowire();   // mounts the workbench at /bowire
-
-app.Run();
-```
-
-`AddBowire()` registers the plugin host into DI. `MapBowire()` mounts the workbench at `/bowire`. No further config required for the default discovery — Bowire reads endpoint sources directly through DI at request time.
-
-### B4. Run + verify
-
-```bash
-dotnet run
-```
-
-Open <http://localhost:5000/bowire> in your browser (or whatever port Kestrel printed). You should see the workbench rendered as part of your service.
-
-### B5. Discovery in embedded mode is in-process
-
-Embedded mode doesn't need a `~/.bowire/plugins/` directory — every plugin ships in-package with `Kuestenlogik.Bowire`. State (recordings, Workspaces, secrets) is per-process by default and survives restarts via the host's regular config / data tier — not a process-wide `~/.bowire/` tree.
-
-If you want to add a plugin that isn't bundled, reference its NuGet next to `Kuestenlogik.Bowire` and the host's `AssemblyLoadContext` picks it up automatically. No `bowire plugin install` step.
-
----
-
-## Troubleshooting
-
-| Symptom | Path | Fix |
+| If you… | Shape | Home unit |
 |---|---|---|
-| `bowire: command not found` after install | A | The `dotnet tool` install dir isn't on PATH. Add `$HOME/.dotnet/tools` (Linux/macOS) or `%USERPROFILE%\.dotnet\tools` (Windows). |
-| `bowire --version` shows a much older version than expected | A | `dotnet tool update -g Kuestenlogik.Bowire.Tool`. |
-| `bowire plugin list` errors with `Access denied` | A | Check `~/.bowire/plugins/` exists and is writable. The directory is created on first install; manual creation needs `mkdir -p`. |
-| Tool install times out behind a corporate proxy | A · B | Configure `dotnet nuget` proxy settings (`dotnet nuget config -s <feed>`) or set `HTTP_PROXY` / `HTTPS_PROXY`. |
-| `/bowire` returns 404 in the embedded host | B | Make sure `app.MapBowire()` runs **after** `var app = builder.Build()` but **before** `app.Run()`. ASP.NET ignores route registrations after `Run()` starts the host. |
-| Workbench renders but discovers no endpoints | B | The host has no services registered yet. Either add a sample route (`app.MapGet("/api/ping", () => "pong")`) or skip ahead to [Unit 1 — Lesson 1.1](../../unit-1/lesson-1/README.md) (Embedded shape section) which adds a discovery target. |
+| Debug **someone else's** API | CLI | [Unit 3](../../unit-3/README.md) |
+| Build / debug **your own** ASP.NET service | Embedded | [Unit 4](../../unit-4/README.md) |
+| Run security scans / contract exports in CI | CLI | [Unit 3](../../unit-3/README.md) |
+| Ship a debug UI alongside your binary's routes | Embedded | [Unit 4](../../unit-4/README.md) |
+| Drive Bowire from an AI agent across many targets | CLI (`bowire mcp serve`) | [Unit 3](../../unit-3/README.md) |
+| Drive a single in-process service from an agent | Embedded + `--enable-mcp-adapter` | [Unit 4](../../unit-4/README.md) |
+| Internal-tools team — inherit your auth + DI | Embedded | [Unit 4](../../unit-4/README.md) |
+
+Most teams use **both**, in different contexts. **You don't choose a shape here** — you follow the course for your role, and each unit is written for a single shape. Where a cross-shape note helps, a unit *links* to the sibling unit rather than opening a second track inline.
+
+## The workbench is identical across shapes
+
+Whichever shape mounted it, the workbench UI — Discover, invoke pane, response viewer, recorder, rails — is the same. That's why the **UI walkthrough lives once** in [Unit 1: The Workbench](../../unit-1/README.md), and the CLI and embedded units link to it instead of repeating it.
 
 ## Key Takeaways
 
-1. **One tool, every protocol.** Bundled plugins ship in the same NuGet (`Kuestenlogik.Bowire.Tool` for CLI, `Kuestenlogik.Bowire` for embedded) — no per-protocol install step on either path.
-2. **CLI state lives under `~/.bowire/`.** Plugins, recordings, **Workspaces** (v2.x replacement for the v1.x "environments" concept — env vars are now workspace-scoped), secrets — all under the user's home directory. Embedded mode skips that; state lives in the host process.
-3. **Embedded is two lines: `AddBowire()` + `MapBowire()`.** No separate distribution, no companion container.
-4. **The two paths are not exclusive.** Most teams have both — embedded for their own service, CLI for external targets and scripted use cases.
-5. **Updates differ by path.** CLI: `dotnet tool update -g Kuestenlogik.Bowire.Tool`. Embedded: bump the `Kuestenlogik.Bowire` PackageReference + redeploy.
+1. **Same workbench, two mounts.** CLI = external probe across the wire; embedded = an endpoint inside your host that sees your DI.
+2. **Your course picks the shape, not this lesson.** Setup lives in Unit 3 (CLI) or Unit 4 (embedded).
+3. **Cross-shape = a link, never an inline second track.**
 
 ## What's Next
 
-You're ready to point the freshly-installed `bowire` at a real REST API and see the workbench render.
+See how the bootcamp is organised — courses, units, and how to choose yours.
 
-**Continue:** → [Lesson 0.3: Hello Bowire](../lesson-3/README.md)
-
-## Reference
-
-- [Setup docs](https://bowire.io/docs/setup/)
-- [Updating Bowire and its plugins](https://bowire.io/docs/setup/updating.html)
-- [Plugin system](https://bowire.io/docs/features/plugin-system.html)
+**Continue:** → [Lesson 0.3: How this bootcamp works](../lesson-3/README.md)

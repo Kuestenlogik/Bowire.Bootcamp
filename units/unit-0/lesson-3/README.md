@@ -1,115 +1,70 @@
-# Lesson 0.3: Hello Bowire
+# Lesson 0.3: How this bootcamp works
 
-> **Difficulty:** Beginner | **Duration:** 5 min | **Prerequisites:** [Lesson 0.2](../lesson-2/README.md) — Path A (CLI)
+> **Difficulty:** Beginner | **Duration:** 7 min | **Prerequisites:** [Lesson 0.2](../lesson-2/README.md)
 
 ## Overview
 
-Point your freshly-installed `bowire` at a public REST API, watch the workbench discover it, invoke one method. The smallest end-to-end loop that proves the install works — without writing any code or running any sample server yet.
-
-You'll bring your own sample API in [Unit 1 — Lesson 1.1](../../unit-1/lesson-1/README.md); this lesson uses one that's already on the public web.
-
-> **Embedded users:** This lesson is CLI-native — pointing the workbench at a public URL is the CLI's day job. Skip ahead to [Unit 1 — Lesson 1.1](../../unit-1/lesson-1/README.md) and read the "Embedded shape" section at the bottom, which walks the equivalent loop against an in-process service. You can come back to this lesson later if you ever want to drive an external target.
-
-## Steps
-
-### 1. Pick a target
-
-We'll use the [Petstore reference API](https://petstore3.swagger.io/) — Swagger's canonical OpenAPI demo. It exposes a `/api/v3/openapi.json` document the REST plugin can discover.
-
-### 2. Point Bowire at it
-
-```bash
-bowire --url https://petstore3.swagger.io/api/v3
-```
-
-The CLI:
-
-- Boots the workbench UI on `http://localhost:5080/bowire`.
-- Auto-opens your browser to it.
-- Tells the workbench: "discover the server at `https://petstore3.swagger.io/api/v3`".
-
-The REST plugin probes the conventional OpenAPI paths, finds `/api/v3/openapi.json`, parses it, and renders the operations as method nodes in the sidebar.
-
-### 3. Explore the sidebar
-
-The sidebar shows the Petstore's three tags (`pet`, `store`, `user`) as services, each containing its OpenAPI operations as methods:
+The bootcamp is organised so you learn only what your role needs, in one modality at a time. Three levels:
 
 ```
-🐕 pet
-   └─ getPetById
-   └─ addPet
-   └─ updatePet
-   └─ findPetsByStatus
-   └─ findPetsByTags
-   └─ deletePet
-   └─ uploadFile
-🛒 store
-   └─ getInventory
-   └─ placeOrder
-   └─ getOrderById
-   └─ deleteOrder
-👤 user
-   └─ ...
+Course / track   (your role — a curated list of units; not a folder)
+ └─ Unit          (one modality: UI, CLI, embedded coding, or extension coding)
+     └─ Lesson    (one skill; ships a start/ scaffold + a completed/ reference)
+         └─ Steps (the walkthrough inside the lesson README)
 ```
 
-This is **auto-discovery** — Bowire didn't need a Postman collection, a `.proto`, or any per-operation configuration. The OpenAPI document the Petstore publishes is the source of truth, and the workbench rendered it.
+## Courses pick units — units don't pick you
 
-### 4. Invoke `getPetById`
+A **course** is a role-oriented, freely-composed selection of units. It's pure curation (it lives in [`LEARNING_PATHS.md`](../../LEARNING_PATHS.md), not a folder), so the **same unit is reused across courses** and a course can take units in whatever order fits.
 
-1. Click **pet → getPetById** in the sidebar.
-2. The right pane shows the parameter form built from the OpenAPI schema. There's one parameter, `petId` (int64, required).
-3. Enter `petId = 1`.
-4. Click **Invoke**.
-
-You should see a response like:
-
-```json
-{
-  "id": 1,
-  "category": { "id": 0, "name": "string" },
-  "name": "doggie",
-  "photoUrls": ["string"],
-  "tags": [{"id": 0, "name": "string"}],
-  "status": "available"
-}
-```
-
-(The Petstore's demo data sometimes shows placeholder strings — what matters is that the *call worked*. Status code in the bottom-right of the response pane reads `200`.)
-
-### 5. Try one streaming-style method (optional)
-
-Petstore's REST endpoints are all unary. To see the streaming-pane shape, point Bowire at a public gRPC server with reflection enabled (your own service from Unit 1.2 will work too) — for now, just note that the **invoke pane shape is the same regardless of protocol**.
-
-### 6. Stop the workbench
-
-`Ctrl+C` in the terminal running `bowire`. The browser tab disconnects; nothing else to clean up.
-
-> **Finding help in-product.** Every rail surfaces its own help topics through the **Help rail** (the `?` icon at the bottom of the rail strip — promoted from a drawer to a top-level rail in v2.1). Hit `F1` from anywhere to open the per-rail topic drawer, or click the rail directly. Each rail's empty state also pops a guided tour for the first-time path.
-
-## Troubleshooting
-
-| Symptom | Fix |
+| Course | Units (typical) |
 |---|---|
-| Browser doesn't auto-open | Manually visit `http://localhost:5080/bowire`. |
-| Sidebar is empty / "No services discovered" | The REST plugin couldn't reach the OpenAPI document. Check the URL is exactly `https://petstore3.swagger.io/api/v3` (not `…/swagger`, not `…/v2`). |
-| `Address already in use` | Port 5080 is taken. Stop whatever's holding it (`lsof -i :5080`) or run with `--port 5099`. |
-| Response pane shows a CORS error | The browser blocked a cross-origin request. The CLI uses its own back-end-side HTTP client by default; CORS errors usually mean the browser was tricked into making the call client-side. Re-launch `bowire` cleanly. |
+| **Workbench / API operator** | 0 → 1 → 2 |
+| **Integrator / DevOps / Admin** | 0 → 3 (→ 1 to inspect) |
+| **Developer (embed & extend)** | 0 → 1 → 4 → 5 |
+
+## One unit = one modality
+
+Each unit stays in a single modality and **never makes you switch mid-unit** between UI, CLI, and coding:
+
+| Unit | Modality |
+|---|---|
+| [Unit 0: Foundations](../../unit-0/README.md) | none (concepts) |
+| [Unit 1: The Workbench — first contact](../../unit-1/README.md) | UI |
+| [Unit 2: The Workbench — record, mock, assert, cover](../../unit-2/README.md) | UI |
+| [Unit 3: CLI & operations](../../unit-3/README.md) | CLI |
+| [Unit 4: Embed Bowire](../../unit-4/README.md) | embedded coding |
+| [Unit 5: Extend Bowire](../../unit-5/README.md) | extension coding |
+
+When another modality is genuinely relevant (e.g. a UI recording lesson mentioning the scriptable `bowire mock`), the unit **links** to the sibling unit instead of opening a second track inline.
+
+## start/ and completed/
+
+Every hands-on lesson ships two folders:
+
+- **`start/`** — a prepared scaffold to build on, so you don't begin from zero and the skeleton already fits the task.
+- **`completed/`** — the reference/finished state, so you can diff your work against "milestone achieved".
+
+Capstones (per audience: [user](../../../capstones/user/README.md) · [developer](../../../capstones/developer/README.md) · [administrator](../../../capstones/administrator/README.md)) use the same `start/` + `completed/` shape.
+
+## Where setup lives
+
+There is **no install step in Unit 0**. Setup is part of the first unit of your course:
+
+- CLI install (`dotnet tool install --global Kuestenlogik.Bowire.Tool`) → [Unit 3](../../unit-3/README.md).
+- Embedded wire-in (`AddBowire()` / `MapBowire()`) → [Unit 4](../../unit-4/README.md).
+- The browser workbench itself needs no separate install — it opens in-browser once either shape is running ([Unit 1](../../unit-1/README.md)).
 
 ## Key Takeaways
 
-1. **Install once, point at anything.** No per-target setup — the `--url` flag is the whole config.
-2. **Auto-discovery is a property of the protocol plugin.** REST → OpenAPI probing; gRPC → reflection; GraphQL → introspection; MCP → handshake. Same `bowire --url` invocation regardless.
-3. **The UI shape is constant across protocols.** Sidebar / invoke pane / response viewer don't change when you switch wires; only the underlying serialisation does.
-4. **You don't need a sample server to start exploring.** Public schemas (Petstore, GitHub's GraphQL, public gRPC reflection demos, &c) are enough for first contact.
+1. **Course → Unit → Lesson → Steps.** Courses are curation; units and lessons are folders.
+2. **Pick a course, follow its units.** Each unit is single-modality; cross-modality is a link.
+3. **`start/` to build on, `completed/` to check against.**
 
 ## What's Next
 
-You're done with Unit 0. Time to bring up your own sample API and drive REST + gRPC side-by-side in the same workbench.
+Head to the first unit of your course — see [Learning Paths](../../LEARNING_PATHS.md), or jump straight in:
 
-**Continue:** → [Unit 1: Workbench basics](../../unit-1/README.md) — each lesson's setup section walks both the CLI shape (`bowire --url …`) and the Embedded shape (`AddBowire()` / `MapBowire()`).
-
-## Reference
-
-- [Petstore reference API](https://petstore3.swagger.io/)
-- [Bowire REST plugin docs](https://bowire.io/docs/protocols/rest.html)
-- [Auto-discovery](https://bowire.io/docs/features/auto-discovery.html)
+- Operator → [Unit 1: The Workbench](../../unit-1/README.md)
+- Admin / DevOps → [Unit 3: CLI & operations](../../unit-3/README.md)
+- Developer → [Unit 4: Embed Bowire](../../unit-4/README.md)
