@@ -8,6 +8,8 @@ You then weave the plugin into the rest of the toolchain: capture a representati
 
 The optional second half — "wire it into CI as a fixture for other teams" — is in scope for the capstone but not the *point* of it; the point is that the plugin exists, ships through NuGet, and lights up in a real workbench against a real backend.
 
+> **On the CLI.** This capstone reaches for CLI verbs — `bowire plugin install`, `bowire mock`, `bowire test`, `bowire mcp serve`. They're all introduced in [Unit 3: CLI & operations](../../units/unit-3/README.md); the Developer course cross-links Unit 3 as the plugin author's ship-and-verify toolchain, so treat it as a capability reference if you skipped it.
+
 ## Scenario
 
 You're a platform engineer on a team that ships a hybrid REST + gRPC + MQTT stack — "Harbor Tour", a shipping-yard backend that exposes container manifests over REST, live crane telemetry over gRPC server-streaming, and dock-arrival events over MQTT. A new frontend team needs:
@@ -22,11 +24,11 @@ You build it with Bowire — and if your real stack speaks a wire Bowire doesn't
 
 | Deliverable | Built in |
 |---|---|
-| **A custom protocol plugin (or UI / rail / settings extension)** — the primary deliverable for this audience | Unit 4.1 / 4.2 |
+| **A custom protocol plugin (or UI / rail / settings extension)** — the primary deliverable for this audience | Unit 5.1 / 5.2 / 5.3 |
 | A captured `.bwr` recording covering REST + gRPC + MQTT, exercising the plugin's surface where applicable | Unit 2.1 |
-| A mock-server setup serving the same recording, with the original OpenAPI / AsyncAPI / `.proto` reflection re-emitted to peer discoverers | Unit 2.2 + Unit 4 (sidecar story) |
-| A Claude Desktop / Cursor MCP config pointing at the mock | Unit 3.1 |
-| A GitHub Actions workflow running `bowire test` against the recording and bringing up the mock as a service container for downstream integration tests | Unit 5.1 |
+| A mock-server setup serving the same recording, with the original OpenAPI / AsyncAPI / `.proto` reflection re-emitted to peer discoverers | Unit 2.2 (UI) · `bowire mock` (Unit 3.2) |
+| A Claude Desktop / Cursor MCP config pointing at the mock | Unit 3.3 |
+| A GitHub Actions workflow running `bowire test` against the recording and bringing up the mock as a service container for downstream integration tests | Unit 3.2 |
 
 ## Reference materials
 

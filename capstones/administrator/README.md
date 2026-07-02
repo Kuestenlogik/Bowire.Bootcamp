@@ -67,7 +67,7 @@ Skim `src/Kuestenlogik.Bowire.Tool/Kuestenlogik.Bowire.Tool.csproj` in main Bowi
 - The image starts the Tool with `ASPNETCORE_URLS=http://+:5080` (`ContainerEnvironmentVariable`).
 - The image is Ubuntu Noble chiseled (no shell, non-root by default — pin a user / mounts at non-root paths only).
 
-No surprises in the runtime contract. Everything else is configured through `Bowire:*` keys (the `Bowire:Auth`, `Bowire:Telemetry`, `Bowire:DisabledPlugins`, etc. sections — see [Unit 0.2](../../units/unit-0/lesson-2/README.md) and the bound options under `BrowserUiOptions.cs`).
+No surprises in the runtime contract. Everything else is configured through `Bowire:*` keys (the `Bowire:Auth`, `Bowire:Telemetry`, `Bowire:DisabledPlugins`, etc. sections — see [Unit 3.5](../../units/unit-3/lesson-5/README.md) (layered config) and the bound options under `BrowserUiOptions.cs`).
 
 ### 2. Bring up the compose stack on a laptop first
 
