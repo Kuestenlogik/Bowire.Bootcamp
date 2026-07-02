@@ -7,6 +7,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
     <!-- The one line that pulls in the workbench + bundled protocols. -->
-    <PackageReference Include="Kuestenlogik.Bowire" Version="2.1.0" />
+    <PackageReference Include="Kuestenlogik.Bowire" Version="2.1.1" />
   </ItemGroup>
 </Project>

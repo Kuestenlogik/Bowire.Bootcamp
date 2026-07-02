@@ -5,8 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Kuestenlogik.Bowire" Version="2.1.0" />
+    <PackageReference Include="Kuestenlogik.Bowire" Version="2.1.1" />
     <!-- The interceptor middleware + Intercept rail ship as one package. -->
-    <PackageReference Include="Kuestenlogik.Bowire.Interceptor" Version="2.1.0" />
+    <PackageReference Include="Kuestenlogik.Bowire.Interceptor" Version="2.1.1" />
   </ItemGroup>
 </Project>
