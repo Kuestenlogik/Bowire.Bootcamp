@@ -145,6 +145,18 @@ convention.
   **retired** in favour of the above. Units point at these repos; only
   genuinely lesson-specific edits ship as `start/` + `completed/`.
 
+**Sample progression:**
+- **Intro (Unit 0–1):** keep it dead-simple — hello-world / echo demos
+  from `protocols/` (`Grpc.Greeter` = SayHello, `WebSocket.Echo`,
+  `Rest.PetStore`). Lowest ceremony for a first invoke.
+- **Unit 2 onward:** carry the **Harbor Control Center domain**
+  (`Ship`, `Dock`, `Crane`, `Container`, `PortCall` via the Combined
+  host) so record/mock/assert/cover lessons work against one coherent
+  business model.
+- **Capstones:** *extend the Harbor domain* — the deliverable adds
+  something to the domain (a new operation / entity / protocol / plugin),
+  so the learner builds on a familiar model rather than a throwaway.
+
 ## Cleanup workstream
 1. **DONE (2026-07-02):** removed the dead `capstone/` (singular) dir —
    untracked, only `bin/`/`obj/` build artefacts, superseded by

@@ -16,6 +16,8 @@ Your first hands-on time in the workbench: discover a service in the sidebar and
 > Then open **<http://localhost:5101/bowire>**.
 >
 > Prefer the CLI shape (point `bowire` at any URL instead of embedding)? See [Unit 3: CLI & operations](../../unit-3/README.md). Either way the UI below is identical.
+>
+> Want the absolute simplest first touch? The single-plugin hello-world / echo demos in `Bowire.Samples/protocols/` (`Grpc.Greeter` → SayHello, `WebSocket.Echo`, `Rest.PetStore`) are tiny. They don't embed Bowire, so drive them via the CLI (`bowire --url <them>` — [Unit 3](../../unit-3/README.md)); the invoke loop below is the same.
 
 ## The workbench at a glance
 
