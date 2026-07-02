@@ -1,31 +1,27 @@
-# Unit 3: AI agents, assertions, coverage — turning "call" into "verify"
+# Unit 3: CLI & operations
 
-*Time: ~35 minutes • Lessons: 3 • Previous: [Unit 1](../unit-1/README.md)*
+*Time: ~70 minutes • Lessons: 7 • Modality: CLI*
 
-Wire the workbench into a language model over MCP, layer declarative assertions on top of Flows, and watch coverage decay across the discovered surface. Three lessons about *turning a running call into a verified one*.
+Everything Bowire does from the command line — install and drive it, replay and test in CI, expose it to an AI agent, front an upstream as a reverse-proxy, deploy it, observe it, and keep workspaces tidy. This unit is **CLI-only**: where the workbench UI is the natural surface (the invoke walkthrough, the Intercept rail, Flow authoring) it *links* to the UI unit rather than opening it inline.
 
-## Prerequisites
-
-- [Unit 1](../unit-1/README.md) complete in either shape (CLI or Embedded — the setup tab inside each Unit 1 lesson) — understand the discovery + invoke surface before layering assertions or agent access on top.
-- **Claude Desktop** *or* **Cursor** installed locally (Lesson 3.1 only). Any other MCP-aware host (custom MCP gateway, Continue.dev, &c) works too — the config snippet is portable.
-- The Unit 1 sample servers (`HelloApi` + `HelloGrpc`) ideally still running — every lesson drives against them.
+Drive the CLI against the single-plugin demos in [`Bowire.Samples/protocols/`](https://github.com/Kuestenlogik/Bowire.Samples) (`Rest.PetStore`, `Grpc.Greeter`, …) — they don't embed Bowire, so they're the natural `bowire --url` targets. The richer Harbor domain works too.
 
 ## Lessons
 
-| Lesson | Topic | What You'll Build |
+| Lesson | Topic | What You'll Learn |
 |--------|-------|-------------------|
-| [3.1](lesson-1/README.md) | Claude Desktop + Cursor over MCP | `bowire mcp serve` wired into the agent's `mcpServers` config, drive REST + gRPC + recordings from the chat window |
-| [3.2](lesson-2/README.md) | Flow assertions — from "it ran" to "it's correct" | A Flow with five kinds of expectation (status / header / body-path / body-text / latency), a red-then-green regression |
-| [3.3](lesson-3/README.md) | Regression Coverage — what have I actually tested? | The per-method coverage chip (recent / stale / failing / uncovered) + the Settings → Data run-history view |
+| [3.1](lesson-1/README.md) | Install & first call | `dotnet tool install`, `bowire --url`, `list` / `describe` / `call`, repeatable `--url` |
+| [3.2](lesson-2/README.md) | Mock & test in CI | `bowire mock`, `bowire test` (recording + Flow), `--junit` / `--report`, GitHub Actions |
+| [3.3](lesson-3/README.md) | AI agents over MCP | `bowire mcp serve` (stdio), the tool surface, Claude Desktop wiring, the security gate |
+| [3.4](lesson-4/README.md) | Reverse-proxy interception | `bowire interceptor` fronting an upstream; feeds the Intercept rail; TLS + CA |
+| [3.5](lesson-5/README.md) | Deployment patterns | Container / systemd, layered config (`appsettings` → `BOWIRE_*` → flags), reverse-proxy in front |
+| [3.6](lesson-6/README.md) | Observability & operations | `--telemetry` + OTLP, Bowire-domain metrics, plugin health, backup, per-plugin disable |
+| [3.7](lesson-7/README.md) | Workspace hygiene | Soft vs hard deletion, Trash retention, undo semantics |
 
 ## Why this unit
 
-A backend that responds is not a backend that responds *correctly*, and a workbench full of green ticks tells you nothing about the methods you *haven't* touched. Unit 3 covers the three tools that close that loop:
-
-- **3.1** hands Bowire's discovery + invoke surface to a language model — useful for exploratory testing of unfamiliar APIs.
-- **3.2** layers declarative expectations on Flows so a step's outcome is `pass` / `fail`, not just "the wire moved".
-- **3.3** aggregates every runner's history into a four-state coverage chip per method — recent, stale, failing, uncovered — so you can see what you haven't exercised.
+The CLI is what turns Bowire from a laptop debugger into a headless, scriptable, deployable tool — the surface every integrator, DevOps and platform engineer lives in.
 
 ---
 
-**Next:** → [Unit 4: Extending Bowire](../unit-4/README.md)
+**Next:** → [Lesson 3.1: Install & first call](lesson-1/README.md)
