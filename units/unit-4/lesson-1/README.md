@@ -6,6 +6,8 @@
 
 Mount the Bowire workbench inside your own ASP.NET service — one process, no second terminal, no `--url`. The workbench reads the **same `IServiceProvider`** your own routes do, so discovery sees your OpenAPI document, gRPC reflection registry, SignalR hubs and any `IBowireProtocol` you registered — in one pass, no URL enumeration.
 
+> **Runnable scaffold.** This lesson ships [`start/`](start/) (the bare host) and [`completed/`](completed/) (the wired host). `cd start`, make the change yourself, then diff against `completed/`. Both build against the published `Kuestenlogik.Bowire` 2.1.0 package.
+
 ## Steps
 
 ### 1. Reference the package
