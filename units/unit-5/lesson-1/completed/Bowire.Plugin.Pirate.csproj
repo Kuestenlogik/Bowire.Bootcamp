@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- The plugin contract (IBowireProtocol + models) ships here. This is
+         the whole dependency a protocol plugin needs. -->
+    <PackageReference Include="Kuestenlogik.Bowire" Version="2.1.0" />
+  </ItemGroup>
+</Project>
