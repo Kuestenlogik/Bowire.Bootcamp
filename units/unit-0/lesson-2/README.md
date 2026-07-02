@@ -65,6 +65,6 @@ Whichever shape mounted it, the workbench UI — Discover, invoke pane, response
 
 ## What's Next
 
-See how the bootcamp is organised — courses, units, and how to choose yours.
+Time to get a workbench open.
 
-**Continue:** → [Lesson 0.3: How this bootcamp works](../lesson-3/README.md)
+**Continue:** → [Lesson 0.3: Get Bowire running](../lesson-3/README.md)
