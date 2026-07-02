@@ -31,47 +31,37 @@ summary: 'A hands-on tutorial that takes you from your first API call to buildin
   </p>
 </div>
 
-## Pick your deployment shape
+## Pick your course
 
-Bowire runs in two shapes; both expose the same workbench. The bootcamp covers both side by side.
+Start from your **role**. A course is a curated selection of [units](units-overview.md) — pick one and follow its units. See [Learning Paths](LEARNING_PATHS.md) for the full compositions.
 
-| Shape | Best for | Wire-in |
-|---|---|---|
-| **CLI (two-process)** | Pointing at any URL — your own service, a teammate's port-forward, a public API, CI scans, MCP agents | `bowire --url …` after `dotnet tool install --global Kuestenlogik.Bowire.Tool` |
-| **Embedded (single-process)** | Building / debugging your own ASP.NET service — workbench inherits your DI, `[Authorize]` policies, logging, config | `AddBowire()` + `MapBowire()` in `Program.cs` |
+| Course | For | Units |
+|--------|-----|-------|
+| [Workbench & API operator](LEARNING_PATHS.md#1-workbench--api-operator-user) | Developers, frontend engineers, QA, AI/agent operators | 0 → 1 → 2 |
+| [Integrator / DevOps / Administrator](LEARNING_PATHS.md#2-integrator--devops--administrator) | Platform engineers, SREs, DevOps | 0 → 3 |
+| [Developer — embed & extend](LEARNING_PATHS.md#3-developer--embed--extend) | Backend devs embedding Bowire, plugin authors, contributors | 0 → 1 → 4 → 5 |
 
-[Unit 0 → Lesson 0.1](units/unit-0/lesson-1/README.md) breaks the choice down with diagrams; [Lesson 0.2](units/unit-0/lesson-2/README.md) walks both installs.
+## How it's organised
 
-## Getting Started
+**Course → Unit → Lesson → Steps.** Each **unit is a single modality** — UI, CLI, embedded coding, or extension coding — and never makes you switch mid-unit. Where another modality is relevant, a unit *links* to its sibling instead of opening a second track inline. The two deployment shapes (standalone CLI vs embedded host) are a **concept** you meet in [Unit 0](units/unit-0/README.md); the actual setup lives in the shape's own unit (CLI → [Unit 3](units/unit-3/README.md), embedded → [Unit 4](units/unit-4/README.md)).
 
-Choose a [Learning Path](LEARNING_PATHS.md) based on your role:
-
-| Path | For | Duration |
-|------|-----|----------|
-| [Workbench & API operator](LEARNING_PATHS.md#1-workbench--api-operator-user-audience) | Developers, frontend engineers, QA, AI/agent operators | ~90 min |
-| [Developer / embed & extend](LEARNING_PATHS.md#2-developer--embed--extend-developer-audience) | Backend devs embedding Bowire, plugin authors, core contributors | ~120 min |
-| [Administrator / deploy & run](LEARNING_PATHS.md#3-administrator--deploy--run-administrator-audience) | Platform engineers, SREs, DevOps | ~75 min |
-
-The deployment shape (CLI vs Embedded) is a **setup tab inside each lesson**, not a path-level branch — the workbench walkthrough is identical regardless of which shape mounted it.
+See the full catalogue in [All Units](units-overview.md).
 
 ## Capstones (per audience)
 
-Each path terminates in its own audience-appropriate capstone:
+Each course ends in its own capstone, and each **extends the Harbor Control Center domain** from [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples):
 
 - **[User](capstones/user/README.md)** — `.bww` workspace + diagnosis runbook for a mixed-protocol flaky endpoint.
-- **[Developer](capstones/developer/README.md)** — ship a NuGet package implementing one of v2.1's extension points (protocol / extension / rail / module). Comes with a [sample backend](capstones/developer/sample/HarborTour/) and a [reference solution](capstones/developer/solution/README.md).
+- **[Developer](capstones/developer/README.md)** — ship a NuGet package implementing one of Bowire's extension points (protocol / extension / rail / module).
 - **[Administrator](capstones/administrator/README.md)** — `docker-compose.yml` (or k8s) + production runbook with reverse-proxy, auth, observability, plugin disable list, backup strategy.
 
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- **One** of:
-  - Bowire CLI (`dotnet tool install --global Kuestenlogik.Bowire.Tool`), or
-  - The `Kuestenlogik.Bowire` NuGet referenced from your ASP.NET service for embedded mode (`dotnet add package Kuestenlogik.Bowire`)
-- Docker (only for Units 2 + 5)
-- Python 3.10+ (only for Unit 4.2)
-- Claude Desktop or Cursor (only for Unit 3.1)
+- **One** of: the Bowire CLI (`dotnet tool install --global Kuestenlogik.Bowire.Tool`, Unit 3) or the `Kuestenlogik.Bowire` NuGet in your ASP.NET host (`dotnet add package Kuestenlogik.Bowire`, Unit 4)
+- Sample services from [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples) — Harbor `harbor-demo/` + per-plugin `protocols/`
+- Docker (Unit 3 CI/deploy) · Python 3.10+ (Unit 5.2 only) · Claude Desktop or Cursor (Unit 3.3 only)
 
 ## Start Learning
 
-Begin with [Unit 0: Introduction](units/unit-0/README.md) to pick your deployment shape and verify the install.
+Begin with [Unit 0: Foundations](units/unit-0/README.md) — what Bowire is, the two shapes, and how to pick your course.

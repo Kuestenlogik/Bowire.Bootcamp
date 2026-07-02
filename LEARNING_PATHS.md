@@ -1,111 +1,74 @@
 # Learning Paths
 
-Three audience-bound paths through the Bowire Bootcamp plus an optional, per-audience capstone. Or, complete every unit in order for the full picture (~3 hours).
+Pick a **course** based on your role. A course is a curated selection of **units** — it's pure curation (this file), not a folder. Units are the reusable building blocks; the same unit appears in more than one course, and a course takes units in whatever order fits. Or complete every unit in order for the full picture.
 
-The unit sequence on disk (`units/unit-0/` → `units/unit-5/`) is **flat**. The paths below are a *curation* on top — same model Surgewave Bootcamp uses for its purpose-driven paths.
+> **One unit = one modality.** Each unit stays in a single modality — UI, CLI, embedded coding, or extension coding — and never makes you switch mid-unit. Switching *between* units inside a course is fine (that's an explicit unit boundary). Where another modality is relevant, a unit **links** to its sibling rather than opening a second track inline.
 
-> **The deployment shape is a tab inside a lesson, not a path-level branch.** When you reach a lesson that genuinely depends on whether you're driving the standalone CLI (`bowire --url …`) or the embedded host (`AddBowire()` / `MapBowire()`), the lesson's setup section walks both. From the workbench-walkthrough step onward, the UI is identical regardless of which shape you mounted with — so there's nothing to pick at the path level.
+## The units
 
----
-
-## 1. Workbench & API operator (User audience)
-
-**For:** Developers, frontend engineers, QA, AI/agent operators who *use* Bowire to drive APIs. The CLI is the daily driver; the embedded shape is something they meet when their backend team uses it.
-
-**Audience entry:** "I want to call APIs (mine or someone else's) without the API-client churn."
-
-**Duration:** ~120 min · **Units touched:** 0, 1, 2, 3
-
-| # | Lesson | Why it matters |
+| Unit | Modality | What it covers |
 |---|---|---|
-| 1 | [Unit 0.1 — What is Bowire?](units/unit-0/lesson-1/README.md) | Positioning, two-shape mental model |
-| 2 | [Unit 0.2 — Setup (CLI tab)](units/unit-0/lesson-2/README.md) | Install global tool, verify |
-| 3 | [Unit 0.3 — Hello Bowire](units/unit-0/lesson-3/README.md) | First call against public Petstore |
-| 4 | [Unit 1.1 — First call (CLI shape)](units/unit-1/lesson-1/README.md) | First call against your own service |
-| 5 | [Unit 1.2 — Multi-protocol (CLI shape)](units/unit-1/lesson-2/README.md) | REST + gRPC side-by-side |
-| 6 | [Unit 2.1 — Record & Replay](units/unit-2/lesson-1/README.md) | Capture, mock-as-tape |
-| 7 | [Unit 2.2 — Schema export + mock-as-stand-in](units/unit-2/lesson-2/README.md) | Mock with the full contract attached |
-| 8 | [Unit 3.1 — AI-Agent integration (Path A)](units/unit-3/lesson-1/README.md) | Drive Bowire from Claude Desktop |
-| 9 | [Unit 3.2 — Flow Assertions](units/unit-3/lesson-2/README.md) | Turn "it ran" into "it's correct" — the five-kind assertion vocabulary |
-| 10 | [Unit 3.3 — Regression Coverage](units/unit-3/lesson-3/README.md) | Recent · stale · failing · uncovered — the four-state chip per method |
+| [Unit 0: Foundations](units/unit-0/README.md) | — (concepts) | What Bowire is · the two deployment shapes · how the bootcamp works |
+| [Unit 1: The Workbench — first contact](units/unit-1/README.md) | UI | Discover, invoke, multi-protocol, streaming |
+| [Unit 2: The Workbench — record, mock, assert, cover](units/unit-2/README.md) | UI | Record/replay, schema mocks, Flow assertions, coverage, Intercept rail |
+| [Unit 3: CLI & operations](units/unit-3/README.md) | CLI | Install, `mock`/`test`+CI, `mcp serve`, reverse-proxy, deploy, observe, workspaces |
+| [Unit 4: Embed Bowire](units/unit-4/README.md) | embedded coding | `AddBowire`/`MapBowire`, embedded MCP, interceptor middleware |
+| [Unit 5: Extend Bowire](units/unit-5/README.md) | extension coding | Protocol plugin, sidecar, UI extension, plugin lifecycle |
 
-→ Terminates in the [**User capstone**](capstones/user/README.md): a `.bww` workspace + runbook that diagnoses a flaky mixed-protocol endpoint.
+## Courses
 
----
+### 1. Workbench & API operator (User)
 
-## 2. Developer / embed & extend (Developer audience)
+**For:** developers, frontend engineers, QA, AI/agent operators who *use* Bowire to drive APIs.
 
-**For:** Backend developers embedding Bowire in their own ASP.NET host, plugin authors shipping new protocols, contributors to the Bowire core. The embedded shape is the daily driver; the CLI is the verification tool.
+```mermaid
+graph LR
+    U0[Unit 0<br/>Foundations] --> U1[Unit 1<br/>Workbench] --> U2[Unit 2<br/>Record/Mock/Assert]
+```
 
-**Audience entry:** "I want Bowire *inside* my service, and/or I want to ship something *on top of* Bowire."
+**Units:** [0](units/unit-0/README.md) → [1](units/unit-1/README.md) → [2](units/unit-2/README.md). Cross-links into [Unit 3](units/unit-3/README.md) where a scriptable equivalent (`bowire mock` / `bowire test`) helps.
 
-**Duration:** ~200 min · **Units touched:** 0, 1, 3, 4
+→ Capstone: [**User**](capstones/user/README.md) — a `.bww` workspace + diagnosis runbook that extends the Harbor domain.
 
-| # | Lesson | Why it matters |
-|---|---|---|
-| 1 | [Unit 0.1 — What is Bowire?](units/unit-0/lesson-1/README.md) | Positioning, two-shape mental model |
-| 2 | [Unit 0.2 — Setup (Embedded tab)](units/unit-0/lesson-2/README.md) | `AddBowire()` + `MapBowire()` |
-| 3 | [Unit 1.1 — First call (Embedded shape)](units/unit-1/lesson-1/README.md) | First mount, REST |
-| 4 | [Unit 1.2 — Multi-protocol (Embedded shape)](units/unit-1/lesson-2/README.md) | co-host gRPC |
-| 5 | [Unit 3.1 — AI-Agent integration (Path B)](units/unit-3/lesson-1/README.md) | `MapBowireMcpAdapter()` embedded MCP |
-| 6 | [Unit 4.1 — .NET protocol plugin](units/unit-4/lesson-1/README.md) | `IBowireProtocol`, nupkg, `PackageReference` tab |
-| 7 | [Unit 4.2 — Python sidecar plugin](units/unit-4/lesson-2/README.md) | polyglot escape hatch, sidecar zip |
-| 8 | [Unit 4.3 — Interceptor / middleware](units/unit-4/lesson-3/README.md) | `app.UseBowireInterceptor()`, the Intercepted rail, `BowireInterceptorOptions` |
-| 9 | [Unit 4.4 — Map widget / semantic kinds](units/unit-4/lesson-4/README.md) | `IBowireUiExtension`, `[BowireExtension]`, `coordinate.wgs84` auto-mount |
-| 10 | [Unit 4.5 — Intercept rail — four postures](units/unit-4/lesson-5/README.md) | Captured · Live overrides · Mock servers · Settings — when to reach for which |
-| 11 | [Unit 4.6 — Plugin lifecycle](units/unit-4/lesson-6/README.md) | Load / Unload / Restart / Reset-storage without process restart |
+### 2. Integrator / DevOps / Administrator
 
-→ Terminates in the [**Developer capstone**](capstones/developer/README.md): ship your own Bowire plugin as a NuGet package.
+**For:** platform engineers, SREs, DevOps — anyone shipping Bowire into CI and non-laptop environments.
 
----
+```mermaid
+graph LR
+    U0[Unit 0<br/>Foundations] --> U3[Unit 3<br/>CLI & Ops]
+    U3 -.inspect.-> U2[Unit 2<br/>Intercept rail]
+```
 
-## 3. Administrator / deploy & run (Administrator audience)
+**Units:** [0](units/unit-0/README.md) → [3](units/unit-3/README.md). Cross-links into [Unit 2](units/unit-2/README.md) (the Intercept rail) for inspecting captured traffic.
 
-**For:** Platform engineers, SREs, DevOps, anyone packaging Bowire into deploys — internal-tools containers, CI runners, sidecar deploys, multi-tenant gateways.
+→ Capstone: [**Administrator**](capstones/administrator/README.md) — a `docker-compose` / k8s stack + production runbook over the Harbor domain.
 
-**Audience entry:** "I need to ship Bowire into a non-laptop environment and keep it running."
+### 3. Developer — embed & extend
 
-**Duration:** ~90 min today (Unit 5.1 + 5.2 + 5.3 + 5.4 + 5.5 = ~80 min, plus Unit 0.1 + 0.2 setup) · **Units touched:** 0, 5
+**For:** backend developers embedding Bowire, plugin authors, core contributors.
 
-| # | Lesson | Why it matters |
-|---|---|---|
-| 1 | [Unit 0.1 — What is Bowire?](units/unit-0/lesson-1/README.md) | Positioning, shapes — admins need to pick the deploy shape |
-| 2 | [Unit 0.2 — Setup (Administrator tab)](units/unit-0/lesson-2/README.md) | **proposed for PR 5** — systemd / Docker / IIS host of the CLI; embedded shape gating with `IsDevelopment()` / `#if DEBUG` |
-| 3 | [Unit 5.1 — CI integration](units/unit-5/lesson-1/README.md) | `bowire test`, mock-as-service-container |
-| 4 | [Unit 5.2 — Deployment patterns](units/unit-5/lesson-2/README.md) | Standalone CLI in container / systemd; embedded host gated for production; layered config (`appsettings.json` → `BOWIRE_*` env → CLI flags); reverse-proxy in front |
-| 5 | [Unit 5.3 — Observability + operations](units/unit-5/lesson-3/README.md) | OTLP export wired against the `Kuestenlogik.Bowire` ActivitySource + Meter; plugin-health endpoint; `.bww` workspace backup; per-plugin disable |
-| 6 | [Unit 5.4 — `bowire test` in CI — Flow runs, JUnit XML, HTML](units/unit-5/lesson-4/README.md) | The v2.2 Flow-driven CI runner with `--report` + `--junit` wired into GitHub Actions |
-| 7 | [Unit 5.5 — Workspace deletion — Soft vs Hard](units/unit-5/lesson-5/README.md) | Two deletion postures, Trash retention, Undo semantics — the workspace-hygiene surface |
+```mermaid
+graph LR
+    U0[Unit 0<br/>Foundations] --> U1[Unit 1<br/>Workbench] --> U4[Unit 4<br/>Embed] --> U5[Unit 5<br/>Extend]
+```
 
-→ Terminates in the [**Administrator capstone**](capstones/administrator/README.md): a `docker-compose.yml` / k8s stack + production runbook.
+**Units:** [0](units/unit-0/README.md) → [1](units/unit-1/README.md) → [4](units/unit-4/README.md) → [5](units/unit-5/README.md). Cross-links into [Unit 3](units/unit-3/README.md) (the CLI as a verification tool).
 
----
+→ Capstone: [**Developer**](capstones/developer/README.md) — ship a NuGet plugin that extends the Harbor domain.
 
-## 4. Capstone (optional, per audience)
+### 4. (Optional) QA / tester
 
-Each path terminates in its own capstone with an audience-appropriate deliverable. A single cross-audience capstone only really fits the Developer audience — the other two audiences need their own artefact-shape.
-
-| Capstone | Deliverable | Path |
-|---|---|---|
-| [User](capstones/user/README.md) | `.bww` workspace + diagnosis runbook | Workbench & API operator |
-| [Developer](capstones/developer/README.md) | NuGet plugin (protocol / extension / rail / module) | Developer / embed & extend |
-| [Administrator](capstones/administrator/README.md) | `docker-compose.yml` (or k8s) + production runbook | Administrator / deploy & run |
-
----
+**Units:** [0](units/unit-0/README.md) → [2](units/unit-2/README.md) (assertions + coverage) → [3](units/unit-3/README.md) (`bowire test` in CI). Reuses the operator + CLI units for a testing-first path.
 
 ## Or: the full bootcamp
 
-Complete every unit in order — ~4 hours, ~16 lessons today, plus your audience's capstone (or all three).
+Complete every unit in order — [0](units/unit-0/README.md) → [1](units/unit-1/README.md) → [2](units/unit-2/README.md) → [3](units/unit-3/README.md) → [4](units/unit-4/README.md) → [5](units/unit-5/README.md) → your [capstone](capstones/).
 
 **Prerequisites (everything):**
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- Bowire CLI: `dotnet tool install --global Kuestenlogik.Bowire.Tool` (for Unit 1.1 / 1.2 CLI shape + Unit 5 CI)
-- ASP.NET host (own, or scaffold via `dotnet new web`) + `dotnet add package Kuestenlogik.Bowire` (for Unit 1.1 / 1.2 Embedded shape + Unit 3.1 Path B + Unit 4.1 PackageReference tab)
-- `dotnet new bowire-plugin` template: `dotnet new install Kuestenlogik.Bowire.Templates`
-- **Python 3.10+** (Unit 4.2 only)
-- **Claude Desktop** or **Cursor** (Unit 3.1 only)
-- **Docker** (Unit 5.1 only — optional in local dev)
-- A **GitHub repository** (Unit 5.1 only)
-
-[Unit 0](units/unit-0/README.md) → [Unit 1](units/unit-1/README.md) → [Unit 2](units/unit-2/README.md) → [Unit 3](units/unit-3/README.md) → [Unit 4](units/unit-4/README.md) → [Unit 5](units/unit-5/README.md) → [Capstones](capstones/)
+- Bowire CLI: `dotnet tool install --global Kuestenlogik.Bowire.Tool` (Unit 3)
+- An ASP.NET host + `dotnet add package Kuestenlogik.Bowire` (Unit 4) and `dotnet new bowire-plugin` template (Unit 5)
+- Sample services from [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples) (Harbor `harbor-demo/` + per-plugin `protocols/`)
+- **Claude Desktop** or **Cursor** (Unit 3.3 only) · **Python 3.10+** (Unit 5.2 only) · **Docker** (Unit 3 CI/deploy)
