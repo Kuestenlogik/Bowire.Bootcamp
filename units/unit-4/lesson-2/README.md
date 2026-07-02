@@ -13,7 +13,7 @@ Expose your host's discovered services to AI agents as MCP tools over **one shar
 The adapter lives in a sibling package (not rolled into bare `Kuestenlogik.Bowire`):
 
 ```bash
-dotnet add package Kuestenlogik.Bowire.Mcp
+dotnet add package Kuestenlogik.Bowire.Protocol.Mcp
 ```
 
 ### 2. Wire it next to `AddBowire()` / `MapBowire()`

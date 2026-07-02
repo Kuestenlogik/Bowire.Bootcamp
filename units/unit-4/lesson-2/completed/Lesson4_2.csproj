@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageReference Include="Kuestenlogik.Bowire" Version="2.1.0" />
+    <!-- The MCP-adapter surface ships in the MCP protocol package. -->
+    <PackageReference Include="Kuestenlogik.Bowire.Protocol.Mcp" Version="2.1.0" />
+  </ItemGroup>
+</Project>
