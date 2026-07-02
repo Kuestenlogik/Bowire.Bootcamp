@@ -19,7 +19,7 @@ No .NET SDK needed on the deploy host — the Bowire Tool ships as a published c
 You should be comfortable with every concept introduced in:
 
 - **Unit 0** — Workbench shape, `~/.bowire/` data dir, `Bowire:*` config keys.
-- **Unit 5** — `bowire test` in CI; the "CI is always the CLI shape" framing.
+- **Unit 3** — the CLI & operations surface: install, `bowire test` in CI, deployment patterns, observability, workspace hygiene ("CI is always the CLI shape").
 
 …plus operator-side basics that this capstone assumes you have:
 

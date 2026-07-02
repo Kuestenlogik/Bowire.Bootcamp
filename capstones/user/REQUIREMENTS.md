@@ -17,12 +17,13 @@ No Docker, no Kubernetes, no extra services. Everything runs on the laptop.
 
 You should be comfortable with every concept introduced in:
 
-- **Unit 0** — Workbench shape (CLI vs Embedded), setup, first call.
-- **Unit 1** — Discover rail, Compose rail, multi-protocol (REST + gRPC) side by side.
-- **Unit 2** — Recording rail, `.bwr` file format, `bowire mock` replay + chaos injection.
-- **Unit 3** — AI-Agent integration (either Path A stdio or Path B HTTP — your pick).
+- **Unit 0** — What Bowire is, the two deployment shapes, and getting a workbench running.
+- **Unit 1** — Discover, the Compose invoke pane, multi-protocol (REST + gRPC) side by side.
+- **Unit 2** — Recordings rail, `.bwr` format, replaying a recording from the **Mocks rail** (UI).
 
-If any of those is rusty, the relevant unit's "Steps" section is a 10-minute refresher each.
+The chaos-injected CLI replay (`bowire mock --chaos`) and driving Bowire from an external AI agent are **capabilities**, not prerequisites — they live in the CLI course (Unit 3) and are optional here. The in-workbench AI Assistant panel is a UI feature you can use without any of that.
+
+If any of the above is rusty, the relevant unit's "Steps" section is a 10-minute refresher each.
 
 ## Plugins required
 
@@ -33,7 +34,7 @@ The Tool standalone bundles every plugin used in this capstone via `Kuestenlogik
 - `Kuestenlogik.Bowire.Protocol.WebSocket` (the `ws://` source for `orders/stream`).
 - `Kuestenlogik.Bowire.Workspaces` (the Workspaces rail + `.bww` export).
 - `Kuestenlogik.Bowire.Recordings` (the Recordings rail + `.bwr` export).
-- `Kuestenlogik.Bowire.Mock` (`bowire mock --recording … --chaos …`).
+- `Kuestenlogik.Bowire.Mock` (Mocks-rail replay in the UI; the CLI `bowire mock` + chaos injection is a Unit 3.2 capability).
 - `Kuestenlogik.Bowire.Ai` (the AI Assistant panel — optional but recommended).
 - `Kuestenlogik.Bowire.Compose` (the Compose rail — already implied; you can't avoid it).
 
@@ -63,9 +64,9 @@ Tick each item off as you go. The reference solution under `solution/` meets eve
 - [ ] **"What's broken" section** in one paragraph a non-engineer can read.
 - [ ] **"What I checked" bullets** — every Discover surface, every Compose tab, the recording, the mock replay.
 - [ ] **"Where the seam sits" paragraph** that concludes the diagnosis is in `Inventory.Reserve`, with the recording-step IDs that prove it.
-- [ ] **"Reproduce offline" block** with the exact `bowire mock --recording … --chaos "latency:100-500,fail-rate:0.30" --port 7090` command line.
+- [ ] **"Reproduce offline" block** — replay the recording from the Mocks rail; optionally the portable `bowire mock … --chaos "latency:100-500,fail-rate:0.30" --port 7090` line (a Unit 3.2 capability).
 - [ ] **"What to ask the backend team"** — three concrete questions, each anchored to a recording-step id.
-- [ ] **Cross-links back to the units** (Unit 1.1 Discover, Unit 2.1 Recording, Unit 2.2 `bowire mock`, Unit 3.1 AI Assistant).
+- [ ] **Cross-links back to the lessons** (Unit 1.1 Discover + invoke, Unit 2.1 Record & Replay + Mocks rail; the CLI chaos repro is Unit 3.2).
 
 ### Diagnosis quality
 
