@@ -1,8 +1,8 @@
 # User capstone — "Diagnose a flaky API endpoint" runbook
 
-> **Difficulty:** Intermediate · **Time:** ~3–4 hours · **Prerequisites:** [Units 0–3](../../units/README.md) complete (Workbench basics, Recording & Mock, AI-Agent integration).
+> **Difficulty:** Intermediate · **Time:** ~3–4 hours · **Prerequisites:** the [Workbench & API operator course](../../LEARNING_PATHS.md#1-workbench--api-operator-user) — Units 0 → 1 → 2.
 
-You've worked through every unit on the User path. This capstone proves you can drive the full Workbench loop — Discover, Compose, Recordings, Mocks, Workspaces, and the AI Assistant — against a *real* problem instead of a tutorial.
+You've worked through the Workbench & API operator course. This capstone proves you can drive the full Workbench loop — Discover, Compose, Recordings, Mocks, Workspaces, and the AI Assistant — against a *real* problem instead of a tutorial.
 
 The deliverable is a Bowire workspace export (`.bww`) + a `RUNBOOK.md` that walks a teammate through your diagnosis. No new code, no plugin authoring — this is "operator at the workbench" end to end.
 
@@ -189,4 +189,4 @@ You've completed the capstone when:
 
 ---
 
-**Back to:** [Curriculum](../../units/README.md) · [Learning paths](../../LEARNING_PATHS.md)
+**Back to:** [Curriculum](../../units-overview.md) · [Learning paths](../../LEARNING_PATHS.md)
