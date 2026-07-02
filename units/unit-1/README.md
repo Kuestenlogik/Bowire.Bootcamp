@@ -1,57 +1,26 @@
-# Unit 1 — Workbench basics
+# Unit 1: The Workbench — first contact
 
-> **What you're learning.** First contact with the Bowire workbench against your own services. The deployment shape — standalone CLI (`bowire --url …`) vs embedded host (`AddBowire()` / `MapBowire()`) — is a setup choice **inside** each lesson, not a separate path. Pick whichever matches your environment in the lesson's setup section; the workbench walkthrough after that is identical.
+*Time: ~20 minutes • Lessons: 2 • Modality: UI (workbench)*
 
-## When this unit fits
+Your first hands-on time in the Bowire workbench: discover a service, invoke a method, and watch a live stream — all from the browser UI. This unit is **UI-only**. It doesn't teach how Bowire got launched: that's a one-line bootstrap you pick from your course's shape unit.
 
-- You've finished Unit 0 and want to drive a workbench against a service of your own (rather than the public demo from Lesson 0.3).
-- You want to see how Bowire renders REST + gRPC side-by-side in one sidebar.
-- You want the mental model for everything that follows — Record / Replay / Mock (Unit 2), AI-Agent integration (Unit 3), plugin authoring (Unit 4), and CI integration (Unit 5) all assume you've already seen the workbench drive a real service.
+> **Get the workbench on screen first.** This unit assumes the workbench is open with at least one service discovered.
+> - **CLI** (point at any URL): `bowire --url <service>` — full walkthrough in [Unit 3: CLI & operations](../unit-3/README.md).
+> - **Embedded** (inside your ASP.NET host): `AddBowire()` + `MapBowire()` — [Unit 4: Embed Bowire](../unit-4/README.md).
+>
+> Everything below is identical regardless of which shape mounted the workbench — which is exactly why the UI walkthrough lives here, once, and the shape units link to it.
 
-## Lessons in this unit
+## Lessons
 
-| # | Lesson | Duration |
-|---|---|---|
-| 1.1 | [First call — REST](lesson-1/README.md) | 10 min (CLI shape) / 12 min (Embedded shape) |
-| 1.2 | [Multi-protocol — REST + gRPC](lesson-2/README.md) | 10 min (CLI shape) / 12 min (Embedded shape) |
+| Lesson | Topic | What You'll Learn |
+|--------|-------|-------------------|
+| [1.1](lesson-1/README.md) | First contact | The rail strip, Discover, the Compose invoke pane, invoking a unary method |
+| [1.2](lesson-2/README.md) | Multi-protocol in one workbench | REST + gRPC side by side, server-streaming in the stream pane, switching services |
 
-After Lesson 1.2 → continue to [Unit 2: Record, Replay, Mock](../unit-2/README.md).
+## Why this unit
 
-## Mental models — pick the shape inside each lesson
+The workbench UI is the surface every role touches. Learn it once here; the CLI, embedded and extension units all point back to these two lessons instead of re-teaching the invoke flow.
 
-### CLI shape (two processes)
+---
 
-```
-┌─────────────────────────┐      ┌───────────────────────────┐
-│  Your service           │      │  bowire CLI               │
-│  (HelloApi on :5001)    │ ◀──▶ │  http://localhost:5080/   │
-└─────────────────────────┘      │     bowire (workbench UI) │
-                                 └───────────────────────────┘
-   terminal 1                       terminal 2
-```
-
-One terminal for the service, one for the workbench. The workbench discovers the service through the URL you pass via `--url` and renders each method in the sidebar.
-
-### Embedded shape (one process)
-
-```
-┌─────────────────────────────────────────────────┐
-│  Your ASP.NET host (port 5001)                  │
-│                                                 │
-│   ├─ /hello/{name}              (your routes)   │
-│   ├─ /openapi/v1.json           (MapOpenApi)    │
-│   └─ /bowire                    (MapBowire)     │
-└─────────────────────────────────────────────────┘
-   one terminal, one process
-```
-
-The workbench is a regular ASP.NET endpoint inside your host. Your existing routes, auth, middleware, and OpenAPI metadata stay exactly where they were — Bowire reads the same DI registrations they do, then renders the workbench UI at `/bowire`.
-
-## Production note (Embedded shape)
-
-In production you probably *don't* want `/bowire` mounted alongside the service. Two common patterns:
-
-1. **Compile-time gate:** `#if DEBUG` around the `AddBowire()` / `MapBowire()` calls. Workbench available in dev builds only.
-2. **Runtime gate:** wrap the registrations in `if (builder.Environment.IsDevelopment())`. Workbench available when `ASPNETCORE_ENVIRONMENT=Development`.
-
-Both ship in the same single binary. The lessons here keep things ungated to keep the walkthrough simple.
+**Next:** → [Lesson 1.1: First contact](lesson-1/README.md)

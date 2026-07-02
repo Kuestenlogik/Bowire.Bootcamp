@@ -128,6 +128,23 @@ convention.
   middleware → **E**.
 - Unit 5 (CI / deploy / observability / workspace) → **C**.
 
+## Sample sources (external repos — do not hand-roll toy samples)
+
+- **Services the workbench drives** come from **`Bowire.Samples`**:
+  - `harbor-demo/` — one Harbor Control Center domain across every
+    protocol; the **Combined** host (`:5101`) *embeds Bowire* (workbench
+    at `:5101/bowire`) and speaks REST + gRPC + SignalR + WebSocket + SSE
+    at once — the go-to for UI units 1 & 2.
+  - `protocols/` — per-plugin canonical demos (`Rest.PetStore`,
+    `Grpc.Greeter`, `OData.Northwind`, `JsonRpc.Math`, …) for
+    single-protocol lessons.
+- **Custom-protocol authoring (Unit 5)** references the real, shipped
+  **`Bowire.Protocol.Akka`** plugin (`src/`, `tests/`, `samples/`,
+  README) instead of a toy `IBowireProtocol`.
+- The bootcamp's own toy `units/unit-1-samples/` (HelloApi, HelloGrpc) is
+  **retired** in favour of the above. Units point at these repos; only
+  genuinely lesson-specific edits ship as `start/` + `completed/`.
+
 ## Cleanup workstream
 1. **DONE (2026-07-02):** removed the dead `capstone/` (singular) dir —
    untracked, only `bin/`/`obj/` build artefacts, superseded by
