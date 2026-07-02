@@ -5,7 +5,7 @@
 | Item | Status |
 |------|--------|
 | 6 single-modality units (Foundations · Workbench first-contact · Workbench record/mock/assert/cover · CLI & operations · Embed · Extend) | shipped |
-| 24 lessons across the 6 units | Unit 0 (3) · Unit 1 (2) · Unit 2 (5) · Unit 3 (7) · Unit 4 (3) · Unit 5 (4) |
+| 25 lessons across the 6 units | Unit 0 (4) · Unit 1 (2) · Unit 2 (5) · Unit 3 (7) · Unit 4 (3) · Unit 5 (4) |
 | Role-first courses (curation over the units) | shipped — User (0→1→2) · Integrator/DevOps/Admin (0→3) · Developer (0→1→4→5) + optional QA |
 | Three per-audience capstones | requirements + reference solution present; refresh to extend the Harbor domain ongoing |
 | DocFX learn-site scaffolding (`.docfx/`, `scripts/build-learn.ps1`, `toc.yml`) | shipped |
