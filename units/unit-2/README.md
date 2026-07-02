@@ -1,29 +1,25 @@
-# Unit 2: Record, Replay, Mock
+# Unit 2: The Workbench — record, mock, assert, cover
 
-*Time: ~20 minutes • Lessons: 2 • Previous: [Unit 1](../unit-1/README.md)*
+*Time: ~55 minutes • Lessons: 5 • Modality: UI (workbench)*
 
-Capture a session against a real backend, replay it as a local mock server, and use the original schema sidecar to give consumers the *full* contract — not just the slice you happened to record.
+The testing-oriented half of the workbench, all from the browser UI: capture traffic, replay it as a mock, express what "correct" means with Flow assertions, read regression coverage per method, and inspect intercepted traffic. Still **UI-only** — where a scriptable equivalent exists (`bowire mock` / `bowire test`, the reverse-proxy) this unit *links* to the CLI (Unit 3) or embedded (Unit 4) unit rather than switching modality inline.
 
-## Prerequisites
-
-- [Unit 1](../unit-1/README.md) complete in either shape (CLI or Embedded — the setup tab inside each Unit 1 lesson) — REST + gRPC workbench experience.
-- The Lesson 1.1 `HelloApi` sample available — both Unit 2 lessons capture sessions against it.
-- A free TCP port for the mock server (Lesson 2.1 uses `7070`, Lesson 2.2 uses `7080`).
-- `curl` (or any HTTP client) on PATH — Lesson 2.2 verifies the mock's schema endpoint with it.
+From here on we drive the **Harbor Control Center** domain (`Ship`, `Dock`, `Crane`, `Container`, `PortCall`) via the Combined sample from [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples) — `:5101/bowire`, one host, every protocol.
 
 ## Lessons
 
-| Lesson | Topic | What You'll Build |
+| Lesson | Topic | What You'll Learn |
 |--------|-------|-------------------|
-| [2.1](lesson-1/README.md) | Record & replay | A `.bwr` recording, replayed through `bowire mock` so the mock answers without the real backend running |
-| [2.2](lesson-2/README.md) | Schema export + mock-as-stand-in | The recording carries the source OpenAPI, the mock serves `/openapi.json`, a peer Bowire discovers the *full* surface through it |
+| [2.1](lesson-1/README.md) | Record & Replay | Capture calls, export a `.bwr`, replay it as a mock from the Mocks rail |
+| [2.2](lesson-2/README.md) | Schema-backed mocks | The mock re-emits the source contract; peer-discovery + coverage gaps |
+| [2.3](lesson-3/README.md) | Flow Assertions | The five-kind `(kind, target, operator, expected)` expectation vocabulary |
+| [2.4](lesson-4/README.md) | Regression Coverage | The four-state per-method chip: recent · stale · failing · uncovered |
+| [2.5](lesson-5/README.md) | Intercept rail — four postures | Captured · Live overrides · Mock servers · Settings — when to reach for which |
 
 ## Why this unit
 
-A mock is most useful when consumers can see two things at once: the **full contract** the original service advertises, and the **slice** the recording can actually replay. Unit 2 walks through both — first the straight capture-and-replay arc (2.1), then the mock-as-stand-in story where the recording carries the OpenAPI doc and the mock re-emits it for peer discovery (2.2).
-
-By the end, you'll have a self-contained mock server that *replaces* a real backend for everyone who depends on it — frontend dev environments, CI fixtures, demo stacks, &c.
+Discovering and invoking (Unit 1) is the "does it move" loop. This unit is the "does it move *correctly*, and can I stand in for it" loop — the surface every operator and QA role leans on.
 
 ---
 
-**Next:** → [Unit 3: AI-Agent Integration](../unit-3/README.md)
+**Next:** → [Lesson 2.1: Record & Replay](lesson-1/README.md)
