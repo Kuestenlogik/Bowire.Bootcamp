@@ -14,7 +14,7 @@
 - **DocFX branding** — pull the Bowire site's colours / logo / font stack into `.docfx/templates/` so the bootcamp matches bowire.io.
 - **Shepherd.js tours** — Surgewave-style guided walkthroughs of the workbench for the Unit 1 lessons. Lower priority — the screenshots in the lesson READMEs already cover the click path.
 - **`start/` + `completed/` code skeletons** — currently the plugin lessons (Unit 4) reference scaffolded code generated from `dotnet new bowire-plugin`. Future revision: pre-package both `start/` (scaffolded) and `completed/` (with the lesson's edit applied) so a learner can `cd start/` and diff against `completed/` without running the scaffold themselves.
-- **Capstone reference solution** — implement the full multi-protocol scenario end-to-end, ship under `capstone/solution/`, and link it from the capstone README.
+- **Capstone reference solution** — implement each audience's scenario end-to-end, ship under `capstones/<audience>/solution/` (user / developer / administrator), and link it from that capstone's README. (The old single `capstone/` directory has been removed — it held only build artefacts and was superseded by the per-audience `capstones/`.)
 - **GitHub Actions CI for the bootcamp** — build the DocFX site, lint markdown, prove the lesson samples (HelloApi, HelloGrpc, sample/.bwr files) still compile / load cleanly.
 
 ## Recently shipped
