@@ -30,8 +30,8 @@ The Workbench rails carry the whole workflow. You don't write any code.
 | Discover rail | `Discover` | Walks the sidebar tree for each source and surfaces the `Checkout`, `Reserve`, and `orders/stream` methods. |
 | Compose rail | `Compose` | The ad-hoc Request Builder — pokes each hop in isolation to localise the failure. |
 | Recordings rail | `Recordings` | Captures the flaky session so the failure stops being a "happened once" anecdote and becomes a replayable artefact. |
-| Mocks rail | `Mocks` | Replays the recording with `--chaos latency:100-500` to expose timing-sensitive failure modes the live host hides. |
-| AI Assistant | `AI Assistant` panel (`Bowire:Ai`) | A Claude / Cursor / Ollama agent narrates the dataset and proposes the diagnosis. Optional but recommended — Unit 3.1 set this up. |
+| Mocks rail | `Mocks` | Replays the recording as a mock **from the UI** so you can re-poke the failure without the live stack. (Chaos injection — latency / fail-rate — for a portable offline repro is a CLI *capability*; see [Unit 3.2](../../units/unit-3/lesson-2/README.md).) |
+| AI Assistant | `AI Assistant` panel (`Bowire:Ai`) | The in-workbench AI Assistant (Claude / Cursor / Ollama) narrates the dataset and proposes the diagnosis. Optional but recommended. |
 
 > **Where the rails live in the UI.** Open the Workbench (Tool standalone — `http://localhost:5080` — or embedded — `http://localhost:<host-port>/bowire`). The vertical strip on the left lists every rail in this order: Home, Workspaces, Discover, Compose, Recordings, Mocks, Help. The AI Assistant is a panel toggle on the right-hand drawer; you only see it when `Kuestenlogik.Bowire.Ai` is loaded (the standalone Tool ships it by default).
 
@@ -108,25 +108,25 @@ In the Recordings rail, expand `flake-session-1`. Each step has the request, res
 
 The seam is *upstream of* `checkout`: when `Reserve` fails, `checkout` propagates a 502. The WebSocket stream is a passive bystander — every frame in the capture is well-formed.
 
-### 8. Confirm the diagnosis offline
+### 8. Replay the failure offline
 
-The live host's failure rate is 30 %. To confirm timing matters (and not e.g. request shape), stop the live hosts and replay the recording as a mock with chaos injected, then dial Bowire at the mock:
+Your recording is a self-contained artefact — you can re-see the failure without the live stack. In the **Mocks rail**, select `flake-session-1` and **Start mock**; point a second workbench (or a Compose tab) at the mock URL and re-fire `POST /api/checkout`. The failed steps replay from the recording, no live `Reserve` needed. This is the UI-only path, and it's all the operator course needs.
 
-```bash
-bowire mock --recording ~/.bowire/recordings/flake-session-1.bwr --port 7090 --chaos "latency:100-500,fail-rate:0.30"
-```
-
-In a second Bowire window, open the same Compose tabs against `http://localhost:7090`. The same fail rate appears — *without the live `Reserve` running*, just from the recording + chaos overlay. The chaos config is on the mock, not on the upstream — proving the operator can reproduce the failure offline.
-
-> The `--chaos` flag accepts `latency:<min>-<max>,fail-rate:<0..1>` (see `bowire mock --help`). The values above mirror what the live `Inventory` host emits.
+> **Going further (a CLI capability).** For a *portable* repro that a teammate can run headless — and to prove the failure is timing-driven by dialling the rate up or down — Bowire's CLI replays a recording with **chaos injection**:
+>
+> ```bash
+> bowire mock flake-session-1.bwr --port 7090 --chaos "latency:100-500,fail-rate:0.30"
+> ```
+>
+> `--chaos` accepts `latency:<min>-<max>,fail-rate:<0..1>`. The CLI (`bowire mock`, chaos, and the rest) is introduced in [Unit 3.2](../../units/unit-3/lesson-2/README.md) — you don't need it to finish this capstone; it's the scriptable version of what the Mocks rail did above.
 
 ### 9. Let the AI Assistant narrate (optional but recommended)
 
-Open the AI Assistant drawer (right-hand panel, brain-icon toggle). The Assistant has access to the workspace's recordings, methods, and Compose tabs via the in-process MCP adapter (Unit 3.1 Path B). Ask:
+Open the AI Assistant drawer (right-hand panel, brain-icon toggle). The Assistant can read the workspace's recordings, methods and Compose tabs. Ask:
 
 > Look at the steps in `flake-session-1`. For every `POST /api/checkout` step that returned 502, find the `inventory.Inventory/Reserve` step in the same wall-clock window and summarise the correlation in one paragraph.
 
-The Assistant walks the recording and produces a paragraph you can paste into the runbook. If you wired Claude Desktop via `bowire mcp serve --bind stdio` (Unit 3.1 Path A), the same prompt works there — the tools are the same.
+The Assistant walks the recording and produces a paragraph you can paste into the runbook. (Driving Bowire from an *external* agent — Claude Desktop / Cursor — is the CLI's `bowire mcp serve`, covered in [Unit 3.3](../../units/unit-3/lesson-3/README.md); same recording, a different surface.)
 
 ### 10. Write `RUNBOOK.md`
 
@@ -135,10 +135,10 @@ Drop a `RUNBOOK.md` next to your `.bww` (in your own fork). Five sections:
 1. **What's broken** — one paragraph, no jargon. ("Checkout fails ~30 % of the time.")
 2. **What I checked** — bullets, in order. Discover surfaces, Compose tabs, the recording, the mock replay.
 3. **Where the seam sits** — one paragraph + one screenshot of two side-by-side recording steps showing the time alignment.
-4. **How to reproduce offline** — the `bowire mock --chaos …` command line, exact recording path.
+4. **How to reproduce offline** — replay the recording from the Mocks rail (exact recording name/path); optionally the portable `bowire mock … --chaos …` line for a headless repro.
 5. **What to ask the backend team** — three concrete questions, each anchored to a recording step id.
 
-Cross-link every step back to the unit that introduced it (Unit 1.1 Discover, Unit 2.1 Recording, Unit 2.2 `bowire mock`, Unit 3.1 AI Assistant).
+Cross-link every step back to the lesson that introduced it: [Unit 1.1](../../units/unit-1/lesson-1/README.md) (Discover + invoke), [Unit 2.1](../../units/unit-2/lesson-1/README.md) (Record & Replay + Mocks rail). The chaos-injected CLI repro is a capability from [Unit 3.2](../../units/unit-3/lesson-2/README.md).
 
 ### 11. Export the workspace
 
@@ -177,8 +177,8 @@ You've completed the capstone when:
 
 1. **One workspace, three sources.** Opening `checkout-flake.bww` in a fresh Bowire shows all three URLs in the URL list and the discovered surfaces populating Discover.
 2. **Recording reproduces the failure.** `flake-session-1` carries enough `POST /api/checkout` + `inventory.Inventory/Reserve` steps that the correlation in the runbook is visible to a reader who doesn't know the answer.
-3. **Mock-plus-chaos reproduces offline.** `bowire mock --recording … --chaos "latency:100-500,fail-rate:0.30" --port 7090` brings up a host a peer Bowire can dial — without the live `Inventory` running — and a fresh `POST /api/checkout` against the mock fails at the same ~30 % rate.
-4. **Runbook is actionable.** A frontend dev reading `RUNBOOK.md` cold can find the seam, point at the exact `Reserve` step that confirms it, and rerun the mock-plus-chaos repro themselves from the command line in the runbook.
+3. **The failure replays offline.** `flake-session-1` replays from the **Mocks rail** so a reader re-sees the failure without the live stack. *(Going further, a portable CLI repro: `bowire mock flake-session-1.bwr --chaos "latency:100-500,fail-rate:0.30" --port 7090` — a Unit 3.2 capability, not required here.)*
+4. **Runbook is actionable.** A frontend dev reading `RUNBOOK.md` cold can find the seam, point at the exact `Reserve` step that confirms it, and re-see the failure by replaying the recording themselves (Mocks rail, or the optional CLI repro).
 5. **The diagnosis is upstream, not downstream.** The runbook concludes the seam sits in `Inventory.Reserve`, not in `Checkout` (which is just propagating a 5xx), and not in the WebSocket stream (which is well-formed throughout).
 
 ## Out of scope
