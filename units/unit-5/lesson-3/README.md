@@ -2,6 +2,8 @@
 
 > **Difficulty:** Intermediate | **Duration:** 15 min | **Prerequisites:** [Lesson 5.1](../lesson-1/README.md); .NET 10 SDK
 
+> **Runnable scaffold.** This lesson ships [`start/`](start/) (the `[BowireExtension]` descriptor is complete + discovered, but the JS `viewer.mount` only renders a placeholder) and [`completed/`](completed/) (the JS reads the paired lat/lon from `ctx.interpretations` and renders a coordinate card with an OpenStreetMap link). The C# is identical between the two — the work is entirely in the embedded JS bundle. It's an offline-safe, dependency-free stand-in for the shipped `Kuestenlogik.Bowire.Map` MapLibre widget: same `coordinate.wgs84` kind, same mechanism, no 800 KB renderer. Both build against `Kuestenlogik.Bowire` 2.1.0.
+
 ## Overview
 
 Protocol plugins extend *what Bowire can talk to*. **UI extensions** extend *how Bowire renders a response*. When a response field carries a **semantic kind** — a tag like `coordinate.wgs84` — Bowire can auto-mount a purpose-built widget (a map, a chart, a hex viewer) over it instead of showing raw JSON.
