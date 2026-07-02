@@ -80,4 +80,4 @@ Three questions, each pointing at a specific recording step:
 
 ---
 
-**Back to:** [User capstone](../README.md) · [Curriculum](../../../units/README.md)
+**Back to:** [User capstone](../README.md) · [Curriculum](../../../units-overview.md)

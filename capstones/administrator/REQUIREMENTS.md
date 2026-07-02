@@ -94,4 +94,4 @@ You should be comfortable with every concept introduced in:
 
 ---
 
-**Back to:** [Administrator capstone README](README.md) · [Curriculum](../../units/README.md)
+**Back to:** [Administrator capstone README](README.md) · [Curriculum](../../units-overview.md)

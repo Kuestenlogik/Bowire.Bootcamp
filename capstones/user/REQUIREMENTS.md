@@ -82,4 +82,4 @@ Tick each item off as you go. The reference solution under `solution/` meets eve
 
 ---
 
-**Back to:** [User capstone README](README.md) · [Curriculum](../../units/README.md)
+**Back to:** [User capstone README](README.md) · [Curriculum](../../units-overview.md)

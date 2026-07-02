@@ -1,8 +1,8 @@
 # Administrator capstone — Production deployment stack
 
-> **Difficulty:** Intermediate · **Time:** ~3–4 hours · **Prerequisites:** [Units 0–5](../../units/README.md) complete, plus operator-level Docker / shell experience.
+> **Difficulty:** Intermediate · **Time:** ~3–4 hours · **Prerequisites:** the [Integrator / DevOps / Administrator course](../../LEARNING_PATHS.md#2-integrator--devops--administrator) — Units 0 → 3, plus operator-level Docker / shell experience.
 
-You've worked through every unit on the Administrator path. This capstone proves you can ship the Bowire Tool into a non-laptop environment and keep it running past day one — auth on the door, observability wired, plugin discipline, workspace backups, a smoke test that runs from outside the box.
+You've worked through the Integrator / DevOps / Administrator course. This capstone proves you can ship the Bowire Tool into a non-laptop environment and keep it running past day one — auth on the door, observability wired, plugin discipline, workspace backups, a smoke test that runs from outside the box.
 
 The deliverable is a working stack (`docker-compose.yml` or k8s manifests), a `RUNBOOK.md` covering day-1 + day-2, and a smoke-test script that exercises the deployment from outside the host. No new code, no plugin authoring — this is "operator at the deployment" end to end.
 
@@ -221,4 +221,4 @@ You've completed the capstone when:
 
 ---
 
-**Back to:** [Curriculum](../../units/README.md) · [Learning paths](../../LEARNING_PATHS.md)
+**Back to:** [Curriculum](../../units-overview.md) · [Learning paths](../../LEARNING_PATHS.md)
