@@ -1,8 +1,8 @@
 # Developer capstone: Ship a Bowire plugin (and use it on a multi-protocol stack)
 
-*Difficulty: Intermediate • Time: ~2 hours • Prerequisites: [Units 0–5](../../units/README.md) complete*
+*Difficulty: Intermediate • Time: ~2 hours • Prerequisites: the [Developer — embed & extend course](../../LEARNING_PATHS.md#3-developer--embed--extend) — Units 0 → 1 → 4 → 5.*
 
-The Developer audience's capstone is **shipping a Bowire plugin**: a NuGet package implementing one of the v2.1 extension points — a protocol plugin (most common), a UI extension, a rail contribution, or a Settings module. You build the plugin against a realistic multi-protocol scenario ("Harbor Tour" below); the plugin is the deliverable that proves you can extend Bowire, the scenario is the stage that proves it lights up in a real workbench.
+The Developer audience's capstone is **shipping a Bowire plugin**: a NuGet package implementing one of Bowire's extension points — a protocol plugin (most common), a UI extension, a rail contribution, or a Settings module. You build the plugin against a realistic multi-protocol scenario ("Harbor Tour" below); the plugin is the deliverable that proves you can extend Bowire, the scenario is the stage that proves it lights up in a real workbench.
 
 You then weave the plugin into the rest of the toolchain: capture a representative session as a `.bwr` recording, replay it as a mock for downstream consumers, expose the mock via the AI-agent MCP integration, and pin the whole thing as a CI fixture so the plugin doesn't regress on the next refactor.
 
