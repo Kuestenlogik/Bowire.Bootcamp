@@ -4,14 +4,14 @@ What's here:
 
 | File | What it is |
 | --- | --- |
-| `checkout-flake.bww` | Reference exported workspace. `bowire-workspace` v2 envelope — three pinned sources, three saved Compose tabs, one referenced recording (`flake-session-1`). |
+| `berth-flake.bww` | Reference exported workspace. `bowire-workspace` v2 envelope — three pinned sources, three saved Compose tabs, one referenced recording (`flake-session-1`). |
 | `RUNBOOK.md` | The full five-section diagnosis the User capstone asks for. |
 
 ## Using the reference
 
 ```bash
 # Import the reference workspace into a fresh directory.
-bowire workspace import checkout-flake.bww --to ./imported-checkout-flake
+bowire workspace import berth-flake.bww --to ./imported-berth-flake
 
 # Spin up the scenario stack (three terminals — see scenario/README.md).
 

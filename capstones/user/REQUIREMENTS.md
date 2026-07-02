@@ -31,7 +31,7 @@ The Tool standalone bundles every plugin used in this capstone via `Kuestenlogik
 
 - `Kuestenlogik.Bowire.Protocol.Rest` (REST + OpenAPI discovery on `/openapi/v1.json`).
 - `Kuestenlogik.Bowire.Protocol.Grpc` (gRPC + Server Reflection discovery).
-- `Kuestenlogik.Bowire.Protocol.WebSocket` (the `ws://` source for `orders/stream`).
+- `Kuestenlogik.Bowire.Protocol.WebSocket` (the `ws://` source for `portcalls/stream`).
 - `Kuestenlogik.Bowire.Workspaces` (the Workspaces rail + `.bww` export).
 - `Kuestenlogik.Bowire.Recordings` (the Recordings rail + `.bwr` export).
 - `Kuestenlogik.Bowire.Mock` (Mocks-rail replay in the UI; the CLI `bowire mock` + chaos injection is a Unit 3.2 capability).
@@ -44,7 +44,7 @@ If you embed Bowire in your own host instead of using the Tool standalone, you'd
 
 | Artefact | Path in your fork | Format |
 | --- | --- | --- |
-| Workspace export | `capstones/user/solution/checkout-flake.bww` | `bowire-workspace` v2 JSON envelope (canonical format, `WorkspaceCommand.CanonicalFormatVersion = 2`). |
+| Workspace export | `capstones/user/solution/berth-flake.bww` | `bowire-workspace` v2 JSON envelope (canonical format, `WorkspaceCommand.CanonicalFormatVersion = 2`). |
 | Diagnosis writeup | `capstones/user/solution/RUNBOOK.md` | Plain markdown, five sections (see `README.md` Step 10). |
 
 ## Grading checklist
@@ -53,8 +53,8 @@ Tick each item off as you go. The reference solution under `solution/` meets eve
 
 ### Workspace (the `.bww`)
 
-- [ ] **Three sources pinned**: `http://localhost:5301` (REST), `grpc@http://localhost:5302` (gRPC), `ws://localhost:5303/orders/stream` (WebSocket).
-- [ ] **Workspace name + colour set** (`checkout-flake`, any colour — both land in the export's `workspace` block).
+- [ ] **Three sources pinned**: `http://localhost:5301` (REST), `grpc@http://localhost:5302` (gRPC), `ws://localhost:5303/portcalls/stream` (WebSocket).
+- [ ] **Workspace name + colour set** (`berth-flake`, any colour — both land in the export's `workspace` block).
 - [ ] **At least one saved Compose tab per source** — the `data.requestBuilderHistory` (or the workspace's collections array, depending on how you saved them) shows the tabs survive the roundtrip.
 - [ ] **At least one recording referenced** with the failure pattern captured.
 - [ ] **Roundtrips cleanly** through `bowire workspace import` + `bowire workspace export` (diff modulo `exportedAt`).
@@ -63,15 +63,15 @@ Tick each item off as you go. The reference solution under `solution/` meets eve
 
 - [ ] **"What's broken" section** in one paragraph a non-engineer can read.
 - [ ] **"What I checked" bullets** — every Discover surface, every Compose tab, the recording, the mock replay.
-- [ ] **"Where the seam sits" paragraph** that concludes the diagnosis is in `Inventory.Reserve`, with the recording-step IDs that prove it.
+- [ ] **"Where the seam sits" paragraph** that concludes the diagnosis is in `CraneOps.Reserve`, with the recording-step IDs that prove it.
 - [ ] **"Reproduce offline" block** — replay the recording from the Mocks rail; optionally the portable `bowire mock … --chaos "latency:100-500,fail-rate:0.30" --port 7090` line (a Unit 3.2 capability).
 - [ ] **"What to ask the backend team"** — three concrete questions, each anchored to a recording-step id.
 - [ ] **Cross-links back to the lessons** (Unit 1.1 Discover + invoke, Unit 2.1 Record & Replay + Mocks rail; the CLI chaos repro is Unit 3.2).
 
 ### Diagnosis quality
 
-- [ ] **The seam is upstream of Checkout, not downstream.** Wrong answers: "the WebSocket stream is flaky", "the OpenAPI doc is wrong", "Checkout itself is broken". Right answer: `Inventory.Reserve` returns `RESOURCE_EXHAUSTED` under the 30 % failure rate, and `Checkout` propagates it as a 502.
-- [ ] **The mock-plus-chaos reproduces the same failure shape** without the live `Inventory` host running.
+- [ ] **The seam is upstream of Berthing, not downstream.** Wrong answers: "the WebSocket stream is flaky", "the OpenAPI doc is wrong", "Berthing itself is broken". Right answer: `CraneOps.Reserve` returns `RESOURCE_EXHAUSTED` under the 30 % failure rate, and `Berthing` propagates it as a 502.
+- [ ] **The mock-plus-chaos reproduces the same failure shape** without the live `CraneOps` host running.
 - [ ] **A reader who hasn't seen the answer can find it** from the recording-step IDs + the side-by-side comparison in the runbook.
 
 ## What's intentionally not covered

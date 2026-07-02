@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "Crane.V1";
+
+package crane;
+
+// CraneOps — the upstream service Berthing calls. Reserve books a crane
+// for a dock so an arriving ship can be worked; under the seeded chaos
+// profile, ~30 % of calls return RESOURCE_EXHAUSTED after a 200–500 ms
+// stall (the crane pool is exhausted).
+service CraneOps {
+  rpc Reserve (ReserveRequest) returns (ReserveResponse);
+}
+
+message ReserveRequest {
+  string dock_id = 1;
+  int32 cranes = 2;
+}
+
+message ReserveResponse {
+  string reservation_id = 1;
+  bool ok = 2;
+}
