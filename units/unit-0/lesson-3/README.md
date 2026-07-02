@@ -1,70 +1,59 @@
-# Lesson 0.3: How this bootcamp works
+# Lesson 0.3: Get Bowire running
 
-> **Difficulty:** Beginner | **Duration:** 7 min | **Prerequisites:** [Lesson 0.2](../lesson-2/README.md)
+> **Difficulty:** Beginner | **Duration:** 8 min | **Prerequisites:** [.NET 10 SDK](https://dotnet.microsoft.com/download)
 
 ## Overview
 
-The bootcamp is organised so you learn only what your role needs, in one modality at a time. Three levels:
+Before any course, you need a **workbench open in your browser**. This lesson gets you there with the least ceremony — pick one of the paths below. It's onboarding, not a deep dive: the full CLI story is [Unit 3](../../unit-3/README.md), the full embedded story is [Unit 4](../../unit-4/README.md). Every course assumes you've done this once.
 
+## Fastest path — run a sample that already embeds Bowire
+
+The Harbor **Combined** sample in [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples) *embeds Bowire*, so running it gives you a workbench with no install and no CLI:
+
+```bash
+# in a clone of Bowire.Samples
+cd harbor-demo/src/Kuestenlogik.Bowire.Samples.Combined
+dotnet run                      # → http://localhost:5101
 ```
-Course / track   (your role — a curated list of units; not a folder)
- └─ Unit          (one modality: UI, CLI, embedded coding, or extension coding)
-     └─ Lesson    (one skill; ships a start/ scaffold + a completed/ reference)
-         └─ Steps (the walkthrough inside the lesson README)
+
+Open **<http://localhost:5101/bowire>**. You have a workbench, already pointed at a multi-protocol service. This is all Unit 1 (the UI course) needs.
+
+## Or — install the CLI and point it at any service
+
+The standalone tool launches a workbench against any URL:
+
+```bash
+dotnet tool install --global Kuestenlogik.Bowire.Tool
+bowire --version
+
+# point it at a sample (the protocols/ demos don't embed Bowire):
+#   cd Bowire.Samples/protocols/Rest.PetStore && dotnet run
+bowire --url http://localhost:<port>          # opens http://localhost:5080
 ```
 
-## Courses pick units — units don't pick you
+The CLI is the daily driver for the Integrator / DevOps / Admin course — [Unit 3](../../unit-3/README.md) covers it in full.
 
-A **course** is a role-oriented, freely-composed selection of units. It's pure curation (it lives in [`LEARNING_PATHS.md`](../../LEARNING_PATHS.md), not a folder), so the **same unit is reused across courses** and a course can take units in whatever order fits.
+## Or — embed it in your own host
 
-| Course | Units (typical) |
-|---|---|
-| **Workbench / API operator** | 0 → 1 → 2 |
-| **Integrator / DevOps / Admin** | 0 → 3 (→ 1 to inspect) |
-| **Developer (embed & extend)** | 0 → 1 → 4 → 5 |
+If you're building your own ASP.NET service, two lines mount the workbench inside it:
 
-## One unit = one modality
+```csharp
+builder.Services.AddBowire();
+app.MapBowire();                 // workbench at /<host>/bowire
+```
 
-Each unit stays in a single modality and **never makes you switch mid-unit** between UI, CLI, and coding:
+That's the Developer course's path — [Unit 4](../../unit-4/README.md) covers DI, auth, config and gating.
 
-| Unit | Modality |
-|---|---|
-| [Unit 0: Foundations](../../unit-0/README.md) | none (concepts) |
-| [Unit 1: The Workbench — first contact](../../unit-1/README.md) | UI |
-| [Unit 2: The Workbench — record, mock, assert, cover](../../unit-2/README.md) | UI |
-| [Unit 3: CLI & operations](../../unit-3/README.md) | CLI |
-| [Unit 4: Embed Bowire](../../unit-4/README.md) | embedded coding |
-| [Unit 5: Extend Bowire](../../unit-5/README.md) | extension coding |
+## Verify
 
-When another modality is genuinely relevant (e.g. a UI recording lesson mentioning the scriptable `bowire mock`), the unit **links** to the sibling unit instead of opening a second track inline.
-
-## start/ and completed/
-
-Every hands-on lesson ships two folders:
-
-- **`start/`** — a prepared scaffold to build on, so you don't begin from zero and the skeleton already fits the task.
-- **`completed/`** — the reference/finished state, so you can diff your work against "milestone achieved".
-
-Capstones (per audience: [user](../../../capstones/user/README.md) · [developer](../../../capstones/developer/README.md) · [administrator](../../../capstones/administrator/README.md)) use the same `start/` + `completed/` shape.
-
-## Where setup lives
-
-There is **no install step in Unit 0**. Setup is part of the first unit of your course:
-
-- CLI install (`dotnet tool install --global Kuestenlogik.Bowire.Tool`) → [Unit 3](../../unit-3/README.md).
-- Embedded wire-in (`AddBowire()` / `MapBowire()`) → [Unit 4](../../unit-4/README.md).
-- The browser workbench itself needs no separate install — it opens in-browser once either shape is running ([Unit 1](../../unit-1/README.md)).
+Whichever path you picked, opening the workbench URL should render the rail strip on the left and a sidebar populated by auto-discovery. If it does, you're set. (No separate browser-client install — the workbench is served by whichever process you started.)
 
 ## Key Takeaways
 
-1. **Course → Unit → Lesson → Steps.** Courses are curation; units and lessons are folders.
-2. **Pick a course, follow its units.** Each unit is single-modality; cross-modality is a link.
-3. **`start/` to build on, `completed/` to check against.**
+1. **You need a running workbench before the courses** — pick the path that matches where you're headed.
+2. **Fastest for the UI course:** run the embedded Harbor **Combined** sample → `:5101/bowire`, zero install.
+3. **CLI** (`bowire --url`) and **embedded** (`AddBowire`/`MapBowire`) are covered in depth in Units 3 and 4.
 
 ## What's Next
 
-Head to the first unit of your course — see [Learning Paths](../../LEARNING_PATHS.md), or jump straight in:
-
-- Operator → [Unit 1: The Workbench](../../unit-1/README.md)
-- Admin / DevOps → [Unit 3: CLI & operations](../../unit-3/README.md)
-- Developer → [Unit 4: Embed Bowire](../../unit-4/README.md)
+**Continue:** → [Lesson 0.4: How this bootcamp works](../lesson-4/README.md)

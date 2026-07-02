@@ -6,18 +6,9 @@
 
 Your first hands-on time in the workbench: discover a service in the sidebar and invoke a unary method — all from the browser UI. This lesson is the **canonical invoke walkthrough**; the CLI, embedded and extension units link back here instead of repeating it.
 
-> **Get a workbench on screen.** We drive the **Harbor Control Center — Combined** sample from the [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples) repo. It *embeds Bowire* and exposes REST + gRPC + SignalR + WebSocket + SSE against one domain — perfect for this unit.
+> **You already have a workbench open** from [Lesson 0.3](../../unit-0/lesson-3/README.md). This unit uses the Harbor **Combined** sample from [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples) — it embeds Bowire and speaks REST + gRPC + SignalR + WebSocket + SSE against one domain, so open **<http://localhost:5101/bowire>**.
 >
-> ```bash
-> # in a clone of Bowire.Samples
-> cd harbor-demo/src/Kuestenlogik.Bowire.Samples.Combined
-> dotnet run          # listens on http://localhost:5101
-> ```
-> Then open **<http://localhost:5101/bowire>**.
->
-> Prefer the CLI shape (point `bowire` at any URL instead of embedding)? See [Unit 3: CLI & operations](../../unit-3/README.md). Either way the UI below is identical.
->
-> Want the absolute simplest first touch? The single-plugin hello-world / echo demos in `Bowire.Samples/protocols/` (`Grpc.Greeter` → SayHello, `WebSocket.Echo`, `Rest.PetStore`) are tiny. They don't embed Bowire, so drive them via the CLI (`bowire --url <them>` — [Unit 3](../../unit-3/README.md)); the invoke loop below is the same.
+> Skipped setup? `cd harbor-demo/src/Kuestenlogik.Bowire.Samples.Combined && dotnet run` in a `Bowire.Samples` clone, then open the URL above — full options in [Lesson 0.3](../../unit-0/lesson-3/README.md). The UI below is identical however the workbench was mounted.
 
 ## The workbench at a glance
 
