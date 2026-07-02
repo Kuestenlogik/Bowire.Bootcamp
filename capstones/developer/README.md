@@ -32,16 +32,15 @@ You build it with Bowire — and if your real stack speaks a wire Bowire doesn't
 
 ## Reference materials
 
-Everything you need is already in the bootcamp:
+Everything you need ships in this capstone directory:
 
-- The [Harbor Tour sample](#) (TBD — to be added under `capstones/developer/sample/`) — runnable .NET app exposing the three protocols, used to record a representative session against.
-- The DocFX site's [Architecture diagram](#) (TBD — to be added under `ARCHITECTURE.md`).
-- The [Requirements list](#) (TBD — to be added under `REQUIREMENTS.md`).
+- The [**Harbor Tour sample**](sample/HarborTour/) — a runnable .NET app in the Harbor Control Center domain: container manifests over REST, live crane telemetry over gRPC server-streaming, dock-arrival events over MQTT. Record a representative session against it.
+- The [**Architecture**](ARCHITECTURE.md) — the end-to-end data-flow (discover → record → mock → MCP → CI).
+- The [**Requirements + grading checklist**](REQUIREMENTS.md).
+- The [**reference solution**](solution/README.md) — a captured `recording.bwr`, an `mcp-config.json` snippet, and a `capstone-ci.yml` GitHub Actions workflow.
 
-## Status
-
-The capstone scaffolding is in place; the sample backend + reference solution + walkthrough text are tracked on the [roadmap](../ROADMAP.md#next-up) under "Capstone reference solution". Until that lands, you can complete the capstone end-to-end against any real or recorded multi-protocol target you have at hand — every step is covered by the existing lessons.
+The domain mirrors the Harbor demo in [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples) (`Ship` / `Dock` / `Crane` / `Container` / `PortCall`), so the plugin you ship extends a model you already met in the units.
 
 ---
 
-**Back to:** [Curriculum](../README.md#curriculum)
+**Back to:** [All units](../../units-overview.md) · [Learning paths](../../LEARNING_PATHS.md)

@@ -10,6 +10,8 @@ The deliverable is a working stack (`docker-compose.yml` or k8s manifests), a `R
 
 A backend team of five wants Bowire as a shared internal tool: one URL the whole team browses to, single sign-on, every Workspaces export persisted somewhere the team can recover from. The hosting team gives you a single Linux VM (or one namespace in the cluster) and asks you to ship it.
 
+The APIs the team drives through the deployed Bowire are their **Harbor Control Center** stack (the same `Ship` / `Dock` / `Crane` / `PortCall` domain as [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples)) — so the Harbor Combined sample is a natural target for the smoke test's discovery check once the deployment is up.
+
 Constraints:
 
 | Constraint | Reason |
