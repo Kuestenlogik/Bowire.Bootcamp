@@ -1,37 +1,34 @@
 # All Units
 
-## Foundations (Units 0–1)
+Six units, each in a single modality. Your [course](LEARNING_PATHS.md) selects which units you take.
 
-| Unit | Title | Lessons |
-|------|-------|---------|
-| [Unit 0](units/unit-0/README.md) | Introduction | 3 |
-| [Unit 1](units/unit-1/README.md) | Workbench Basics — shape (CLI vs Embedded) is a setup tab inside each lesson | 2 |
+## Foundations
 
-## Record, Replay, Mock (Unit 2)
+| Unit | Modality | Lessons |
+|------|----------|---------|
+| [Unit 0: Foundations](units/unit-0/README.md) | — (concepts) | 3 |
 
-| Unit | Title | Lessons |
-|------|-------|---------|
-| [Unit 2](units/unit-2/README.md) | Record & Replay, Mock-as-Stand-In | 2 |
+## The Workbench (UI)
 
-## AI, Assertions, Coverage (Unit 3)
+| Unit | Modality | Lessons |
+|------|----------|---------|
+| [Unit 1: The Workbench — first contact](units/unit-1/README.md) | UI | 2 |
+| [Unit 2: The Workbench — record, mock, assert, cover](units/unit-2/README.md) | UI | 5 |
 
-| Unit | Title | Lessons |
-|------|-------|---------|
-| [Unit 3](units/unit-3/README.md) | AI agents, Flow assertions, regression coverage | 3 |
+## Command line & operations (CLI)
 
-## Extending Bowire (Unit 4)
+| Unit | Modality | Lessons |
+|------|----------|---------|
+| [Unit 3: CLI & operations](units/unit-3/README.md) | CLI | 7 |
 
-| Unit | Title | Lessons |
-|------|-------|---------|
-| [Unit 4](units/unit-4/README.md) | Extension Seams — Protocol Plugins, Interceptor, UI Extensions, Intercept-rail postures, Plugin lifecycle | 6 |
+## Coding (embedded & extension)
 
-## Production (Unit 5)
+| Unit | Modality | Lessons |
+|------|----------|---------|
+| [Unit 4: Embed Bowire](units/unit-4/README.md) | embedded coding | 3 |
+| [Unit 5: Extend Bowire](units/unit-5/README.md) | extension coding | 4 |
 
-| Unit | Title | Lessons |
-|------|-------|---------|
-| [Unit 5](units/unit-5/README.md) | CI (recording + Flow), deploy, operate, workspace hygiene | 5 |
-
-## Capstones (one per audience)
+## Capstones (one per audience — each extends the Harbor domain)
 
 | Capstone | Audience |
 |---------|----------|
