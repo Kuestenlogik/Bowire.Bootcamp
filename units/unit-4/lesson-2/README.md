@@ -6,6 +6,8 @@
 
 Expose your host's discovered services to AI agents as MCP tools over **one shared HTTP endpoint** — the embedded counterpart to the CLI's stdio `bowire mcp serve` ([Unit 3.3](../../unit-3/lesson-3/README.md)). Remote agents and CI runners connect over HTTP; no per-machine install, no subprocess.
 
+> **Runnable scaffold.** This lesson ships [`start/`](start/) (the embedded host) and [`completed/`](completed/) (with the MCP adapter). `cd start`, add the two lines yourself, then diff against `completed/`.
+
 ## Steps
 
 ### 1. Reference the MCP package

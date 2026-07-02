@@ -6,6 +6,8 @@
 
 One line in your host and Bowire captures **every request the process serves** — method, path, headers, request/response bodies, status, latency — no proxy, no client-cert trust, no per-route attribute. This is the embedded counterpart to the standalone reverse-proxy from [Unit 3.4](../../unit-3/lesson-4/README.md); both feed the same **Intercept rail** you toured in [Unit 2.5](../../unit-2/lesson-5/README.md).
 
+> **Runnable scaffold.** This lesson ships [`start/`](start/) (host + routes) and [`completed/`](completed/) (with `UseBowireInterceptor()`). `cd start`, add the middleware line yourself, then diff against `completed/`.
+
 ## Steps
 
 ### 1. Reference the package
