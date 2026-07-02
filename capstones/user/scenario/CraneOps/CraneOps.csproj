@@ -6,8 +6,8 @@
     <RootNamespace>Capstones.User.CraneOps</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" />
-    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.71.0" />
     <Protobuf Include="Protos\crane.proto" GrpcServices="Server" />
   </ItemGroup>
 </Project>
