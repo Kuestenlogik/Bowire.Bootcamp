@@ -6,7 +6,10 @@
     <RootNamespace>Capstones.User.Berthing</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Grpc.Net.Client" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.31.1" />
+    <PackageReference Include="Grpc.Tools" Version="2.71.0" PrivateAssets="all" />
     <Protobuf Include="..\CraneOps\Protos\crane.proto" GrpcServices="Client" Link="Protos\crane.proto">
       <Generator>MSBuild:Compile</Generator>
     </Protobuf>
