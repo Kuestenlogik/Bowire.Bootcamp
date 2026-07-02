@@ -52,7 +52,7 @@ Six single-modality units plus a per-audience capstone. See **[All Units](units-
 
 | Unit | Modality | Topic | Lessons |
 |---|---|---|---|
-| [Unit 0: Foundations](units/unit-0/README.md) | — | What Bowire is · the two deployment shapes · how the bootcamp works | 3 |
+| [Unit 0: Foundations & setup](units/unit-0/README.md) | onboarding | What Bowire is · the two deployment shapes · get it running · how the bootcamp works | 4 |
 | [Unit 1: The Workbench — first contact](units/unit-1/README.md) | UI | Discover, invoke, multi-protocol, streaming | 2 |
 | [Unit 2: The Workbench — record, mock, assert, cover](units/unit-2/README.md) | UI | Record/replay, schema mocks, Flow assertions, coverage, Intercept rail | 5 |
 | [Unit 3: CLI & operations](units/unit-3/README.md) | CLI | Install, `mock`/`test`+CI, `mcp serve`, reverse-proxy, deploy, observe, workspaces | 7 |
@@ -60,13 +60,14 @@ Six single-modality units plus a per-audience capstone. See **[All Units](units-
 | [Unit 5: Extend Bowire](units/unit-5/README.md) | extension coding | Protocol plugin, sidecar, UI extension, plugin lifecycle | 4 |
 | [Capstones](capstones/) | — | [User](capstones/user/README.md) · [Developer](capstones/developer/README.md) · [Administrator](capstones/administrator/README.md) | 3 |
 
-### Unit 0: Foundations *(concepts)*
+### Unit 0: Foundations & setup *(onboarding)*
 
 | Lesson | Topic |
 |--------|-------|
 | [0.1](units/unit-0/lesson-1/README.md) | What is Bowire? — positioning vs Postman / Insomnia / Bruno |
 | [0.2](units/unit-0/lesson-2/README.md) | The two deployment shapes — CLI vs embedded, as a concept |
-| [0.3](units/unit-0/lesson-3/README.md) | How this bootcamp works — course → unit → lesson |
+| [0.3](units/unit-0/lesson-3/README.md) | Get Bowire running — least-ceremony path to an open workbench |
+| [0.4](units/unit-0/lesson-4/README.md) | How this bootcamp works — course → unit → lesson |
 
 ### Unit 1: The Workbench — first contact *(UI)*
 

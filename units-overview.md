@@ -6,7 +6,7 @@ Six units, each in a single modality. Your [course](LEARNING_PATHS.md) selects w
 
 | Unit | Modality | Lessons |
 |------|----------|---------|
-| [Unit 0: Foundations](units/unit-0/README.md) | — (concepts) | 3 |
+| [Unit 0: Foundations & setup](units/unit-0/README.md) | onboarding | 4 |
 
 ## The Workbench (UI)
 
