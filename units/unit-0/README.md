@@ -1,27 +1,31 @@
-# Unit 0: Introduction
+# Unit 0: Foundations
 
-*Time: ~30 minutes (CLI) · ~40 minutes (Embedded) • Lessons: 3*
+*Time: ~25 minutes • Lessons: 3 • Modality: none (concepts only)*
 
-Understand what Bowire is, **pick your deployment shape** (standalone CLI vs embedded in your own service), install whichever one fits, and verify the workbench renders.
-
-## Prerequisites
-
-- [.NET 10 SDK](https://dotnet.microsoft.com/download) — required either way.
-- A modern web browser — the workbench opens in-browser automatically, no separate client install.
-- An internet connection — Lesson 0.3 points at the public Petstore reference API (CLI path only).
+Understand what Bowire is, learn the **two deployment shapes as a concept**, and see how this bootcamp is organised into **courses** and **units** so you can pick the path that fits your role. No installs here — setup lives in the modality units this unit points you to.
 
 ## Lessons
 
 | Lesson | Topic | What You'll Learn |
 |--------|-------|-------------------|
-| [0.1](lesson-1/README.md) | What is Bowire? | Multi-protocol API workbench, the **two-process** (CLI) and **single-process** (embedded) models, when to pick which |
-| [0.2](lesson-2/README.md) | Setup | Path A: install the `bowire` global tool. Path B: scaffold an ASP.NET host + `AddBowire()` / `MapBowire()`. Both paths covered side by side. |
-| [0.3](lesson-3/README.md) | Hello Bowire (CLI) | Launch the workbench against a public REST API, invoke your first method. Embedded learners can skim — Unit 1's [Embedded shape](../unit-1/README.md) walks the in-process equivalent. |
+| [0.1](lesson-1/README.md) | What is Bowire? | Multi-protocol API workbench; how it positions vs Postman / Insomnia / Bruno; when to reach for it |
+| [0.2](lesson-2/README.md) | The two deployment shapes | Standalone **CLI** vs **embedded** host — the mental model and the decision criteria (concept only; install happens later, in the unit for your shape) |
+| [0.3](lesson-3/README.md) | How this bootcamp works | Courses → units → lessons; one modality per unit; how to pick your course and where each modality's setup lives |
 
 ## Why this unit
 
-Before you can drive Bowire across protocols, you need a working install and a clear mental model of what it is vs the API-client tools you've used before. The two deployment shapes (CLI vs Embedded) cover meaningfully different jobs, so Unit 0 makes the choice explicit before any code gets written. If you already know the positioning and have at least one path installed, head to [Unit 1](../unit-1/README.md) — the shape is a setup tab inside each Unit 1 lesson.
+Before any code, you need a clear mental model: *what Bowire is*, *the two shapes it runs in*, and *how to navigate the bootcamp*. Unit 0 is **modality-free** — it never asks you to install anything or switch between UI / CLI / coding. It hands you off to the unit that matches your chosen course.
+
+## Where to go next
+
+Unit 0 doesn't pick your shape for you — your **course** does. After the concepts here, jump to the first unit of your course:
+
+- **Workbench / API operator** → [Unit 1: The Workbench — first contact](../unit-1/README.md)
+- **Integrator / DevOps / Admin** → [Unit 3: CLI & operations](../unit-3/README.md)
+- **Developer (embed & extend)** → [Unit 4: Embed Bowire](../unit-4/README.md)
+
+See [Learning Paths](../../LEARNING_PATHS.md) for the full course compositions.
 
 ---
 
-**Next:** → [Unit 1: Workbench basics](../unit-1/README.md) — each lesson's setup section walks both the CLI shape (`bowire --url …`) and the Embedded shape (`AddBowire()` / `MapBowire()`).
+**Next:** → [Lesson 0.1: What is Bowire?](lesson-1/README.md)
