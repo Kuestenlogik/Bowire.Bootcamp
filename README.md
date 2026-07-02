@@ -1,187 +1,143 @@
 # Bowire Bootcamp
 
-A hands-on, self-paced tutorial that takes you from zero to "I can ship a new protocol plugin" with [Bowire](https://bowire.io) — Küstenlogik's multi-protocol API workbench. Six units, three audience-bound learning paths (User / Developer / Administrator), and three per-audience capstones. The deployment shape — standalone CLI (`bowire --url …`) vs embedded host (`AddBowire()` / `MapBowire()`) — is a **setup tab inside each lesson**, not a top-level split: the workbench walkthrough after the wire-in is identical.
+A hands-on, self-paced tutorial that takes you from zero to "I can ship a new protocol plugin" with [Bowire](https://bowire.io) — Küstenlogik's multi-protocol API workbench. **Role-first courses** compose six **single-modality units**; each unit stays in one modality (UI, CLI, embedded coding, or extension coding) and never makes you switch mid-unit. The two deployment shapes (standalone CLI vs embedded host) are a **concept** you meet in Unit 0; setup lives in the shape's own unit.
 
 ## Goal
 
-Learn to drive Bowire end-to-end — discover any wire, capture sessions, replay through `bowire mock`, integrate AI agents, and ship your own protocol plugin in .NET or Python.
+Learn to drive Bowire end-to-end — discover any wire, capture sessions, replay through `bowire mock`, integrate AI agents, deploy and operate it, and ship your own protocol plugin in .NET or any language.
 
 ## What is Bowire Bootcamp?
 
-A linear, self-contained learning experience. Each lesson is runnable in 5–15 minutes and includes:
-
-- **Concepts** — what you're learning and where it fits.
-- **Exercises** — hands-on steps you can copy-paste and execute.
-- **Sample code** — runnable .NET / Python / shell samples next to every lesson.
-- **Knowledge assessment** — a short quiz at the end of each lesson to lock in the takeaways.
+A self-contained learning experience. Each lesson runs in 5–15 minutes and includes concepts, copy-pasteable exercises, and — where a lesson needs code — a `start/` scaffold to build on plus a `completed/` reference. Runnable sample services come from the [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples) repo (the Harbor demo + per-plugin `protocols/`); the custom-protocol unit studies the real [`Bowire.Protocol.Akka`](https://github.com/Kuestenlogik/Bowire.Protocol.Akka) plugin.
 
 The [reference docs](https://bowire.io/docs/) answer **what does X do**. This bootcamp answers **how do I go from zero to productive**.
 
 ## Prerequisites
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download) or later
-- Bowire CLI: `dotnet tool install --global Kuestenlogik.Bowire.Tool`
-- Docker (only for Unit 5 — CI integration)
-- Python 3.10+ (only for Unit 4.2 — sidecar plugin)
-- Claude Desktop or Cursor (only for Unit 3.1 — AI agents)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+- **One** of: the Bowire CLI (`dotnet tool install --global Kuestenlogik.Bowire.Tool`, Unit 3) or the `Kuestenlogik.Bowire` NuGet in your ASP.NET host (`dotnet add package Kuestenlogik.Bowire`, Unit 4)
+- Sample services from [`Bowire.Samples`](https://github.com/Kuestenlogik/Bowire.Samples)
+- Docker (Unit 3 — CI/deploy) · Python 3.10+ (Unit 5.2 — sidecar) · Claude Desktop or Cursor (Unit 3.3 — AI agents)
 
 ## Getting Started
 
 ```bash
-# Clone the repository
 git clone https://github.com/Kuestenlogik/Bowire.Bootcamp.git
 cd Bowire.Bootcamp
-
-# Verify the bowire CLI
-bowire --version
-
-# Start with the introduction
-cd units/unit-0/lesson-1
 ```
 
-### DocFX Learn Site
-
-The bootcamp ships a DocFX-powered learn site:
+Then open [Unit 0: Foundations](units/unit-0/README.md), or the DocFX learn site:
 
 ```bash
 ./scripts/build-learn.ps1 -Serve -Port 8082
 ```
 
-## Learning Paths
+## Courses
 
-Choose from 3 audience-bound paths based on what you'll do with Bowire:
+Pick one by role — a course is a curated selection of units (see **[Learning Paths →](LEARNING_PATHS.md)**):
 
-| Path | Target Audience | Duration | Capstone |
-|------|-----------------|----------|----------|
-| **Workbench & API operator** | Developers, frontend engineers, QA, AI/agent operators driving APIs | ~120 min | `.bww` workspace + runbook |
-| **Developer / embed & extend** | Backend devs embedding Bowire, plugin authors, core contributors | ~200 min | NuGet plugin |
-| **Administrator / deploy & run** | Platform engineers, SREs, DevOps shipping Bowire into deploys | ~90 min | `docker-compose.yml` / k8s + runbook |
+| Course | Target audience | Units |
+|--------|-----------------|-------|
+| **Workbench & API operator** | Developers, frontend, QA, AI/agent operators | 0 → 1 → 2 |
+| **Integrator / DevOps / Administrator** | Platform engineers, SREs, DevOps | 0 → 3 |
+| **Developer — embed & extend** | Backend devs embedding Bowire, plugin authors, contributors | 0 → 1 → 4 → 5 |
 
-Or complete all units in order for the full picture (~4 hours).
-
-**[View Detailed Learning Paths →](LEARNING_PATHS.md)**
+Each course ends in a per-audience capstone that **extends the Harbor domain**. Or complete every unit in order for the full picture.
 
 ---
 
 ## Curriculum
 
-Six units plus a capstone — ~4 hours end-to-end if you walk every lesson, less if you skip the optional protocol-plugin authoring (Unit 4).
+Six single-modality units plus a per-audience capstone. See **[All Units](units-overview.md)** for the catalogue.
 
-| Unit | Topic | Time | Lessons |
+| Unit | Modality | Topic | Lessons |
 |---|---|---|---|
-| [Unit 0](units/unit-0/README.md) | **Introduction.** What Bowire is, install verification, your first call against a public REST API. | ~30 min | 3 |
-| [Unit 1](units/unit-1/README.md) | **Workbench Basics.** REST + gRPC discovered side-by-side. Pick CLI or Embedded shape in the lesson's setup tab. | ~15 min | 2 |
-| [Unit 2](units/unit-2/README.md) | **Record, Replay, Mock.** Capture sessions, replay through `bowire mock`, attach the source schema so peer workbenches discover the *full* contract. | ~20 min | 2 |
-| [Unit 3](units/unit-3/README.md) | **AI agents, assertions, coverage.** MCP-drive Bowire; layer declarative expectations on Flows; measure per-method coverage. | ~35 min | 3 |
-| [Unit 4](units/unit-4/README.md) | **Extending Bowire.** Six seams — .NET plugin, Python sidecar, interceptor, UI widget, Intercept rail postures, plugin lifecycle. *Optional unless you're authoring plugins or operating a shared workbench.* | ~105 min | 6 |
-| [Unit 5](units/unit-5/README.md) | **CI · deploy · operate.** `bowire test` (recording + Flow modes) + the two production deployment shapes + observability + workspace-deletion hygiene. | ~80 min | 5 |
-| [Capstones](capstones/) | **Per-audience deliverable.** [User](capstones/user/README.md) (`.bww` + runbook), [Developer](capstones/developer/README.md) (NuGet plugin), [Administrator](capstones/administrator/README.md) (compose / k8s + runbook). | ~30–60 min | 3 |
+| [Unit 0: Foundations](units/unit-0/README.md) | — | What Bowire is · the two deployment shapes · how the bootcamp works | 3 |
+| [Unit 1: The Workbench — first contact](units/unit-1/README.md) | UI | Discover, invoke, multi-protocol, streaming | 2 |
+| [Unit 2: The Workbench — record, mock, assert, cover](units/unit-2/README.md) | UI | Record/replay, schema mocks, Flow assertions, coverage, Intercept rail | 5 |
+| [Unit 3: CLI & operations](units/unit-3/README.md) | CLI | Install, `mock`/`test`+CI, `mcp serve`, reverse-proxy, deploy, observe, workspaces | 7 |
+| [Unit 4: Embed Bowire](units/unit-4/README.md) | embedded coding | `AddBowire`/`MapBowire`, embedded MCP, interceptor middleware | 3 |
+| [Unit 5: Extend Bowire](units/unit-5/README.md) | extension coding | Protocol plugin, sidecar, UI extension, plugin lifecycle | 4 |
+| [Capstones](capstones/) | — | [User](capstones/user/README.md) · [Developer](capstones/developer/README.md) · [Administrator](capstones/administrator/README.md) | 3 |
 
-Detail per unit follows below — pick a row above to jump straight in.
+### Unit 0: Foundations *(concepts)*
 
-### Unit 0: Introduction
-*Time: ~30 minutes*
+| Lesson | Topic |
+|--------|-------|
+| [0.1](units/unit-0/lesson-1/README.md) | What is Bowire? — positioning vs Postman / Insomnia / Bruno |
+| [0.2](units/unit-0/lesson-2/README.md) | The two deployment shapes — CLI vs embedded, as a concept |
+| [0.3](units/unit-0/lesson-3/README.md) | How this bootcamp works — course → unit → lesson |
 
-Understand what Bowire is and verify your environment.
+### Unit 1: The Workbench — first contact *(UI)*
 
-| Lesson | Topic | What You'll Learn |
-|--------|-------|-------------------|
-| [0.1](units/unit-0/lesson-1/README.md) | What is Bowire? | Multi-protocol API workbench, Bowire vs Postman / Insomnia / Bruno |
-| [0.2](units/unit-0/lesson-2/README.md) | Setup | Install the bowire CLI, the bundled plugins, the workbench host |
-| [0.3](units/unit-0/lesson-3/README.md) | Hello Bowire | Launch the workbench, point it at a public REST API, invoke your first method |
+| Lesson | Topic |
+|--------|-------|
+| [1.1](units/unit-1/lesson-1/README.md) | First contact — Discover + the invoke pane (the canonical walkthrough) |
+| [1.2](units/unit-1/lesson-2/README.md) | Multi-protocol in one workbench — gRPC unary + server-streaming |
 
-### Unit 1: Workbench Basics
-*Time: ~15 minutes*
+### Unit 2: The Workbench — record, mock, assert, cover *(UI)*
 
-Drive Bowire's discovery and invoke surface across two protocols at once. Each lesson's setup section walks both shapes (standalone CLI and embedded host); the workbench walkthrough after the wire-in is identical.
+| Lesson | Topic |
+|--------|-------|
+| [2.1](units/unit-2/lesson-1/README.md) | Record & Replay |
+| [2.2](units/unit-2/lesson-2/README.md) | Schema-backed mocks |
+| [2.3](units/unit-2/lesson-3/README.md) | Flow Assertions — the five-kind expectation model |
+| [2.4](units/unit-2/lesson-4/README.md) | Regression Coverage — recent · stale · failing · uncovered |
+| [2.5](units/unit-2/lesson-5/README.md) | Intercept rail — four postures |
 
-| Lesson | Topic | What You'll Build |
-|--------|-------|-------------------|
-| [1.1](units/unit-1/lesson-1/README.md) | First call (REST + OpenAPI) | A REST sample API discovered through its OpenAPI doc — CLI shape (`bowire --url …`) or Embedded shape (`AddBowire()` + `MapBowire()`) |
-| [1.2](units/unit-1/lesson-2/README.md) | Multi-protocol session (REST + gRPC) | A gRPC sample side-by-side with REST — CLI shape (repeated `--url`) or Embedded shape (`AddGrpc()` in the same host) |
+### Unit 3: CLI & operations *(CLI)*
 
-### Unit 2: Record, Replay, Mock
-*Time: ~20 minutes*
+| Lesson | Topic |
+|--------|-------|
+| [3.1](units/unit-3/lesson-1/README.md) | Install & first call |
+| [3.2](units/unit-3/lesson-2/README.md) | Mock & test in CI |
+| [3.3](units/unit-3/lesson-3/README.md) | AI agents over MCP (`bowire mcp serve`) |
+| [3.4](units/unit-3/lesson-4/README.md) | Reverse-proxy interception |
+| [3.5](units/unit-3/lesson-5/README.md) | Deployment patterns |
+| [3.6](units/unit-3/lesson-6/README.md) | Observability & operations |
+| [3.7](units/unit-3/lesson-7/README.md) | Workspace hygiene |
 
-Capture sessions and run them back as local mock servers — with the original contract reattached.
+### Unit 4: Embed Bowire *(embedded coding)*
 
-| Lesson | Topic | What You'll Build |
-|--------|-------|-------------------|
-| [2.1](units/unit-2/lesson-1/README.md) | Record & replay | A `.bwr` recording, replayed through `bowire mock` so the mock answers without the real backend running |
-| [2.2](units/unit-2/lesson-2/README.md) | Schema export + mock-as-stand-in | The recording carries the source OpenAPI, the mock serves `/openapi.json`, a peer Bowire discovers the *full* surface through it |
+| Lesson | Topic |
+|--------|-------|
+| [4.1](units/unit-4/lesson-1/README.md) | Embed the workbench (`AddBowire` / `MapBowire`) |
+| [4.2](units/unit-4/lesson-2/README.md) | Embedded MCP adapter |
+| [4.3](units/unit-4/lesson-3/README.md) | Interceptor middleware |
 
-### Unit 3: AI agents, assertions, coverage
-*Time: ~35 minutes*
+### Unit 5: Extend Bowire *(extension coding)*
 
-MCP-drive Bowire, layer declarative expectations on Flows, watch coverage decay across the discovered surface.
+| Lesson | Topic |
+|--------|-------|
+| [5.1](units/unit-5/lesson-1/README.md) | .NET protocol plugin (`IBowireProtocol`) |
+| [5.2](units/unit-5/lesson-2/README.md) | Polyglot sidecar plugin |
+| [5.3](units/unit-5/lesson-3/README.md) | UI extension — semantic kinds |
+| [5.4](units/unit-5/lesson-4/README.md) | Plugin lifecycle |
 
-| Lesson | Topic | What You'll Build |
-|--------|-------|-------------------|
-| [3.1](units/unit-3/lesson-1/README.md) | Claude Desktop + Cursor over MCP | `bowire mcp serve` wired into the agent's `mcpServers` config, drive REST + gRPC + recordings from the chat window |
-| [3.2](units/unit-3/lesson-2/README.md) | Flow assertions | A Flow with the five expectation kinds (status / header / body-path / body-text / latency), a red-then-green regression |
-| [3.3](units/unit-3/lesson-3/README.md) | Regression coverage | The per-method coverage chip (recent / stale / failing / uncovered) + the Settings → Data run-history view |
+### Capstones (per audience — each extends the Harbor domain)
 
-### Unit 4: Extending Bowire
-*Time: ~105 minutes*
-
-Six extension seams — from protocol plugins to the Intercept rail's four postures to runtime plugin lifecycle.
-
-| Lesson | Topic | What You'll Build |
-|--------|-------|-------------------|
-| [4.1](units/unit-4/lesson-1/README.md) | .NET protocol plugin | A Pirate-Speak `IBowireProtocol` packaged via `dotnet pack` → `bowire plugin install` |
-| [4.2](units/unit-4/lesson-2/README.md) | Python sidecar plugin | A Yoda-Speak `BowirePlugin` subclass packaged as a sidecar `.zip` → `bowire plugin install --file` |
-| [4.3](units/unit-4/lesson-3/README.md) | Interceptor middleware | `app.UseBowireInterceptor()` + a new `POST /api/orders` route observed in the Intercepted rail |
-| [4.4](units/unit-4/lesson-4/README.md) | Map widget / semantic kinds | A custom tactical entity rendered on the auto-mounted MapLibre viewer via the `coordinate.wgs84` kind |
-| [4.5](units/unit-4/lesson-5/README.md) | Intercept rail — four postures | Captured · Live overrides · Mock servers · Settings — seed an override from a real flow |
-| [4.6](units/unit-4/lesson-6/README.md) | Plugin lifecycle | Load / Unload / Restart / Reset-storage without process restart |
-
-### Unit 5: CI · deploy · operate
-*Time: ~80 minutes*
-
-The Administrator unit. CI integration (recording + Flow), the two production deployment shapes, the observability + day-1 operations surface, plus workspace-deletion hygiene.
-
-| Lesson | Topic | What You'll Build |
-|--------|-------|-------------------|
-| [5.1](units/unit-5/lesson-1/README.md) | GitHub Actions integration | `bowire test` step running recordings as assertions, mock-server as a job service for downstream integration tests |
-| [5.2](units/unit-5/lesson-2/README.md) | Deployment patterns | Standalone CLI in container + systemd; embedded host gated for production; layered config (`appsettings.json` → `BOWIRE_*` env → CLI flags); reverse-proxy in front |
-| [5.3](units/unit-5/lesson-3/README.md) | Observability + operations | OTLP export wired against the `Kuestenlogik.Bowire` ActivitySource + Meter; plugin-health endpoint; `.bww` workspace backup; per-plugin disable |
-| [5.4](units/unit-5/lesson-4/README.md) | `bowire test` in CI — Flow runs, JUnit XML, HTML | v2.2 Flow runner with `--report` / `--junit` / `--base-url` / `--env` wired into a GitHub Actions workflow |
-| [5.5](units/unit-5/lesson-5/README.md) | Workspace deletion — Soft vs Hard | Two deletion postures, Trash retention, Undo semantics across both |
-
-### Capstone
-
-| Project | Title |
-|---------|-------|
-| [Developer capstone](capstones/developer/README.md) | Multi-Protocol API Tour — combine recording, mocking, plugins, CI into an end-to-end scenario (User + Administrator capstone scaffolds also live under [`capstones/`](capstones/)) |
+| Capstone | Deliverable |
+|---------|-------------|
+| [User](capstones/user/README.md) | `.bww` workspace + diagnosis runbook |
+| [Developer](capstones/developer/README.md) | NuGet plugin (protocol / extension / rail / module) |
+| [Administrator](capstones/administrator/README.md) | `docker-compose.yml` / k8s + production runbook |
 
 ---
 
 ## Layout per lesson
 
-Every lesson directory looks the same:
-
 ```
 units/unit-N/lesson-M/
-├── README.md   # The walkthrough text — open this first (path-split lessons add cli.md / embedded.md)
-└── sample/     # Runnable .NET / Python / shell sample (when applicable)
+├── README.md     # the walkthrough — open this first
+├── start/        # scaffold to build on (coding lessons only)
+└── completed/    # reference/finished state (coding lessons only)
 ```
 
-So you can `cd units/unit-N/lesson-M/sample && dotnet run` (or `python -m sample`) and follow along without leaving the directory.
+UI and CLI lessons carry no code folders — they drive the shared samples from `Bowire.Samples`. One modality per unit; where another modality is relevant, a lesson **links** to its sibling unit instead of opening a second track inline.
 
 ## Hosting
 
-The published Bootcamp lives at **https://bowire.io/bootcamp/**. The DocFX
-output is built by the main Bowire repo's `Documentation` workflow, which
-clones this repo and mounts the `artifacts/docs-learn/` output under
-`/bootcamp/` in its combined GitHub Pages bundle.
-
-`.github/workflows/notify-bowire.yml` fires a `bootcamp-updated`
-`repository_dispatch` at `Kuestenlogik/Bowire` whenever lesson content
-lands on `main`, so the bowire.io deploy refreshes immediately — no daily
-polling cron. The dispatch needs a PAT stored as `BOWIRE_DISPATCH_TOKEN`
-in this repo's Actions secrets, scoped `repo` on `Kuestenlogik/Bowire`.
-A path filter on the trigger keeps internal infra-edits (release scripts,
-gitignore tweaks, &c.) from re-deploying bowire.io unnecessarily.
+The published Bootcamp lives at **https://bowire.io/bootcamp/**. The DocFX output is built by the main Bowire repo's `Documentation` workflow, which clones this repo and mounts `artifacts/docs-learn/` under `/bootcamp/`. `.github/workflows/notify-bowire.yml` fires a `bootcamp-updated` dispatch at `Kuestenlogik/Bowire` when lesson content lands on `main`, so bowire.io refreshes immediately.
 
 ## License
 
