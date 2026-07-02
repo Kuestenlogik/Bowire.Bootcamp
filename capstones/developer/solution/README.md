@@ -98,7 +98,7 @@ The workflow file is annotated with the meaning of each step; copy it into your 
 
 ## Customising
 
-- **Add MQTT** — drop in the [MQTT plugin](https://bowire.io/docs/protocols/mqtt.html) on the host side, register a Mosquitto broker as a sample target, capture additional steps. The bootcamp's Unit 4.2 covers the polyglot path if you'd rather host the MQTT side in a sidecar.
+- **Add MQTT** — drop in the [MQTT plugin](https://bowire.io/docs/protocols/mqtt.html) on the host side, register a Mosquitto broker as a sample target, capture additional steps. The bootcamp's Unit 5.2 covers the polyglot path if you'd rather host the MQTT side in a sidecar.
 - **Add an authentication layer** — the [OIDC auth provider](https://bowire.io/docs/architecture/sidecar-plugins.html) plugs in. Adjust `--auth-provider oidc` on the workbench launch, the agent's MCP config inherits the headers.
 - **Replace the in-memory store** — point `ContainerManifestStore` at PostgreSQL / Redis / your DB of choice. The recording stays valid as long as the schemas don't change.
 
