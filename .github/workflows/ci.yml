@@ -1,0 +1,90 @@
+name: CI
+
+# `main` requires a status check named `build`. For a GitHub Actions job
+# the check-run name IS the job's name, so the job below must stay
+# `build` and must not gain a `name:` -- either change makes the
+# required check never arrive, and every pull request in this repository
+# goes back to being permanently blocked with nothing to wait for. That
+# was the state until this file existed: the cascade PR bumping
+# Kuestenlogik.Bowire to 2.3.0 sat open from 2026-07-17 with auto-merge
+# queued, which is why the lessons still pinned 2.2.1 (#21).
+#
+# The failure was silent in both directions -- the release cascade
+# reported success because it had opened the PR, and branch protection
+# reported nothing because no check ever ran.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      # There is deliberately no solution file here: every lesson and
+      # capstone is a standalone project so a learner can copy a single
+      # folder and have it build on its own. So the check walks them.
+      #
+      # `start/` variants are built too. They are stubs, not broken code
+      # -- each implements its interface with placeholder returns and
+      # compiles -- and they are the first thing a learner opens. A
+      # `start/` project that stopped compiling against the current
+      # Kuestenlogik.Bowire package is the worst thing this repository
+      # can ship, so it belongs in CI rather than in someone's editor an
+      # hour into a lesson.
+      #
+      # Projects are built one at a time and failures collected, so one
+      # broken lesson still reports every other broken lesson instead of
+      # hiding them behind the first error.
+      - name: Build every lesson and capstone
+        run: |
+          failed=""
+          total=0
+          while IFS= read -r -d '' proj; do
+            total=$((total + 1))
+            echo "::group::$proj"
+            if dotnet build "$proj" -c Release; then
+              echo "-> ok"
+            else
+              echo "-> FAILED"
+              failed="$failed$proj"$'\n'
+            fi
+            echo "::endgroup::"
+          done < <(find . -name '*.csproj' -not -path '*/bin/*' -not -path '*/obj/*' -print0 | sort -z)
+
+          # A walk that finds nothing would otherwise report success and
+          # satisfy branch protection while building precisely zero
+          # projects -- the same silent-green failure this file exists
+          # to end.
+          if [ "$total" -eq 0 ]; then
+            echo "::error::No .csproj found. The walk is broken, not the repository."
+            exit 1
+          fi
+
+          echo "Built $total project(s)."
+          if [ -n "$failed" ]; then
+            echo "::error::These projects do not compile:"
+            printf '%s\n' "$failed" | grep -v '^$' | sed 's/^/  /'
+            exit 1
+          fi
