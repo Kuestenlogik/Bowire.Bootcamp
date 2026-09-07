@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- The extension contract (IBowireUiExtension + [BowireExtension]). -->
-    <PackageReference Include="Kuestenlogik.Bowire" Version="2.6.2" />
+    <PackageReference Include="Kuestenlogik.Bowire" Version="2.7.0" />
   </ItemGroup>
   <ItemGroup>
     <!-- The JS bundle rides inside the assembly. The workbench serves it at
