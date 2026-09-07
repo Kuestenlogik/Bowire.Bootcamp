@@ -19,7 +19,7 @@ Six units, each in a single modality. Your [course](LEARNING_PATHS.md) selects w
 
 | Unit | Modality | Lessons |
 |------|----------|---------|
-| [Unit 3: CLI & operations](units/unit-3/README.md) | CLI | 7 |
+| [Unit 3: CLI & operations](units/unit-3/README.md) | CLI | 8 |
 
 ## Coding (embedded & extension)
 

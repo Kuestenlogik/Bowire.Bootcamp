@@ -205,7 +205,7 @@ A log line for the request appears within ~1 s. In Loki, the same line appears u
 
 ## Reference
 
-- Container image: `kuestenlogik/bowire:2.1.0` (`Kuestenlogik.Bowire.Tool.csproj::ContainerRepository`).
+- Container image: `kuestenlogik/bowire:2.7.0` (`Kuestenlogik.Bowire.Tool.csproj::ContainerRepository`).
 - Container port: 5080 (`Kuestenlogik.Bowire.Tool.csproj::<ContainerPort>`).
 - Workspace data dir: `~/.bowire/` (resolves via `Environment.SpecialFolder.UserProfile` in `PluginManager.cs`; in the chiseled container, `/home/app/.bowire`).
 - Auth provider id: `oidc` (`OidcAuthProvider.Id = "oidc"`).
