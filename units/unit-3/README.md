@@ -15,8 +15,9 @@ Drive the CLI against the single-plugin demos in [`Bowire.Samples/protocols/`](h
 | [3.3](lesson-3/README.md) | AI agents over MCP | `bowire mcp serve` (stdio), the tool surface, Claude Desktop wiring, the security gate |
 | [3.4](lesson-4/README.md) | Reverse-proxy interception | `bowire interceptor` fronting an upstream; feeds the Intercept rail; TLS + CA |
 | [3.5](lesson-5/README.md) | Deployment patterns | Container / systemd, layered config (`appsettings` → `BOWIRE_*` → flags), reverse-proxy in front |
-| [3.6](lesson-6/README.md) | Observability & operations | `--telemetry` + OTLP, Bowire-domain metrics, plugin health, backup, per-plugin disable |
+| [3.6](lesson-6/README.md) | Observability & operations | `--telemetry` + OTLP, Bowire-domain metrics, `bowire monitor` scheduled probes, plugin health, backup, per-plugin disable |
 | [3.7](lesson-7/README.md) | Workspace hygiene | Soft vs hard deletion, Trash retention, undo semantics |
+| [3.8](lesson-8/README.md) | CI gates | `bowire lint` design rules, `bowire contract publish\|verify\|matrix`, `bowire report rollup`, `--fail-on` |
 
 ## Why this unit
 

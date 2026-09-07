@@ -33,7 +33,7 @@ A `compose/docker-compose.yml` that brings up:
 
 | Service | Image | Purpose |
 | --- | --- | --- |
-| `bowire` | `kuestenlogik/bowire:2.1.0` | The standalone Tool (`src/Kuestenlogik.Bowire.Tool/Kuestenlogik.Bowire.Tool.csproj`, `ContainerRepository = kuestenlogik/bowire`). Exposes `:5080` inside the compose network. |
+| `bowire` | `kuestenlogik/bowire:2.7.0` | The standalone Tool (`src/Kuestenlogik.Bowire.Tool/Kuestenlogik.Bowire.Tool.csproj`, `ContainerRepository = kuestenlogik/bowire`). Exposes `:5080` inside the compose network. |
 | `caddy` | `caddy:2` | Reverse proxy + automatic Let's Encrypt TLS. Terminates `https://bowire.team.example/` and proxies to `bowire:5080`. |
 | `grafana` | `grafana/grafana-oss` | Observability surface. Single dashboard against Tempo + Loki. |
 | `tempo` | `grafana/tempo` | OTLP trace store. Receives Bowire's `Kuestenlogik.Bowire` ActivitySource (see `src/Kuestenlogik.Bowire.Telemetry/BowireTelemetryServiceCollectionExtensions.cs`). |
@@ -217,7 +217,7 @@ You've completed the capstone when:
 ## Out of scope
 
 - High availability / multi-region. Single-node compose or single-replica Deployment is enough — Bowire is per-team, not customer-facing.
-- Building Bowire from source. Pull the published `kuestenlogik/bowire:2.1.0` image; don't `dotnet publish` locally.
+- Building Bowire from source. Pull the published `kuestenlogik/bowire:2.7.0` image; don't `dotnet publish` locally.
 - Custom plugin authoring. That's the Developer capstone.
 - Network policies / Pod Security Standards / mTLS in-mesh. Each org has its own posture; the capstone shows the Bowire-side dials, not your infra's.
 

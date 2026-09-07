@@ -2,7 +2,7 @@
 
 > **Difficulty:** Intermediate | **Duration:** 18 min | **Prerequisites:** [Unit 0](../../unit-0/README.md); .NET 10 SDK
 
-> **Runnable scaffold.** This lesson ships [`start/`](start/) (a plugin that compiles + is discovered but surfaces no services — two `TODO`s) and [`completed/`](completed/) (the working `Pirate Speak` protocol with a unary `Translate` method). `cd start`, fill the TODOs, then diff against `completed/`. Both build against the published `Kuestenlogik.Bowire` 2.1.0 package. This hand-written `IBowireProtocol` is the same shape `dotnet new bowire-plugin` emits — minus the test project + CI the template adds.
+> **Runnable scaffold.** This lesson ships [`start/`](start/) (a plugin that compiles + is discovered but surfaces no services — two `TODO`s) and [`completed/`](completed/) (the working `Pirate Speak` protocol with a unary `Translate` method). `cd start`, fill the TODOs, then diff against `completed/`. Both build against the published `Kuestenlogik.Bowire` package pinned in the `.csproj`. This hand-written `IBowireProtocol` is the same shape `dotnet new bowire-plugin` emits — minus the test project + CI the template adds.
 
 ## Overview
 
