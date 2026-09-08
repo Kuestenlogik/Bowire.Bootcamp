@@ -19,13 +19,13 @@ Six units, each in a single modality. Your [course](LEARNING_PATHS.md) selects w
 
 | Unit | Modality | Lessons |
 |------|----------|---------|
-| [Unit 3: CLI & operations](units/unit-3/README.md) | CLI | 8 |
+| [Unit 3: CLI & operations](units/unit-3/README.md) | CLI | 9 |
 
 ## Coding (embedded & extension)
 
 | Unit | Modality | Lessons |
 |------|----------|---------|
-| [Unit 4: Embed Bowire](units/unit-4/README.md) | embedded coding | 3 |
+| [Unit 4: Embed Bowire](units/unit-4/README.md) | embedded coding | 4 |
 | [Unit 5: Extend Bowire](units/unit-5/README.md) | extension coding | 4 |
 
 ## Capstones (one per audience — each extends the Harbor domain)

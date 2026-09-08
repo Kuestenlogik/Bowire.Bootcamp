@@ -22,6 +22,8 @@ bowire lint api-snapshot.json --format markdown --output lint.md
 
 The shipped rules flag a response carrying something that looks like personal data (email, phone, SSN, date of birth, address, passport or tax id), a response carrying something that looks secret, a collection endpoint with no pagination, an API with no versioning scheme, and a timestamp shipped as a bare string.
 
+> **Read a clean result carefully.** Four of those five rules inspect the *response* shape, and how much of it discovery produces differs by protocol. Against gRPC the descriptors carry full message types and every rule evaluates; against REST discovered from OpenAPI, Bowire currently populates request parameters but not response schemas, so only the versioning rule can fire. "no findings" on a REST target is therefore not the same claim as "no personal data in my responses" — see [Design-time lint](https://bowire.io/docs/features/lint.html).
+
 Severities are yours to set. `.bowire/rules.json` is discovered by walking **up** from the working directory, the way a linter should — so a repository configures its rules once and every checkout, and the pipeline, read the same file:
 
 ```bash
@@ -98,7 +100,7 @@ Note the ordering: lint and contracts each gate on their own, and the rollup gat
 
 ## Key Takeaways
 
-- **`bowire lint`** reads the API surface for design smells — PII, unbounded collections, missing versioning — from a live URL or a snapshot, with severities configured once in `.bowire/rules.json`.
+- **`bowire lint`** reads the API surface for design smells — PII, unbounded collections, missing versioning — from a live URL or a snapshot, with severities configured once in `.bowire/rules.json`. Which rules *can* fire depends on how deep discovery goes for that protocol.
 - **`bowire contract publish|verify|matrix`** pins what a consumer relies on; `verify` separates "the provider changed" (exit 1) from "the provider was unreachable" (exit 2).
 - **`bowire report rollup`** reads every report kind into one row per service, in a JSON shape shared by the workbench, the CLI and the MCP tool.
 - **`--fail-on`** is what makes all three gates rather than reports. Its default is `none`, so adopting them never breaks a pipeline on the first run.

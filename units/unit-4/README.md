@@ -13,6 +13,7 @@ Real, working reference: the `harbor-demo/` hosts in [`Bowire.Samples`](https://
 | [4.1](lesson-1/README.md) | Embed the workbench | `AddBowire()` + `MapBowire()`, DI/auth/config inheritance, gating out of production |
 | [4.2](lesson-2/README.md) | Embedded MCP adapter | `AddBowireMcpAdapter()` / `MapBowireMcpAdapter()` — one shared HTTP MCP endpoint |
 | [4.3](lesson-3/README.md) | Interceptor middleware | `UseBowireInterceptor()` + `BowireInterceptorOptions` — capture host traffic |
+| [4.4](lesson-4/README.md) | SCIM provisioning | `Bowire:Scim:*`, why MultiTenant comes first, the implemented surface, deprovisioning windows |
 
 ## Why this unit
 
