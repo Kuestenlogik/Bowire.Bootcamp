@@ -18,6 +18,7 @@ Drive the CLI against the single-plugin demos in [`Bowire.Samples/protocols/`](h
 | [3.6](lesson-6/README.md) | Observability & operations | `--telemetry` + OTLP, Bowire-domain metrics, `bowire monitor` scheduled probes, plugin health, backup, per-plugin disable |
 | [3.7](lesson-7/README.md) | Workspace hygiene | Soft vs hard deletion, Trash retention, undo semantics |
 | [3.8](lesson-8/README.md) | CI gates | `bowire lint` design rules, `bowire contract publish\|verify\|matrix`, `bowire report rollup`, `--fail-on` |
+| [3.9](lesson-9/README.md) | Schema watch | `bowire diff snapshot`, `--base` / `--head` (file or live URL), `--fail-on breaking`, PR comments |
 
 ## Why this unit
 

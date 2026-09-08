@@ -44,9 +44,29 @@ app.MapBowire();                 // workbench at /<host>/bowire
 
 That's the Developer course's path — [Unit 4](../../unit-4/README.md) covers DI, auth, config and gating.
 
+## Or — drive it from VS Code
+
+If the API you are working on is open in an editor, the workbench can be too:
+
+```
+ext install kuestenlogik.bowire-vscode
+```
+
+Then run **Bowire: Open Workbench** from the Command Palette.
+
+The extension does not bundle Bowire. It drives a CLI — the one already on your `PATH`, or one it offers to fetch — so the workbench in your editor, your terminal and your CI are the same binary reading the same collections. A collection you save in the side panel is the file the pipeline reads.
+
+Point it at a specific build with `.vscode/settings.json`, which supports `${workspaceFolder}` so a project-local copy can be committed and shared:
+
+```jsonc
+{ "bowire.cliPath": "${workspaceFolder}/tools/bowire" }
+```
+
+When nothing is found, `bowire.autoDownload` decides what happens — `prompt` by default, with `always` and `never` also available.
+
 ## Verify
 
-Whichever path you picked, opening the workbench URL should render the rail strip on the left and a sidebar populated by auto-discovery. If it does, you're set. (No separate browser-client install — the workbench is served by whichever process you started.)
+Whichever path you picked, the workbench — in a browser tab, or in the VS Code panel — should render the rail strip on the left and a sidebar populated by auto-discovery. If it does, you're set. (No separate browser-client install — the workbench is served by whichever process you started.)
 
 ## Key Takeaways
 
