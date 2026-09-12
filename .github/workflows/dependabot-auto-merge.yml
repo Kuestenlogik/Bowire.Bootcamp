@@ -14,11 +14,15 @@
 # auto-merged: they typically carry breaking-change semver semantics
 # and deserve a manual review.
 #
-# In this repo the only ecosystem Dependabot watches is github-actions (see
-# dependabot.yml — there are no project files), which makes the major-bump
-# carve-out the load-bearing half: auto-tag-on-bowire-merge.yml depends on
-# `fetch-depth: 0` and a PAT-authenticated checkout to find the latest tag, so
-# a checkout major is a review, not a rubber stamp.
+# Here the bumps land in course material: fourteen lesson and capstone
+# projects, each a `start/` shell and its `completed/` solution. CI builds all
+# of them, so a green auto-merge means every lesson still compiles against the
+# new package — which is the only check that matters for a teaching repo.
+#
+# The major carve-out earns its keep twice over: a transport major can change
+# what a lesson *teaches*, not just whether it builds, and
+# auto-tag-on-bowire-merge.yml depends on `fetch-depth: 0` plus a
+# PAT-authenticated checkout to find the latest tag.
 
 name: Dependabot auto-merge
 

@@ -1,22 +1,45 @@
 version: 2
 
-# Dependabot config for the Bootcamp. Deliberately narrower than the plugin
-# and sample repos: this repo carries no project files at all — units,
-# capstones and audits are Markdown, and the only executable is
-# scripts/build-learn.ps1 — so there is no NuGet surface to watch. Adding a
-# `nuget` ecosystem here would open nothing and hide that fact behind a
-# config that looks complete.
+# Dependabot config for the Bootcamp. Two ecosystems, and the reason each is
+# here is worth writing down because the repo does not look like a code repo
+# from the top level: units, capstones and audits are Markdown, but fourteen
+# `.csproj` files sit under units/unit-4, units/unit-5 and capstones/, each
+# pair a `start/` shell and its `completed/` solution, and CI builds every one
+# of them.
 #
-# The Kuestenlogik.Bowire version this course teaches against is NOT a
-# Dependabot concern either: the release cascade (bowire-released.yml) opens
-# that bump itself and auto-merges it, because the version lives in prose and
-# snippets rather than in a PackageReference.
+# Nobody was watching those pins. Grpc.AspNetCore sat on 2.71.0 here while the
+# plugin repos had moved to 2.83.0 — a course that teaches against a year-old
+# transport is a course that teaches the wrong thing.
 #
-# What was genuinely unwatched is the workflows: the five of them pin eight
-# actions by major, and checkout had drifted to v6 in one file while the other
-# four were on v7. That is exactly the drift this ecosystem catches.
+# Kuestenlogik.Bowire* is deliberately NOT watched: the release cascade
+# (bowire-released.yml) owns that bump, in the lesson prose as well as in the
+# project files, and two bumpers for one dependency is how you get a pair of
+# PRs racing over the same line.
 
 updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    ignore:
+      # The cascade's business, not Dependabot's — see the note above.
+      - dependency-name: "Kuestenlogik.Bowire*"
+    groups:
+      # gRPC ships its runtime, its server bits and its tooling in lockstep;
+      # bumping them apart leaves a lesson that builds and a lesson that does
+      # not, in the same unit.
+      grpc:
+        patterns:
+          - "Grpc.*"
+          - "Google.Protobuf"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
