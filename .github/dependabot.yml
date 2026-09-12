@@ -1,0 +1,30 @@
+version: 2
+
+# Dependabot config for the Bootcamp. Deliberately narrower than the plugin
+# and sample repos: this repo carries no project files at all — units,
+# capstones and audits are Markdown, and the only executable is
+# scripts/build-learn.ps1 — so there is no NuGet surface to watch. Adding a
+# `nuget` ecosystem here would open nothing and hide that fact behind a
+# config that looks complete.
+#
+# The Kuestenlogik.Bowire version this course teaches against is NOT a
+# Dependabot concern either: the release cascade (bowire-released.yml) opens
+# that bump itself and auto-merges it, because the version lives in prose and
+# snippets rather than in a PackageReference.
+#
+# What was genuinely unwatched is the workflows: the five of them pin eight
+# actions by major, and checkout had drifted to v6 in one file while the other
+# four were on v7. That is exactly the drift this ecosystem catches.
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(actions)"
