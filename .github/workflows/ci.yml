@@ -88,3 +88,12 @@ jobs:
             printf '%s\n' "$failed" | grep -v '^$' | sed 's/^/  /'
             exit 1
           fi
+
+      # The downloads (#34), built as a learner gets them: every exercise
+      # packed into its shell and solution archive, each archive extracted
+      # on its own and built there, and index.md checked to link every one.
+      # The release uploads the same archives; this is the dry run, so a
+      # lesson that only builds inside the repository fails here, not
+      # after the tag.
+      - name: Pack and build every exercise download
+        run: python3 scripts/pack_exercises.py --version pr --verify --check-index

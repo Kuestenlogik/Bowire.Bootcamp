@@ -55,6 +55,21 @@ Each course ends in its own capstone, and each **extends the Harbor Control Cent
 - **[Developer](capstones/developer/README.md)** — ship a NuGet package implementing one of Bowire's extension points (protocol / extension / rail / module).
 - **[Administrator](capstones/administrator/README.md)** — `docker-compose.yml` (or k8s) + production runbook with reverse-proxy, auth, observability, plugin disable list, backup strategy.
 
+## Downloads
+
+Every exercise with code is also a download of its own, from the [latest release](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest): the **shell** is what you fill in (the lesson's `start/`, with its TODOs), the **solution** is the finished version to run or compare against. Each archive carries the lesson's README and a `.slnx`, builds on its own with the .NET SDK, and names the Bowire version it was built for.
+
+| Exercise | Shell | Solution |
+| --- | --- | --- |
+| [Lesson 4.1: Embed the workbench](units/unit-4/lesson-1/README.md) | [shell](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-4-lesson-1-start.zip) | [solution](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-4-lesson-1-solution.zip) |
+| [Lesson 4.2: Embedded MCP adapter](units/unit-4/lesson-2/README.md) | [shell](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-4-lesson-2-start.zip) | [solution](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-4-lesson-2-solution.zip) |
+| [Lesson 4.3: Interceptor middleware](units/unit-4/lesson-3/README.md) | [shell](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-4-lesson-3-start.zip) | [solution](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-4-lesson-3-solution.zip) |
+| [Lesson 5.1: Author a .NET protocol plugin](units/unit-5/lesson-1/README.md) | [shell](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-5-lesson-1-start.zip) | [solution](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-5-lesson-1-solution.zip) |
+| [Lesson 5.3: UI extension — semantic kinds](units/unit-5/lesson-3/README.md) | [shell](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-5-lesson-3-start.zip) | [solution](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-unit-5-lesson-3-solution.zip) |
+| [User capstone](capstones/user/README.md) | [shell](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-capstone-user-start.zip) | [solution](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-capstone-user-solution.zip) |
+| [Developer capstone](capstones/developer/README.md) | [shell](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-capstone-developer-start.zip) | [solution](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-capstone-developer-solution.zip) |
+| [Administrator capstone](capstones/administrator/README.md) | [shell](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-capstone-administrator-start.zip) | [solution](https://github.com/Kuestenlogik/Bowire.Bootcamp/releases/latest/download/bowire-bootcamp-capstone-administrator-solution.zip) |
+
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)

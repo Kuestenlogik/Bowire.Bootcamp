@@ -65,6 +65,8 @@ graph LR
 
 Complete every unit in order — [0](units/unit-0/README.md) → [1](units/unit-1/README.md) → [2](units/unit-2/README.md) → [3](units/unit-3/README.md) → [4](units/unit-4/README.md) → [5](units/unit-5/README.md) → your [capstone](capstones/).
 
+Every exercise with code — the Unit 4 and 5 lessons and the capstones — is also a download of its own, as a shell to fill in and as the solution: see [Downloads](index.md#downloads).
+
 **Prerequisites (everything):**
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
