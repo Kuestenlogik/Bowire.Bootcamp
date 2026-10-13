@@ -1,0 +1,6 @@
+[
+  {
+    "path": "scripts/check_english.py",
+    "reason": "The guard itself - its word list and self-test hold the German it looks for."
+  }
+]

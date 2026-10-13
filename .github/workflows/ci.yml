@@ -97,3 +97,11 @@ jobs:
       # after the tag.
       - name: Pack and build every exercise download
         run: python3 scripts/pack_exercises.py --version pr --verify --check-index
+
+      # #40 - the repository is English: lessons, capstones, code, comments,
+      # scripts, CI, audits. Fails with file:line on a line that reads as German
+      # outside scripts/english-allowlist.json or a `lang-exempt:` marker.
+      - name: English-only guard
+        run: |
+          python3 scripts/check_english.py --self-test
+          python3 scripts/check_english.py

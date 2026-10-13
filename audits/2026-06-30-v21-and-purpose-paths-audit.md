@@ -211,8 +211,8 @@ A single cross-audience capstone (the current `capstone/` scaffold) only really
 fits the Developer audience — "build / ship something on top of Bowire" reads as
 a plugin task. The other two audiences walk away from a generic capstone
 without a deliverable that matches what they actually do. Operator note:
-'ein capstone macht aktuell auch nur sinn, wenn man development macht.
-könnte ja ein eigenes plugin sein?' — translation, the User + Administrator
+'a capstone currently only makes sense if you do development.
+could be a plugin of its own, couldn't it?' — translation, the User + Administrator
 paths each deserve their own capstone with an audience-appropriate artefact.
 
 Each path therefore terminates in its own capstone:
